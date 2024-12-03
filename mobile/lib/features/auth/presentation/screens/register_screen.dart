@@ -14,18 +14,19 @@ class RegisterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
+      resizeToAvoidBottomInset: true,
       body: GradientBackground(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AuthHeader(icon: Icons.person_add_outlined),
-                RegisterForm(),
-                RegisterFooter(),
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(flex: 2),
+              AuthHeader(icon: Icons.person_add_outlined),
+              RegisterForm(),
+              RegisterFooter(),
+              Spacer(flex: 1),
+            ],
           ),
         ),
       ),

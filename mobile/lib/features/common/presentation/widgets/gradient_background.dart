@@ -25,7 +25,15 @@ class GradientBackground extends StatelessWidget {
           ],
         ),
       ),
-      child: child,
+      child: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: child,
+          ),
+        ],
+      ),
     );
 
     if (useSafeArea) {

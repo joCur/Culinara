@@ -14,18 +14,17 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
+      resizeToAvoidBottomInset: true,
       body: GradientBackground(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AuthHeader(icon: Icons.lock_outline),
-                LoginForm(),
-                LoginFooter(),
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              AuthHeader(icon: Icons.lock_outline),
+              LoginForm(),
+              LoginFooter(),
+            ],
           ),
         ),
       ),
