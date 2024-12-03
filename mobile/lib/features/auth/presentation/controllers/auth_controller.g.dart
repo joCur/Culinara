@@ -22,7 +22,7 @@ final authControllerProvider =
 );
 
 typedef _$AuthController = AutoDisposeStreamNotifier<User?>;
-String _$userProfileHash() => r'6ddbe57cde14cf1d2ae646ec4ac8c87061f8eca4';
+String _$userProfileHash() => r'11af45c1662f9a3a1aca530559a5f7e0a86ff0ea';
 
 /// See also [UserProfile].
 @ProviderFor(UserProfile)

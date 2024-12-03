@@ -92,25 +92,14 @@ class UserProfile extends _$UserProfile {
     state = const AsyncLoading();
 
     try {
+      await user.updatePhotoURL('');
+
       final storageService = ref.read(storageServiceProvider);
-      final success = await storageService.deleteProfileImage(user.uid);
+      await storageService.deleteProfileImage(user.uid);
 
-      if (success) {
-        final imageRef = FirebaseStorage.instance
-            .ref()
-            .child('profile_images/${user.uid}/profile.jpg');
-        await imageRef.getDownloadURL().then(
-              (url) => FirebaseStorage.instance.refFromURL(url).delete(),
-              onError: (_) => null,
-            );
-
-        await user.updatePhotoURL('');
-        await user.reload();
-        final updatedUser = ref.read(authRepositoryProvider).currentUser;
-        state = AsyncValue.data(updatedUser);
-      } else {
-        state = AsyncValue.data(user);
-      }
+      await user.reload();
+      final updatedUser = ref.read(authRepositoryProvider).currentUser;
+      state = AsyncValue.data(updatedUser);
     } catch (e) {
       state = AsyncError(e, StackTrace.current);
     }
