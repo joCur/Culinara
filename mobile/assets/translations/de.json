@@ -1,0 +1,21 @@
+{
+  "login": "Anmelden",
+  "register": "Registrieren",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "displayName": "Anzeigename",
+  "createAccount": "Konto erstellen",
+  "alreadyHaveAccount": "Bereits ein Konto? Anmelden",
+  "home": "Startseite",
+  "notLoggedIn": "Nicht angemeldet",
+  "error": "Fehler",
+  "profile": "Profil",
+  "profileSettings": "Profileinstellungen",
+  "enterDisplayName": "Anzeigenamen eingeben",
+  "changePassword": "Passwort ändern",
+  "currentPassword": "Aktuelles Passwort",
+  "newPassword": "Neues Passwort",
+  "updatePassword": "Passwort aktualisieren",
+  "logout": "Abmelden",
+  "changePasswordDescription": "Geben Sie Ihr aktuelles Passwort ein und wählen Sie ein neues Passwort."
+} 

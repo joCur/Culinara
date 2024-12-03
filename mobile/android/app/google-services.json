@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "559869432651",
+    "project_id": "kochassistent-31a4b",
+    "storage_bucket": "kochassistent-31a4b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559869432651:android:bbacd03a3e56f59c47cece",
+        "android_client_info": {
+          "package_name": "dev.curth.culinara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "559869432651-h58lkj1adh2v4uienh7j381o50d7k2bd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm8efMzxvrw-WCzjxFacuOvDnFTXBN2RE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "559869432651-h58lkj1adh2v4uienh7j381o50d7k2bd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,21 @@
+{
+  "login": "Login",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "displayName": "Display Name",
+  "createAccount": "Create account",
+  "alreadyHaveAccount": "Already have an account? Login",
+  "home": "Home",
+  "notLoggedIn": "Not logged in",
+  "error": "Error",
+  "profile": "Profile",
+  "profileSettings": "Profile Settings",
+  "enterDisplayName": "Enter display name",
+  "changePassword": "Change Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "updatePassword": "Update Password",
+  "logout": "Logout",
+  "changePasswordDescription": "Enter your current password and choose a new password."
+} 
