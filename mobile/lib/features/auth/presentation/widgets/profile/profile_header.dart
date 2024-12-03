@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../common/presentation/constants/ui_constants.dart';
+import './profile_image.dart';
 
-class ProfileHeader extends StatelessWidget {
+class ProfileHeader extends ConsumerWidget {
   final String email;
+  final String? photoUrl;
 
   const ProfileHeader({
     super.key,
     required this.email,
+    this.photoUrl,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundColor: colorScheme.primaryContainer,
-            child: Icon(
-              Icons.person,
-              size: 50,
-              color: colorScheme.onPrimaryContainer,
-            ),
-          ),
+          ProfileImage(imageUrl: photoUrl),
           VGap.md,
           Text(
             email,

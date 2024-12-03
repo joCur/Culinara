@@ -21,6 +21,8 @@ dependencies:
   # dart run easy_localization:generate -S "assets/translations" -f keys -o "locale_keys.g.dart"  
   flex_color_scheme: ^7.3.1
   easy_localization: ^3.0.5 
+  image_picker: ^1.0.7
+  firebase_storage: ^11.6.10
 
   cupertino_icons: ^1.0.8
 

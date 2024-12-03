@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/repositories/auth_repository.dart';
+import 'dart:io';
+
+import '../../data/services/storage_service.dart';
 
 part 'auth_controller.g.dart';
 
@@ -35,15 +41,6 @@ class AuthController extends _$AuthController {
     await ref.read(authRepositoryProvider).signOut();
   }
 
-  Future<void> updateDisplayName(String newDisplayName) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      final user = ref.read(authRepositoryProvider).currentUser;
-      await user?.updateDisplayName(newDisplayName);
-      return user;
-    });
-  }
-
   Future<void> updatePassword(
       String currentPassword, String newPassword) async {
     state = const AsyncLoading();
@@ -57,5 +54,78 @@ class AuthController extends _$AuthController {
       await user?.updatePassword(newPassword);
       return user;
     });
+  }
+}
+
+@riverpod
+class UserProfile extends _$UserProfile {
+  @override
+  AsyncValue<User?> build() {
+    final authState = ref.watch(authControllerProvider);
+    return authState.whenData((user) => user);
+  }
+
+  Future<void> updateProfileImage(File image) async {
+    final user = state.value;
+    if (user == null) return;
+
+    state = const AsyncLoading();
+    try {
+      final storageService = ref.read(storageServiceProvider);
+      final imageUrl = await storageService.uploadProfileImage(user.uid, image);
+
+      if (imageUrl != null) {
+        await user.updatePhotoURL(imageUrl);
+        state = AsyncValue.data(ref.read(authRepositoryProvider).currentUser);
+      } else {
+        state = AsyncValue.data(user);
+      }
+    } catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
+  }
+
+  Future<void> deleteProfileImage() async {
+    final user = state.value;
+    if (user == null) return;
+
+    state = const AsyncLoading();
+
+    try {
+      final storageService = ref.read(storageServiceProvider);
+      final success = await storageService.deleteProfileImage(user.uid);
+
+      if (success) {
+        final imageRef = FirebaseStorage.instance
+            .ref()
+            .child('profile_images/${user.uid}/profile.jpg');
+        await imageRef.getDownloadURL().then(
+              (url) => FirebaseStorage.instance.refFromURL(url).delete(),
+              onError: (_) => null,
+            );
+
+        await user.updatePhotoURL('');
+        await user.reload();
+        final updatedUser = ref.read(authRepositoryProvider).currentUser;
+        state = AsyncValue.data(updatedUser);
+      } else {
+        state = AsyncValue.data(user);
+      }
+    } catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
+  }
+
+  Future<void> updateDisplayName(String newDisplayName) async {
+    final user = state.value;
+    if (user == null) return;
+
+    state = const AsyncLoading();
+    try {
+      await user.updateDisplayName(newDisplayName);
+      state = AsyncValue.data(ref.read(authRepositoryProvider).currentUser);
+    } catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 }

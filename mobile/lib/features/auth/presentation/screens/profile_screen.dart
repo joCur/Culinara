@@ -33,7 +33,10 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ProfileHeader(email: user?.email ?? ''),
+                ProfileHeader(
+                  email: user?.email ?? '',
+                  photoUrl: user?.photoURL,
+                ),
                 VGap.xl,
                 Text(
                   LocaleKeys.profileSettings.tr(),

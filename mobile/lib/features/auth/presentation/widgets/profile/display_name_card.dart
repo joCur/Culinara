@@ -45,7 +45,7 @@ class DisplayNameCard extends ConsumerWidget {
                   icon: const Icon(Icons.save),
                   onPressed: () {
                     ref
-                        .read(authControllerProvider.notifier)
+                        .read(userProfileProvider.notifier)
                         .updateDisplayName(controller.text);
                   },
                 ),

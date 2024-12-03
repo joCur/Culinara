@@ -7,7 +7,6 @@ import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/register_screen.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../features/auth/presentation/screens/profile_screen.dart';
-import '../features/common/constants/route_constants.dart';
 import '../features/auth/presentation/screens/change_password_screen.dart';
 
 part 'router.g.dart';
@@ -23,10 +22,10 @@ GoRouter router(Ref ref) {
       final isAuthRoute = state.matchedLocation == LoginScreen.path ||
           state.matchedLocation == RegisterScreen.path;
 
-      if (!isLoggedIn && !isAuthRoute) {
-        return LoginScreen.path;
-      } else if (isLoggedIn && isAuthRoute) {
+      if (isLoggedIn && isAuthRoute) {
         return HomeScreen.path;
+      } else if (!isLoggedIn && !isAuthRoute) {
+        return LoginScreen.path;
       }
 
       return null;

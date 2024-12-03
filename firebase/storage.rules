@@ -1,0 +1,26 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Profilbilder-Pfad: 'profile_images/{userId}/profile.jpg'
+    match /profile_images/{userId}/{fileName} {
+      // Erlaubt Lesen für alle
+      allow read: if true;
+      // Erlaubt Löschen für den Besitzer
+      allow delete: if
+        // Prüft ob der Nutzer eingeloggt ist
+        request.auth != null &&
+        // Prüft ob der Nutzer sein eigenes Verzeichnis bearbeitet
+        request.auth.uid == userId;
+      // Erlaubt Schreiben nur für den Besitzer
+      allow write: if 
+        // Prüft ob der Nutzer eingeloggt ist
+        request.auth != null &&
+        // Prüft ob der Nutzer sein eigenes Verzeichnis bearbeitet
+        request.auth.uid == userId &&
+        // Optional: Prüft ob es sich um ein Bild handelt
+        request.resource.contentType.matches('image/.*') &&
+        // Optional: Limitiert die Dateigröße (hier: 5MB)
+        request.resource.size < 5 * 1024 * 1024;
+    }
+  }
+}
