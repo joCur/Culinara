@@ -30,7 +30,7 @@ class ChallengeInitialView extends StatelessWidget {
         Text(
           LocaleKeys.challenge_description.tr(),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onBackground,
+                color: colorScheme.onSurface,
               ),
           textAlign: TextAlign.center,
         ),

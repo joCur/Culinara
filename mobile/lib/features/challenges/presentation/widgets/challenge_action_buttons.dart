@@ -26,7 +26,7 @@ class ChallengeActionButtons extends ConsumerWidget {
           child: TextButton.icon(
             onPressed: () => ref
                 .read(challengeControllerProvider.notifier)
-                .generateNewChallenge(),
+                .generateNewChallenge(context),
             icon: const Icon(Icons.refresh),
             label: Text(LocaleKeys.challenge_actions_new.tr()),
             style: TextButton.styleFrom(

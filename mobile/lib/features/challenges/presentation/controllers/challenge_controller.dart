@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
+import '../../../common/presentation/controllers/flash_controller.dart';
 import '../../data/repositories/challenge_repository.dart';
 import '../../domain/models/challenge.dart';
 import '../../domain/models/ingredient.dart';
+import '../../domain/models/challenge_result.dart';
 
 part 'challenge_controller.g.dart';
 
@@ -13,23 +16,32 @@ class ChallengeController extends _$ChallengeController {
     return const AsyncValue.data(null);
   }
 
-  Future<void> generateNewChallenge() async {
+  Future<void> generateNewChallenge(BuildContext context) async {
     state = const AsyncValue.loading();
 
-    try {
-      final ingredients =
-          await ref.read(challengeRepositoryProvider).generateChallenge(
-                diet: [
-                  'vegetarian'
-                ], // Diese Werte sollten später aus den User-Präferenzen kommen
-                availability: 'all',
-                season: ['summer'],
-                numIngredients: 3,
-              );
+    final result =
+        await ref.read(challengeRepositoryProvider).generateChallenge(
+              diet: [],
+              availability: 'Alles',
+              season: [],
+              numIngredients: 3,
+            );
 
-      state = AsyncValue.data(ingredients);
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
+    state = result.when(
+      success: (ingredients) => AsyncValue.data(ingredients),
+      failure: (error) => const AsyncValue.data(null),
+    );
+
+    if (result case Failure(error: final error)) {
+      if (!context.mounted) return;
+      ref.read(flashControllerProvider.notifier).showError(
+            context,
+            error.message,
+            action: FlashAction(
+              label: 'Erneut versuchen',
+              onPressed: () => generateNewChallenge(context),
+            ),
+          );
     }
   }
 
