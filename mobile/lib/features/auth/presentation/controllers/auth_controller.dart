@@ -107,7 +107,7 @@ class UserProfile extends _$UserProfile {
     state = const AsyncLoading();
 
     try {
-      await user.updatePhotoURL('');
+      await user.updatePhotoURL(null);
 
       final storageService = ref.read(storageServiceProvider);
       await storageService.deleteProfileImage(user.uid);

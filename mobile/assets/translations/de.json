@@ -20,5 +20,6 @@
   "changePasswordDescription": "Geben Sie Ihr aktuelles Passwort ein und wählen Sie ein neues Passwort.",
   "forgotPassword": "Passwort vergessen?",
   "forgotPasswordDescription": "Geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
-  "sendResetLink": "Link senden"
+  "sendResetLink": "Link senden",
+  "viewProfile": "Profil ansehen"
 } 

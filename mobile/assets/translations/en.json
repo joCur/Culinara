@@ -20,5 +20,6 @@
   "changePasswordDescription": "Enter your current password and choose a new password.",
   "forgotPassword": "Forgot password?",
   "forgotPasswordDescription": "Enter your email address. We will send you a link to reset your password.",
-  "sendResetLink": "Send Reset Link"
+  "sendResetLink": "Send Reset Link",
+  "viewProfile": "View profile"
 } 
