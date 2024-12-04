@@ -43,6 +43,11 @@ class LoginForm extends ConsumerWidget {
               controller: emailController,
               labelText: LocaleKeys.email.tr(),
               icon: Icons.email_outlined,
+              keyboardType: TextInputType.emailAddress,
+              autofillHints: const [
+                AutofillHints.username,
+                AutofillHints.email
+              ],
             ),
             VGap.sm,
             AuthTextField(
@@ -50,6 +55,10 @@ class LoginForm extends ConsumerWidget {
               labelText: LocaleKeys.password.tr(),
               icon: Icons.lock_outline,
               isPassword: true,
+              obscureText: true,
+              autocorrect: false,
+              enableSuggestions: false,
+              autofillHints: const [AutofillHints.password],
             ),
             VGap.lg,
             if (authState.isLoading)

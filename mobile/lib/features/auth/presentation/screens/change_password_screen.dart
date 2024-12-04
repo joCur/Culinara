@@ -64,10 +64,10 @@ class ChangePasswordScreen extends ConsumerWidget {
                 width: double.infinity,
                 child: FilledButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
+                    padding: WidgetStateProperty.all(
                       const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    shape: MaterialStateProperty.all(
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

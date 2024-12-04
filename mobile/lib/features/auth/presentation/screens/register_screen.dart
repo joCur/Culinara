@@ -19,13 +19,13 @@ class RegisterScreen extends ConsumerWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Spacer(flex: 2),
+              SizedBox(height: 64),
               AuthHeader(icon: Icons.person_add_outlined),
+              SizedBox(height: 32),
               RegisterForm(),
               RegisterFooter(),
-              Spacer(flex: 1),
             ],
           ),
         ),

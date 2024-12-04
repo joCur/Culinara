@@ -5,6 +5,11 @@ class AuthTextField extends StatelessWidget {
   final String labelText;
   final IconData icon;
   final bool isPassword;
+  final TextInputType? keyboardType;
+  final List<String>? autofillHints;
+  final bool? obscureText;
+  final bool? autocorrect;
+  final bool? enableSuggestions;
 
   const AuthTextField({
     super.key,
@@ -12,19 +17,29 @@ class AuthTextField extends StatelessWidget {
     required this.labelText,
     required this.icon,
     this.isPassword = false,
+    this.keyboardType,
+    this.autofillHints,
+    this.obscureText,
+    this.autocorrect,
+    this.enableSuggestions,
   });
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return TextField(
+    return TextFormField(
       controller: controller,
+      keyboardType: keyboardType,
+      autofillHints: autofillHints,
+      obscureText: obscureText ?? isPassword,
+      autocorrect: autocorrect ?? !isPassword,
+      enableSuggestions: enableSuggestions ?? !isPassword,
       decoration: InputDecoration(
         labelText: labelText,
         prefixIcon: Icon(icon, color: colorScheme.primary),
         filled: true,
-        fillColor: colorScheme.surfaceVariant.withOpacity(0.5),
+        fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
@@ -34,7 +49,6 @@ class AuthTextField extends StatelessWidget {
           borderSide: BorderSide(color: colorScheme.outline.withOpacity(0.3)),
         ),
       ),
-      obscureText: isPassword,
     );
   }
 }

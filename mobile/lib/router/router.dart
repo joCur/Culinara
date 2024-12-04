@@ -60,7 +60,7 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: LoginScreen.path,
         name: LoginScreen.name,
-        pageBuilder: (context, state) => MaterialPage(
+        pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
           child: const LoginScreen(),
         ),
@@ -68,7 +68,7 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: RegisterScreen.path,
         name: RegisterScreen.name,
-        pageBuilder: (context, state) => MaterialPage(
+        pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
           child: const RegisterScreen(),
         ),
