@@ -54,6 +54,22 @@ class AuthController extends _$AuthController {
       return user;
     });
   }
+
+  Future<void> resetPassword(String email) async {
+    if (email.isEmpty) {
+      state = AsyncError(
+        'Bitte geben Sie Ihre E-Mail-Adresse ein.',
+        StackTrace.current,
+      );
+      return;
+    }
+
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await ref.read(authRepositoryProvider).sendPasswordResetEmail(email);
+      return ref.read(authRepositoryProvider).currentUser;
+    });
+  }
 }
 
 @riverpod

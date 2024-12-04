@@ -20,5 +20,8 @@ abstract class  LocaleKeys {
   static const updatePassword = 'updatePassword';
   static const logout = 'logout';
   static const changePasswordDescription = 'changePasswordDescription';
+  static const forgotPassword = 'forgotPassword';
+  static const forgotPasswordDescription = 'forgotPasswordDescription';
+  static const sendResetLink = 'sendResetLink';
 
 }

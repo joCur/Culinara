@@ -17,5 +17,8 @@
   "newPassword": "New Password",
   "updatePassword": "Update Password",
   "logout": "Logout",
-  "changePasswordDescription": "Enter your current password and choose a new password."
+  "changePasswordDescription": "Enter your current password and choose a new password.",
+  "forgotPassword": "Forgot password?",
+  "forgotPasswordDescription": "Enter your email address. We will send you a link to reset your password.",
+  "sendResetLink": "Send Reset Link"
 } 
