@@ -9,30 +9,40 @@ if (!admin.apps.length) {
   admin.initializeApp();
 }
 
-export const generateChallenge = functions.https.onRequest(async (req, res) => {
+interface ChallengeData {
+  preferences: {
+    diet: string[];
+    availability: string;
+    season: string[];
+  };
+  numIngredients: number;
+}
+
+export const generateChallenge = functions.https.onCall<ChallengeData>(async (data) => {
   try {
     // Verify authentication
-    const authHeader = req.headers.authorization;
-    console.log(authHeader);
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      res.status(401).json({ error: "Unauthorized - Missing or invalid authentication token" });
-      return;
+    if (!data?.auth) {
+      throw new functions.https.HttpsError(
+        "unauthenticated",
+        "The function must be called while authenticated."
+      );
     }
 
-    const idToken = authHeader.split("Bearer ")[1];
-    try {
-      await admin.auth().verifyIdToken(idToken);
-    } catch (authError) {
-      logger.error(authError);
-      res.status(401).json({ error: "Unauthorized - Invalid authentication token" });
-      return;
-    }
-
-    const { preferences, numIngredients } = req.body;
+    const { preferences, numIngredients } = data.data;
 
     if (!preferences || !numIngredients) {
-      res.status(400).json({ error: "Missing required parameters" });
-      return;
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Missing required parameters"
+      );
+    }
+
+    // Validate that diet and season are arrays
+    if (!Array.isArray(preferences.diet) || !Array.isArray(preferences.season)) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Diet and season must be arrays"
+      );
     }
 
     const apiKey = defineSecret("OPENAI_API_KEY").value();
@@ -78,23 +88,32 @@ export const generateChallenge = functions.https.onRequest(async (req, res) => {
       const textContent = lastMessage.content[0];
 
       if (textContent.type !== "text") {
-        throw new Error("Expected text response from OpenAI");
+        throw new functions.https.HttpsError(
+          "internal",
+          "Expected text response from OpenAI"
+        );
       }
 
       const { status, ingredients, message } = JSON.parse(textContent.text.value);
       if (status == "error") {
-        res.status(500).json({ error: message });
-      } else {
-        res.status(200).json(ingredients);
+        throw new functions.https.HttpsError("internal", message);
       }
+      return ingredients;
     } else {
-      res.status(500).json({ error: "Assistant run failed or timed out" });
+      throw new functions.https.HttpsError(
+        "internal",
+        "Assistant run failed or timed out"
+      );
     }
   } catch (error) {
-    console.error("Error generating challenge:", error);
-    res.status(500).json({
-      error: "An error occurred while generating the challenge",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
+    logger.error("Error generating challenge:", error);
+    if (error instanceof functions.https.HttpsError) {
+      throw error;
+    }
+    throw new functions.https.HttpsError(
+      "internal",
+      "An error occurred while generating the challenge",
+      error instanceof Error ? error.message : "Unknown error"
+    );
   }
 });

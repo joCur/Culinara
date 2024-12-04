@@ -8,7 +8,7 @@
  */
 
 import { setGlobalOptions } from "firebase-functions/v2";
-import { generateChallenge } from "./new-challenge";
+import { generateChallenge } from "./generate-challenge";
 
 setGlobalOptions({
   region: "europe-west3",

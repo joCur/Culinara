@@ -30,6 +30,27 @@ abstract class Spacing {
   static const xxxl = 56.0;
 }
 
+/// Icon size constants
+abstract class IconSizes {
+  /// 16.0 - Sehr kleine Icons
+  static const xs = 16.0;
+
+  /// 20.0 - Kleine Icons (z.B. für ListTiles)
+  static const sm = 20.0;
+
+  /// 24.0 - Standard Material Icons
+  static const md = 24.0;
+
+  /// 32.0 - Größere Icons
+  static const lg = 32.0;
+
+  /// 48.0 - Große Icons (z.B. für Placeholder)
+  static const xl = 48.0;
+
+  /// 64.0 - Sehr große Icons (z.B. für Empty States)
+  static const xxl = 64.0;
+}
+
 /// Reusable gaps for vertical spacing
 abstract class VGap {
   /// 4.0 height

@@ -21,5 +21,19 @@
   "forgotPassword": "Passwort vergessen?",
   "forgotPasswordDescription": "Geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
   "sendResetLink": "Link senden",
-  "viewProfile": "Profil ansehen"
+  "viewProfile": "Profil ansehen",
+  "challenge": {
+    "title": "Kochchallenge",
+    "ready": "Bereit für eine neue Kochchallenge?",
+    "description": "Lass dir neue Zutaten vorschlagen und kreiere dein eigenes Gericht!",
+    "ingredients": "Deine Zutaten:",
+    "diet": "Ernährungsform:",
+    "availability": "Verfügbarkeit:",
+    "season": "Saison:",
+    "error": "Fehler: {}",
+    "actions": {
+      "new": "Neue Challenge",
+      "accept": "Challenge annehmen"
+    }
+  }
 } 

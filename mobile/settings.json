@@ -2,7 +2,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "*.dart": "*.g.dart, *.freezed.dart, *.gr.dart"
+    "*.dart": "${capture}.g.dart, ${capture}.freezed.dart, ${capture}.gr.dart"
   },
   "[dart]": {
     "editor.formatOnSave": true,

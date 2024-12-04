@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const login = 'login';
   static const register = 'register';
   static const email = 'email';
@@ -24,4 +24,17 @@ abstract class LocaleKeys {
   static const forgotPasswordDescription = 'forgotPasswordDescription';
   static const sendResetLink = 'sendResetLink';
   static const viewProfile = 'viewProfile';
+  static const challenge_title = 'challenge.title';
+  static const challenge_ready = 'challenge.ready';
+  static const challenge_description = 'challenge.description';
+  static const challenge_ingredients = 'challenge.ingredients';
+  static const challenge_diet = 'challenge.diet';
+  static const challenge_availability = 'challenge.availability';
+  static const challenge_season = 'challenge.season';
+  static const challenge_error = 'challenge.error';
+  static const challenge_actions_new = 'challenge.actions.new';
+  static const challenge_actions_accept = 'challenge.actions.accept';
+  static const challenge_actions = 'challenge.actions';
+  static const challenge = 'challenge';
+
 }

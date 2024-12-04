@@ -21,5 +21,19 @@
   "forgotPassword": "Forgot password?",
   "forgotPasswordDescription": "Enter your email address. We will send you a link to reset your password.",
   "sendResetLink": "Send Reset Link",
-  "viewProfile": "View profile"
+  "viewProfile": "View profile",
+  "challenge": {
+    "title": "Cooking Challenge",
+    "ready": "Ready for a new cooking challenge?",
+    "description": "Get suggested ingredients and create your own dish!",
+    "ingredients": "Your ingredients:",
+    "diet": "Diet:",
+    "availability": "Availability:",
+    "season": "Season:",
+    "error": "Error: {}",
+    "actions": {
+      "new": "New Challenge",
+      "accept": "Accept Challenge"
+    }
+  }
 } 

@@ -9,6 +9,7 @@ import '../features/home/presentation/screens/home_screen.dart';
 import '../features/auth/presentation/screens/profile_screen.dart';
 import '../features/auth/presentation/screens/change_password_screen.dart';
 import '../features/auth/presentation/screens/forgot_password_screen.dart';
+import '../features/challenges/presentation/screens/generate_challenge_screen.dart';
 
 part 'router.g.dart';
 
@@ -16,12 +17,10 @@ part 'router.g.dart';
 GoRouter router(Ref ref) {
   final authState = ref.watch(authControllerProvider);
 
-  // Liste der Routen, die ohne Login zugänglich sind
   final publicRoutes = [
     LoginScreen.path,
     RegisterScreen.path,
     '${LoginScreen.path}/${ForgotPasswordScreen.path}',
-    // Hier können einfach weitere öffentliche Routen hinzugefügt werden
   ];
 
   return GoRouter(
@@ -46,6 +45,14 @@ GoRouter router(Ref ref) {
         pageBuilder: (context, state) => MaterialPage(
           key: state.pageKey,
           child: const HomeScreen(),
+        ),
+      ),
+      GoRoute(
+        path: GenerateChallengeScreen.path,
+        name: GenerateChallengeScreen.name,
+        pageBuilder: (context, state) => MaterialPage(
+          key: state.pageKey,
+          child: const GenerateChallengeScreen(),
         ),
       ),
       GoRoute(
