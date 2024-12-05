@@ -6,7 +6,7 @@ part of 'active_challenges_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeChallengesHash() => r'130ea6cf9c3f93d098b0997fd5fcc66a37a3dfba';
+String _$activeChallengesHash() => r'bea88031bd899a0d32404e809f56174d9f8b643b';
 
 /// See also [activeChallenges].
 @ProviderFor(activeChallenges)

@@ -54,6 +54,16 @@
     "states": {
       "loading": "Loading...",
       "error": "Error: {}"
+    },
+    "details": {
+      "title": "Challenge Details",
+      "status": "Status",
+      "updateStatus": "Update Status",
+      "feedback": {
+        "title": "Your Feedback",
+        "hint": "How was the challenge? What did you cook?",
+        "submit": "Submit Feedback"
+      }
     }
   },
   "welcome": "Welcome",

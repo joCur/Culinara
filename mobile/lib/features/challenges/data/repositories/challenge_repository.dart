@@ -146,4 +146,32 @@ class ChallengeRepository {
       return attempts;
     });
   }
+
+  Future<ChallengeAttempt> getChallengeAttempt(String attemptId) async {
+    final doc =
+        await _firestore.collection('challengeAttempts').doc(attemptId).get();
+    return ChallengeAttempt.fromFirestore(doc, null);
+  }
+
+  Future<void> updateChallengeStatus(
+    String attemptId,
+    ChallengeStatus newStatus,
+  ) async {
+    await _firestore.collection('challengeAttempts').doc(attemptId).update({
+      'status': newStatus.name,
+      if (newStatus == ChallengeStatus.completed)
+        'completedAt': Timestamp.now(),
+    });
+  }
+
+  Future<void> updateChallengeFeedback(
+    String attemptId,
+    String feedback,
+    int rating,
+  ) async {
+    await _firestore.collection('challengeAttempts').doc(attemptId).update({
+      'feedback': feedback,
+      'rating': rating,
+    });
+  }
 }
