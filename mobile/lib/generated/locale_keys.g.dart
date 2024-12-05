@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const login = 'login';
   static const register = 'register';
   static const email = 'email';
@@ -37,15 +37,18 @@ abstract class  LocaleKeys {
   static const challenge_actions_tryAgain = 'challenge.actions.tryAgain';
   static const challenge_actions = 'challenge.actions';
   static const challenge_loading = 'challenge.loading';
-  static const challenge_errors_unauthenticated = 'challenge.errors.unauthenticated';
-  static const challenge_errors_invalidArgument = 'challenge.errors.invalidArgument';
+  static const challenge_errors_unauthenticated =
+      'challenge.errors.unauthenticated';
+  static const challenge_errors_invalidArgument =
+      'challenge.errors.invalidArgument';
   static const challenge_errors_internal = 'challenge.errors.internal';
   static const challenge_errors_timeout = 'challenge.errors.timeout';
   static const challenge_errors_unknown = 'challenge.errors.unknown';
   static const challenge_errors_default = 'challenge.errors.default';
   static const challenge_errors_acceptFailed = 'challenge.errors.acceptFailed';
   static const challenge_errors_noUser = 'challenge.errors.noUser';
-  static const challenge_errors_tooManyChallenges = 'challenge.errors.tooManyChallenges';
+  static const challenge_errors_tooManyChallenges =
+      'challenge.errors.tooManyChallenges';
   static const challenge_errors = 'challenge.errors';
   static const challenge_success_accepted = 'challenge.success.accepted';
   static const challenge_success = 'challenge.success';
@@ -62,5 +65,4 @@ abstract class  LocaleKeys {
   static const noChallengesYet = 'noChallengesYet';
   static const startNewChallenge = 'startNewChallenge';
   static const newChallenge = 'newChallenge';
-
 }

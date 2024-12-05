@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+import '../../../common/presentation/constants/ui_constants.dart';
 import '../../domain/models/ingredient.dart';
 import '../controllers/challenge_controller.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -19,15 +20,16 @@ class ChallengeActionButtons extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        FilledButton.icon(
+        TextButton.icon(
           onPressed: () => ref
               .read(challengeControllerProvider.notifier)
               .generateNewChallenge(context),
           icon: const Icon(Icons.refresh),
           label: Text(LocaleKeys.challenge_actions_new.tr()),
-          style: FilledButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-            foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+              vertical: Spacing.xs,
+            ),
           ),
         ),
         if (challengeState.value != null)
@@ -46,8 +48,9 @@ class ChallengeActionButtons extends ConsumerWidget {
             icon: const Icon(Icons.check),
             label: Text(LocaleKeys.challenge_actions_accept.tr()),
             style: FilledButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+              padding: const EdgeInsets.symmetric(
+                vertical: Spacing.xs,
+              ),
             ),
           ),
       ],
