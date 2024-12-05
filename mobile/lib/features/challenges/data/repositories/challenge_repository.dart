@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../domain/models/ingredient.dart';
 import '../../domain/exceptions/challenge_exception.dart';
 import '../../domain/models/challenge_result.dart';
 import '../../domain/models/challenge_attempt.dart';
 import '../../domain/models/challenge.dart';
+import '../../../../generated/locale_keys.g.dart';
 
 part 'challenge_repository.g.dart';
 
@@ -73,15 +75,15 @@ class ChallengeRepository {
   String _getErrorMessage(String code) {
     switch (code) {
       case 'unauthenticated':
-        return 'Bitte melde dich erneut an';
+        return LocaleKeys.challenge_errors_unauthenticated.tr();
       case 'invalid-argument':
-        return 'Ungültige Eingabedaten';
+        return LocaleKeys.challenge_errors_invalidArgument.tr();
       case 'internal':
-        return 'Entschuldigung, es gab ein Problem bei der Generierung. Bitte versuche es erneut';
+        return LocaleKeys.challenge_errors_internal.tr();
       case 'deadline-exceeded':
-        return 'Die Anfrage hat zu lange gedauert. Bitte versuche es erneut';
+        return LocaleKeys.challenge_errors_timeout.tr();
       default:
-        return 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut';
+        return LocaleKeys.challenge_errors_default.tr();
     }
   }
 
@@ -100,10 +102,11 @@ class ChallengeRepository {
     }
   }
 
-  Future<String> saveChallenge(Challenge challenge) async {
+  Future<DocumentReference<Map<String, dynamic>>> saveChallenge(
+      Challenge challenge) async {
     final docRef =
         await _firestore.collection('challenges').add(challenge.toFirestore());
-    return docRef.id;
+    return docRef;
   }
 
   Future<void> saveChallengeAttempt(ChallengeAttempt attempt) async {

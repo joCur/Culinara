@@ -16,8 +16,12 @@ service cloud.firestore {
       allow read: if isAuthenticated();
       // Nur erstellen erlauben, keine Updates oder Löschungen
       allow create: if isAuthenticated() 
-        && request.resource.data.creatorId == request.auth.uid;
-      allow update, delete: false;
+        && request.resource.data.creatorId == request.auth.uid
+        && request.resource.data.keys().hasAll(['creatorId', 'ingredients', 'timestamp'])
+        && request.resource.data.creatorId is string
+        && request.resource.data.ingredients is list;
+      allow update: if false;
+      allow delete: if false;
     }
 
     // Challenge Attempts Collection
@@ -25,15 +29,17 @@ service cloud.firestore {
       allow read: if isAuthenticated();
       // Erstellen nur wenn der Nutzer sich selbst als userId einträgt
       allow create: if isAuthenticated() 
-        && request.resource.data.userId == request.auth.uid;
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'challengeId', 'timestamp'])
+        && request.resource.data.userId is string
+        && request.resource.data.challengeId is string;
       // Updates nur für eigene Attempts
       allow update: if isAuthenticated() 
         && resource.data.userId == request.auth.uid
-        // Verhindern dass userId nachträglich geändert wird
         && request.resource.data.userId == resource.data.userId
-        // Verhindern dass challengeId nachträglich geändert wird
-        && request.resource.data.challengeId == resource.data.challengeId;
-      allow delete: false;
+        && request.resource.data.challengeId == resource.data.challengeId
+        && request.resource.data.keys().hasAll(['userId', 'challengeId', 'timestamp']);
+      allow delete: if false;
     }
   }
 }

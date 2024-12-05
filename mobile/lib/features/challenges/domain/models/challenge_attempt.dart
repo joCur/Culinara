@@ -8,7 +8,8 @@ part 'challenge_attempt.g.dart';
 class ChallengeAttempt with _$ChallengeAttempt {
   const factory ChallengeAttempt({
     required String id,
-    required String challengeId,
+    @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+    required DocumentReference<Map<String, dynamic>> challengeRef,
     required String userId,
     required DateTime startedAt,
     required ChallengeStatus status,
@@ -16,8 +17,6 @@ class ChallengeAttempt with _$ChallengeAttempt {
     DateTime? completedAt,
     String? feedback,
     int? rating,
-    @Default([]) List<String> likedByUsers,
-    @Default([]) List<ChallengeComment> comments,
   }) = _ChallengeAttempt;
 
   factory ChallengeAttempt.fromJson(Map<String, dynamic> json) =>
@@ -35,16 +34,12 @@ class ChallengeAttempt with _$ChallengeAttempt {
   }
 }
 
-@freezed
-class ChallengeComment with _$ChallengeComment {
-  const factory ChallengeComment({
-    required String userId,
-    required String text,
-    required DateTime createdAt,
-  }) = _ChallengeComment;
+DocumentReference<Map<String, dynamic>> _referenceFromJson(String path) {
+  return FirebaseFirestore.instance.doc(path);
+}
 
-  factory ChallengeComment.fromJson(Map<String, dynamic> json) =>
-      _$ChallengeCommentFromJson(json);
+String _referenceToJson(DocumentReference<Map<String, dynamic>> reference) {
+  return reference.path;
 }
 
 enum ChallengeStatus { started, completed, abandoned }

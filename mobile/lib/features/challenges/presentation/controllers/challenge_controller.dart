@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../common/presentation/controllers/flash_controller.dart';
@@ -7,6 +9,7 @@ import '../../domain/models/challenge.dart';
 import '../../domain/models/challenge_attempt.dart';
 import '../../domain/models/ingredient.dart';
 import '../../domain/models/challenge_result.dart';
+import '../../../../generated/locale_keys.g.dart';
 
 part 'challenge_controller.g.dart';
 
@@ -39,38 +42,68 @@ class ChallengeController extends _$ChallengeController {
             context,
             error.message,
             action: FlashAction(
-              label: 'Erneut versuchen',
+              label: LocaleKeys.challenge_actions_tryAgain.tr(),
               onPressed: () => generateNewChallenge(context),
             ),
           );
     }
   }
 
-  Future<void> acceptChallenge() async {
+  Future<void> acceptChallenge(BuildContext context) async {
     if (state.value == null) return;
+
     final userId = ref.read(userProfileProvider).value?.uid;
-    if (userId == null) return;
+    if (userId == null) {
+      if (!context.mounted) return;
+      ref.read(flashControllerProvider.notifier).showError(
+            context,
+            LocaleKeys.challenge_errors_noUser.tr(),
+          );
+      return;
+    }
 
-    // Challenge erstellen
-    final challenge = Challenge(
-      id: '', // wird von Firestore generiert
-      ingredients: state.value!,
-      createdAt: DateTime.now(),
-      creatorId: userId,
-    );
+    try {
+      // Challenge erstellen
+      final challenge = Challenge(
+        id: '', // wird von Firestore generiert
+        ingredients: state.value!,
+        createdAt: DateTime.now(),
+        creatorId: userId,
+      );
 
-    final challengeId =
-        await ref.read(challengeRepositoryProvider).saveChallenge(challenge);
+      final challengeRef =
+          await ref.read(challengeRepositoryProvider).saveChallenge(challenge);
 
-    // Dann den Attempt erstellen
-    final attempt = ChallengeAttempt(
-      id: '', // wird von Firestore generiert
-      challengeId: challengeId,
-      userId: userId,
-      startedAt: DateTime.now(),
-      status: ChallengeStatus.started,
-    );
+      // Dann den Attempt erstellen
+      final attempt = ChallengeAttempt(
+        id: '', // wird von Firestore generiert
+        challengeRef: challengeRef,
+        userId: userId,
+        startedAt: DateTime.now(),
+        status: ChallengeStatus.started,
+      );
 
-    await ref.read(challengeRepositoryProvider).saveChallengeAttempt(attempt);
+      await ref.read(challengeRepositoryProvider).saveChallengeAttempt(attempt);
+
+      if (!context.mounted) return;
+
+      // Erfolgsmeldung anzeigen
+      ref.read(flashControllerProvider.notifier).showSuccess(
+            context,
+            LocaleKeys.challenge_success_accepted.tr(),
+          );
+
+      context.pop(); // Zurück zum Home Screen
+    } catch (e) {
+      if (!context.mounted) return;
+      ref.read(flashControllerProvider.notifier).showError(
+            context,
+            LocaleKeys.challenge_errors_acceptFailed.tr(),
+            action: FlashAction(
+              label: LocaleKeys.challenge_actions_tryAgain.tr(),
+              onPressed: () => acceptChallenge(context),
+            ),
+          );
+    }
   }
 }

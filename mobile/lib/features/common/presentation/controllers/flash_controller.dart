@@ -39,6 +39,37 @@ class FlashController extends _$FlashController {
       },
     );
   }
+
+  void showSuccess(
+    BuildContext context,
+    String message, {
+    Duration? duration,
+    FlashAction? action,
+  }) {
+    showFlash(
+      context: context,
+      duration: duration ?? const Duration(seconds: 4),
+      builder: (context, controller) {
+        return FlashBar(
+          controller: controller,
+          content: Text(
+            message,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
+          ),
+          primaryAction: action,
+          icon: Icon(
+            Icons.check_circle_outline,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          position: FlashPosition.bottom,
+          margin: const EdgeInsets.all(16),
+        );
+      },
+    );
+  }
 }
 
 class FlashAction extends StatelessWidget {

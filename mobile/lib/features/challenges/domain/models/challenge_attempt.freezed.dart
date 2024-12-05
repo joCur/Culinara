@@ -21,7 +21,9 @@ ChallengeAttempt _$ChallengeAttemptFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ChallengeAttempt {
   String get id => throw _privateConstructorUsedError;
-  String get challengeId => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+  DocumentReference<Map<String, dynamic>> get challengeRef =>
+      throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   DateTime get startedAt => throw _privateConstructorUsedError;
   ChallengeStatus get status => throw _privateConstructorUsedError;
@@ -29,8 +31,6 @@ mixin _$ChallengeAttempt {
   DateTime? get completedAt => throw _privateConstructorUsedError;
   String? get feedback => throw _privateConstructorUsedError;
   int? get rating => throw _privateConstructorUsedError;
-  List<String> get likedByUsers => throw _privateConstructorUsedError;
-  List<ChallengeComment> get comments => throw _privateConstructorUsedError;
 
   /// Serializes this ChallengeAttempt to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,16 +50,15 @@ abstract class $ChallengeAttemptCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String challengeId,
+      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+      DocumentReference<Map<String, dynamic>> challengeRef,
       String userId,
       DateTime startedAt,
       ChallengeStatus status,
       String? completedImageUrl,
       DateTime? completedAt,
       String? feedback,
-      int? rating,
-      List<String> likedByUsers,
-      List<ChallengeComment> comments});
+      int? rating});
 }
 
 /// @nodoc
@@ -78,7 +77,7 @@ class _$ChallengeAttemptCopyWithImpl<$Res, $Val extends ChallengeAttempt>
   @override
   $Res call({
     Object? id = null,
-    Object? challengeId = null,
+    Object? challengeRef = null,
     Object? userId = null,
     Object? startedAt = null,
     Object? status = null,
@@ -86,18 +85,16 @@ class _$ChallengeAttemptCopyWithImpl<$Res, $Val extends ChallengeAttempt>
     Object? completedAt = freezed,
     Object? feedback = freezed,
     Object? rating = freezed,
-    Object? likedByUsers = null,
-    Object? comments = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      challengeId: null == challengeId
-          ? _value.challengeId
-          : challengeId // ignore: cast_nullable_to_non_nullable
-              as String,
+      challengeRef: null == challengeRef
+          ? _value.challengeRef
+          : challengeRef // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Map<String, dynamic>>,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -126,14 +123,6 @@ class _$ChallengeAttemptCopyWithImpl<$Res, $Val extends ChallengeAttempt>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int?,
-      likedByUsers: null == likedByUsers
-          ? _value.likedByUsers
-          : likedByUsers // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      comments: null == comments
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<ChallengeComment>,
     ) as $Val);
   }
 }
@@ -148,16 +137,15 @@ abstract class _$$ChallengeAttemptImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String challengeId,
+      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+      DocumentReference<Map<String, dynamic>> challengeRef,
       String userId,
       DateTime startedAt,
       ChallengeStatus status,
       String? completedImageUrl,
       DateTime? completedAt,
       String? feedback,
-      int? rating,
-      List<String> likedByUsers,
-      List<ChallengeComment> comments});
+      int? rating});
 }
 
 /// @nodoc
@@ -174,7 +162,7 @@ class __$$ChallengeAttemptImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? challengeId = null,
+    Object? challengeRef = null,
     Object? userId = null,
     Object? startedAt = null,
     Object? status = null,
@@ -182,18 +170,16 @@ class __$$ChallengeAttemptImplCopyWithImpl<$Res>
     Object? completedAt = freezed,
     Object? feedback = freezed,
     Object? rating = freezed,
-    Object? likedByUsers = null,
-    Object? comments = null,
   }) {
     return _then(_$ChallengeAttemptImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      challengeId: null == challengeId
-          ? _value.challengeId
-          : challengeId // ignore: cast_nullable_to_non_nullable
-              as String,
+      challengeRef: null == challengeRef
+          ? _value.challengeRef
+          : challengeRef // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Map<String, dynamic>>,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -222,14 +208,6 @@ class __$$ChallengeAttemptImplCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int?,
-      likedByUsers: null == likedByUsers
-          ? _value._likedByUsers
-          : likedByUsers // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      comments: null == comments
-          ? _value._comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<ChallengeComment>,
     ));
   }
 }
@@ -239,18 +217,15 @@ class __$$ChallengeAttemptImplCopyWithImpl<$Res>
 class _$ChallengeAttemptImpl implements _ChallengeAttempt {
   const _$ChallengeAttemptImpl(
       {required this.id,
-      required this.challengeId,
+      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+      required this.challengeRef,
       required this.userId,
       required this.startedAt,
       required this.status,
       this.completedImageUrl,
       this.completedAt,
       this.feedback,
-      this.rating,
-      final List<String> likedByUsers = const [],
-      final List<ChallengeComment> comments = const []})
-      : _likedByUsers = likedByUsers,
-        _comments = comments;
+      this.rating});
 
   factory _$ChallengeAttemptImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChallengeAttemptImplFromJson(json);
@@ -258,7 +233,8 @@ class _$ChallengeAttemptImpl implements _ChallengeAttempt {
   @override
   final String id;
   @override
-  final String challengeId;
+  @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+  final DocumentReference<Map<String, dynamic>> challengeRef;
   @override
   final String userId;
   @override
@@ -273,27 +249,10 @@ class _$ChallengeAttemptImpl implements _ChallengeAttempt {
   final String? feedback;
   @override
   final int? rating;
-  final List<String> _likedByUsers;
-  @override
-  @JsonKey()
-  List<String> get likedByUsers {
-    if (_likedByUsers is EqualUnmodifiableListView) return _likedByUsers;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_likedByUsers);
-  }
-
-  final List<ChallengeComment> _comments;
-  @override
-  @JsonKey()
-  List<ChallengeComment> get comments {
-    if (_comments is EqualUnmodifiableListView) return _comments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_comments);
-  }
 
   @override
   String toString() {
-    return 'ChallengeAttempt(id: $id, challengeId: $challengeId, userId: $userId, startedAt: $startedAt, status: $status, completedImageUrl: $completedImageUrl, completedAt: $completedAt, feedback: $feedback, rating: $rating, likedByUsers: $likedByUsers, comments: $comments)';
+    return 'ChallengeAttempt(id: $id, challengeRef: $challengeRef, userId: $userId, startedAt: $startedAt, status: $status, completedImageUrl: $completedImageUrl, completedAt: $completedAt, feedback: $feedback, rating: $rating)';
   }
 
   @override
@@ -302,8 +261,8 @@ class _$ChallengeAttemptImpl implements _ChallengeAttempt {
         (other.runtimeType == runtimeType &&
             other is _$ChallengeAttemptImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.challengeId, challengeId) ||
-                other.challengeId == challengeId) &&
+            (identical(other.challengeRef, challengeRef) ||
+                other.challengeRef == challengeRef) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.startedAt, startedAt) ||
                 other.startedAt == startedAt) &&
@@ -314,27 +273,13 @@ class _$ChallengeAttemptImpl implements _ChallengeAttempt {
                 other.completedAt == completedAt) &&
             (identical(other.feedback, feedback) ||
                 other.feedback == feedback) &&
-            (identical(other.rating, rating) || other.rating == rating) &&
-            const DeepCollectionEquality()
-                .equals(other._likedByUsers, _likedByUsers) &&
-            const DeepCollectionEquality().equals(other._comments, _comments));
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      challengeId,
-      userId,
-      startedAt,
-      status,
-      completedImageUrl,
-      completedAt,
-      feedback,
-      rating,
-      const DeepCollectionEquality().hash(_likedByUsers),
-      const DeepCollectionEquality().hash(_comments));
+  int get hashCode => Object.hash(runtimeType, id, challengeRef, userId,
+      startedAt, status, completedImageUrl, completedAt, feedback, rating);
 
   /// Create a copy of ChallengeAttempt
   /// with the given fields replaced by the non-null parameter values.
@@ -356,16 +301,15 @@ class _$ChallengeAttemptImpl implements _ChallengeAttempt {
 abstract class _ChallengeAttempt implements ChallengeAttempt {
   const factory _ChallengeAttempt(
       {required final String id,
-      required final String challengeId,
+      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+      required final DocumentReference<Map<String, dynamic>> challengeRef,
       required final String userId,
       required final DateTime startedAt,
       required final ChallengeStatus status,
       final String? completedImageUrl,
       final DateTime? completedAt,
       final String? feedback,
-      final int? rating,
-      final List<String> likedByUsers,
-      final List<ChallengeComment> comments}) = _$ChallengeAttemptImpl;
+      final int? rating}) = _$ChallengeAttemptImpl;
 
   factory _ChallengeAttempt.fromJson(Map<String, dynamic> json) =
       _$ChallengeAttemptImpl.fromJson;
@@ -373,7 +317,8 @@ abstract class _ChallengeAttempt implements ChallengeAttempt {
   @override
   String get id;
   @override
-  String get challengeId;
+  @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+  DocumentReference<Map<String, dynamic>> get challengeRef;
   @override
   String get userId;
   @override
@@ -388,202 +333,11 @@ abstract class _ChallengeAttempt implements ChallengeAttempt {
   String? get feedback;
   @override
   int? get rating;
-  @override
-  List<String> get likedByUsers;
-  @override
-  List<ChallengeComment> get comments;
 
   /// Create a copy of ChallengeAttempt
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChallengeAttemptImplCopyWith<_$ChallengeAttemptImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ChallengeComment _$ChallengeCommentFromJson(Map<String, dynamic> json) {
-  return _ChallengeComment.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ChallengeComment {
-  String get userId => throw _privateConstructorUsedError;
-  String get text => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-
-  /// Serializes this ChallengeComment to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ChallengeComment
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ChallengeCommentCopyWith<ChallengeComment> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ChallengeCommentCopyWith<$Res> {
-  factory $ChallengeCommentCopyWith(
-          ChallengeComment value, $Res Function(ChallengeComment) then) =
-      _$ChallengeCommentCopyWithImpl<$Res, ChallengeComment>;
-  @useResult
-  $Res call({String userId, String text, DateTime createdAt});
-}
-
-/// @nodoc
-class _$ChallengeCommentCopyWithImpl<$Res, $Val extends ChallengeComment>
-    implements $ChallengeCommentCopyWith<$Res> {
-  _$ChallengeCommentCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ChallengeComment
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = null,
-    Object? text = null,
-    Object? createdAt = null,
-  }) {
-    return _then(_value.copyWith(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      text: null == text
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ChallengeCommentImplCopyWith<$Res>
-    implements $ChallengeCommentCopyWith<$Res> {
-  factory _$$ChallengeCommentImplCopyWith(_$ChallengeCommentImpl value,
-          $Res Function(_$ChallengeCommentImpl) then) =
-      __$$ChallengeCommentImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String userId, String text, DateTime createdAt});
-}
-
-/// @nodoc
-class __$$ChallengeCommentImplCopyWithImpl<$Res>
-    extends _$ChallengeCommentCopyWithImpl<$Res, _$ChallengeCommentImpl>
-    implements _$$ChallengeCommentImplCopyWith<$Res> {
-  __$$ChallengeCommentImplCopyWithImpl(_$ChallengeCommentImpl _value,
-      $Res Function(_$ChallengeCommentImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ChallengeComment
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = null,
-    Object? text = null,
-    Object? createdAt = null,
-  }) {
-    return _then(_$ChallengeCommentImpl(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      text: null == text
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ChallengeCommentImpl implements _ChallengeComment {
-  const _$ChallengeCommentImpl(
-      {required this.userId, required this.text, required this.createdAt});
-
-  factory _$ChallengeCommentImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ChallengeCommentImplFromJson(json);
-
-  @override
-  final String userId;
-  @override
-  final String text;
-  @override
-  final DateTime createdAt;
-
-  @override
-  String toString() {
-    return 'ChallengeComment(userId: $userId, text: $text, createdAt: $createdAt)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ChallengeCommentImpl &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, userId, text, createdAt);
-
-  /// Create a copy of ChallengeComment
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ChallengeCommentImplCopyWith<_$ChallengeCommentImpl> get copyWith =>
-      __$$ChallengeCommentImplCopyWithImpl<_$ChallengeCommentImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ChallengeCommentImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ChallengeComment implements ChallengeComment {
-  const factory _ChallengeComment(
-      {required final String userId,
-      required final String text,
-      required final DateTime createdAt}) = _$ChallengeCommentImpl;
-
-  factory _ChallengeComment.fromJson(Map<String, dynamic> json) =
-      _$ChallengeCommentImpl.fromJson;
-
-  @override
-  String get userId;
-  @override
-  String get text;
-  @override
-  DateTime get createdAt;
-
-  /// Create a copy of ChallengeComment
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ChallengeCommentImplCopyWith<_$ChallengeCommentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

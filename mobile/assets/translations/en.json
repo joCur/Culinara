@@ -33,7 +33,22 @@
     "error": "Error: {}",
     "actions": {
       "new": "New Challenge",
-      "accept": "Accept Challenge"
+      "accept": "Accept Challenge",
+      "tryAgain": "Try again"
+    },
+    "loading": "Generating new challenge...",
+    "errors": {
+      "unauthenticated": "Please login again",
+      "invalidArgument": "Invalid input data",
+      "internal": "Sorry, there was a problem generating the challenge. Please try again",
+      "timeout": "The request took too long. Please try again",
+      "unknown": "An unexpected error occurred",
+      "default": "An error occurred. Please try again later",
+      "acceptFailed": "Failed to save the challenge",
+      "noUser": "You need to be logged in to accept a challenge"
+    },
+    "success": {
+      "accepted": "Challenge successfully accepted!"
     }
   },
   "welcome": "Welcome",

@@ -1,8 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-// ignore_for_file: constant_identifier_names
-
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const login = 'login';
   static const register = 'register';
   static const email = 'email';
@@ -36,7 +34,20 @@ abstract class LocaleKeys {
   static const challenge_error = 'challenge.error';
   static const challenge_actions_new = 'challenge.actions.new';
   static const challenge_actions_accept = 'challenge.actions.accept';
+  static const challenge_actions_tryAgain = 'challenge.actions.tryAgain';
   static const challenge_actions = 'challenge.actions';
+  static const challenge_loading = 'challenge.loading';
+  static const challenge_errors_unauthenticated = 'challenge.errors.unauthenticated';
+  static const challenge_errors_invalidArgument = 'challenge.errors.invalidArgument';
+  static const challenge_errors_internal = 'challenge.errors.internal';
+  static const challenge_errors_timeout = 'challenge.errors.timeout';
+  static const challenge_errors_unknown = 'challenge.errors.unknown';
+  static const challenge_errors_default = 'challenge.errors.default';
+  static const challenge_errors_acceptFailed = 'challenge.errors.acceptFailed';
+  static const challenge_errors_noUser = 'challenge.errors.noUser';
+  static const challenge_errors = 'challenge.errors';
+  static const challenge_success_accepted = 'challenge.success.accepted';
+  static const challenge_success = 'challenge.success';
   static const challenge = 'challenge';
   static const welcome = 'welcome';
   static const guest = 'guest';
@@ -47,4 +58,5 @@ abstract class LocaleKeys {
   static const noChallengesYet = 'noChallengesYet';
   static const startNewChallenge = 'startNewChallenge';
   static const newChallenge = 'newChallenge';
+
 }

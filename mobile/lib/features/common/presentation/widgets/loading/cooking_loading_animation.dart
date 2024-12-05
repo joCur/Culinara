@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../../generated/locale_keys.g.dart';
 
 class CookingLoadingAnimation extends StatelessWidget {
   final double size;
@@ -25,7 +27,7 @@ class CookingLoadingAnimation extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Generiere neue Challenge...',
+            LocaleKeys.challenge_loading.tr(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ],

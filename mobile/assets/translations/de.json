@@ -33,7 +33,22 @@
     "error": "Fehler: {}",
     "actions": {
       "new": "Neue Challenge",
-      "accept": "Challenge annehmen"
+      "accept": "Challenge annehmen",
+      "tryAgain": "Erneut versuchen"
+    },
+    "loading": "Generiere neue Challenge...",
+    "errors": {
+      "unauthenticated": "Bitte melde dich erneut an",
+      "invalidArgument": "Ungültige Eingabedaten",
+      "internal": "Entschuldigung, es gab ein Problem bei der Generierung. Bitte versuche es erneut",
+      "timeout": "Die Anfrage hat zu lange gedauert. Bitte versuche es erneut",
+      "unknown": "Ein unerwarteter Fehler ist aufgetreten",
+      "default": "Ein Fehler ist aufgetreten. Bitte versuche es später erneut",
+      "acceptFailed": "Die Challenge konnte nicht gespeichert werden",
+      "noUser": "Du musst angemeldet sein, um eine Challenge zu akzeptieren"
+    },
+    "success": {
+      "accepted": "Challenge erfolgreich akzeptiert!"
     }
   },
   "welcome": "Willkommen",

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../domain/models/ingredient.dart';
 import '../controllers/challenge_controller.dart';
@@ -40,14 +39,9 @@ class ChallengeActionButtons extends ConsumerWidget {
         if (challengeState.value != null)
           Expanded(
             child: FilledButton.icon(
-              onPressed: () async {
-                await ref
-                    .read(challengeControllerProvider.notifier)
-                    .acceptChallenge();
-                if (context.mounted) {
-                  context.pop();
-                }
-              },
+              onPressed: () => ref
+                  .read(challengeControllerProvider.notifier)
+                  .acceptChallenge(context),
               icon: const Icon(Icons.check),
               label: Text(LocaleKeys.challenge_actions_accept.tr()),
               style: FilledButton.styleFrom(
