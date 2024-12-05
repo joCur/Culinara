@@ -6,7 +6,7 @@ part of 'flash_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$flashControllerHash() => r'2e0b07cc8c211d1677496b1eb00fc5366084b9f0';
+String _$flashControllerHash() => r'670f980b232054fc4b92dc68a336b3ed281be0ff';
 
 /// See also [FlashController].
 @ProviderFor(FlashController)

@@ -21,13 +21,15 @@ ChallengeAttempt _$ChallengeAttemptFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ChallengeAttempt {
   String get id => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+  @DocumentReferenceConverter()
   DocumentReference<Map<String, dynamic>> get challengeRef =>
       throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
+  @NullableTimestampOrStringConverter()
   DateTime get startedAt => throw _privateConstructorUsedError;
   ChallengeStatus get status => throw _privateConstructorUsedError;
   String? get completedImageUrl => throw _privateConstructorUsedError;
+  @NullableTimestampOrStringConverter()
   DateTime? get completedAt => throw _privateConstructorUsedError;
   String? get feedback => throw _privateConstructorUsedError;
   int? get rating => throw _privateConstructorUsedError;
@@ -50,13 +52,13 @@ abstract class $ChallengeAttemptCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+      @DocumentReferenceConverter()
       DocumentReference<Map<String, dynamic>> challengeRef,
       String userId,
-      DateTime startedAt,
+      @NullableTimestampOrStringConverter() DateTime startedAt,
       ChallengeStatus status,
       String? completedImageUrl,
-      DateTime? completedAt,
+      @NullableTimestampOrStringConverter() DateTime? completedAt,
       String? feedback,
       int? rating});
 }
@@ -137,13 +139,13 @@ abstract class _$$ChallengeAttemptImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+      @DocumentReferenceConverter()
       DocumentReference<Map<String, dynamic>> challengeRef,
       String userId,
-      DateTime startedAt,
+      @NullableTimestampOrStringConverter() DateTime startedAt,
       ChallengeStatus status,
       String? completedImageUrl,
-      DateTime? completedAt,
+      @NullableTimestampOrStringConverter() DateTime? completedAt,
       String? feedback,
       int? rating});
 }
@@ -214,18 +216,18 @@ class __$$ChallengeAttemptImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ChallengeAttemptImpl implements _ChallengeAttempt {
+class _$ChallengeAttemptImpl extends _ChallengeAttempt {
   const _$ChallengeAttemptImpl(
       {required this.id,
-      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
-      required this.challengeRef,
+      @DocumentReferenceConverter() required this.challengeRef,
       required this.userId,
-      required this.startedAt,
+      @NullableTimestampOrStringConverter() required this.startedAt,
       required this.status,
       this.completedImageUrl,
-      this.completedAt,
+      @NullableTimestampOrStringConverter() this.completedAt,
       this.feedback,
-      this.rating});
+      this.rating})
+      : super._();
 
   factory _$ChallengeAttemptImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChallengeAttemptImplFromJson(json);
@@ -233,17 +235,19 @@ class _$ChallengeAttemptImpl implements _ChallengeAttempt {
   @override
   final String id;
   @override
-  @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+  @DocumentReferenceConverter()
   final DocumentReference<Map<String, dynamic>> challengeRef;
   @override
   final String userId;
   @override
+  @NullableTimestampOrStringConverter()
   final DateTime startedAt;
   @override
   final ChallengeStatus status;
   @override
   final String? completedImageUrl;
   @override
+  @NullableTimestampOrStringConverter()
   final DateTime? completedAt;
   @override
   final String? feedback;
@@ -298,18 +302,19 @@ class _$ChallengeAttemptImpl implements _ChallengeAttempt {
   }
 }
 
-abstract class _ChallengeAttempt implements ChallengeAttempt {
+abstract class _ChallengeAttempt extends ChallengeAttempt {
   const factory _ChallengeAttempt(
       {required final String id,
-      @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+      @DocumentReferenceConverter()
       required final DocumentReference<Map<String, dynamic>> challengeRef,
       required final String userId,
-      required final DateTime startedAt,
+      @NullableTimestampOrStringConverter() required final DateTime startedAt,
       required final ChallengeStatus status,
       final String? completedImageUrl,
-      final DateTime? completedAt,
+      @NullableTimestampOrStringConverter() final DateTime? completedAt,
       final String? feedback,
       final int? rating}) = _$ChallengeAttemptImpl;
+  const _ChallengeAttempt._() : super._();
 
   factory _ChallengeAttempt.fromJson(Map<String, dynamic> json) =
       _$ChallengeAttemptImpl.fromJson;
@@ -317,17 +322,19 @@ abstract class _ChallengeAttempt implements ChallengeAttempt {
   @override
   String get id;
   @override
-  @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+  @DocumentReferenceConverter()
   DocumentReference<Map<String, dynamic>> get challengeRef;
   @override
   String get userId;
   @override
+  @NullableTimestampOrStringConverter()
   DateTime get startedAt;
   @override
   ChallengeStatus get status;
   @override
   String? get completedImageUrl;
   @override
+  @NullableTimestampOrStringConverter()
   DateTime? get completedAt;
   @override
   String? get feedback;

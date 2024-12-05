@@ -1,3 +1,4 @@
+import 'package:culinara/core/json_converters/timestamp_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'ingredient.dart';
@@ -12,7 +13,7 @@ class Challenge with _$Challenge {
   const factory Challenge({
     required String id,
     required List<Ingredient> ingredients,
-    required DateTime createdAt,
+    @TimestampOrStringConverter() required DateTime createdAt,
     required String creatorId,
   }) = _Challenge;
 
@@ -33,7 +34,7 @@ class Challenge with _$Challenge {
   Map<String, dynamic> toFirestore() {
     return {
       'ingredients': ingredients.map((i) => i.toJson()).toList(),
-      'createdAt': createdAt,
+      'createdAt': Timestamp.fromDate(createdAt),
       'creatorId': creatorId,
     };
   }

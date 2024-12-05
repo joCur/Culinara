@@ -1,20 +1,26 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../../core/json_converters/timestamp_converter.dart';
+import '../../../../core/json_converters/document_reference_converter.dart';
 
 part 'challenge_attempt.freezed.dart';
 part 'challenge_attempt.g.dart';
 
+enum ChallengeStatus { started, completed, failed }
+
 @freezed
 class ChallengeAttempt with _$ChallengeAttempt {
+  const ChallengeAttempt._();
+
   const factory ChallengeAttempt({
     required String id,
-    @JsonKey(fromJson: _referenceFromJson, toJson: _referenceToJson)
+    @DocumentReferenceConverter()
     required DocumentReference<Map<String, dynamic>> challengeRef,
     required String userId,
-    required DateTime startedAt,
+    @NullableTimestampOrStringConverter() required DateTime startedAt,
     required ChallengeStatus status,
     String? completedImageUrl,
-    DateTime? completedAt,
+    @NullableTimestampOrStringConverter() DateTime? completedAt,
     String? feedback,
     int? rating,
   }) = _ChallengeAttempt;
@@ -30,16 +36,7 @@ class ChallengeAttempt with _$ChallengeAttempt {
     return ChallengeAttempt.fromJson({
       ...data,
       'id': snapshot.id,
+      'challengeRef': data['challengeRef'],
     });
   }
 }
-
-DocumentReference<Map<String, dynamic>> _referenceFromJson(String path) {
-  return FirebaseFirestore.instance.doc(path);
-}
-
-String _referenceToJson(DocumentReference<Map<String, dynamic>> reference) {
-  return reference.path;
-}
-
-enum ChallengeStatus { started, completed, abandoned }

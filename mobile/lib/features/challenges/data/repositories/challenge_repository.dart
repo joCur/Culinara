@@ -112,4 +112,23 @@ class ChallengeRepository {
   Future<void> saveChallengeAttempt(ChallengeAttempt attempt) async {
     await _firestore.collection('challengeAttempts').add(attempt.toJson());
   }
+
+  // Neue Methode zum Abrufen der aktiven Challenges
+  Stream<List<ChallengeAttempt>> watchActiveAttempts(String userId) {
+    return _firestore
+        .collection('challengeAttempts')
+        .where('userId', isEqualTo: userId)
+        .where('status', isEqualTo: ChallengeStatus.started.name)
+        .snapshots()
+        .asyncMap((snapshot) async {
+      final attempts = <ChallengeAttempt>[];
+
+      for (var doc in snapshot.docs) {
+        final attempt = ChallengeAttempt.fromFirestore(doc, null);
+        attempts.add(attempt);
+      }
+
+      return attempts;
+    });
+  }
 }

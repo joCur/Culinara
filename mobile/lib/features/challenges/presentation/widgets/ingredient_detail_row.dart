@@ -1,45 +1,46 @@
 import 'package:flutter/material.dart';
 import '../../../common/presentation/constants/ui_constants.dart';
+import '../../domain/models/ingredient.dart';
 
 class IngredientDetailRow extends StatelessWidget {
-  final String label;
-  final String value;
-  final IconData icon;
+  final Ingredient ingredient;
 
   const IngredientDetailRow({
     super.key,
-    required this.label,
-    required this.value,
-    required this.icon,
+    required this.ingredient,
   });
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: IconSizes.sm,
-          color: colorScheme.primary,
-        ),
-        HGap.xxs,
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colorScheme.primary,
-              ),
-        ),
-        HGap.xxs,
-        Expanded(
-          child: Text(
-            value,
-            style: Theme.of(context).textTheme.bodyMedium,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: Spacing.sm,
+        horizontal: Spacing.md,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  ingredient.name,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                VGap.sm,
+                if (ingredient.notes != null) ...[
+                  Text(
+                    ingredient.notes!,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  VGap.sm,
+                ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

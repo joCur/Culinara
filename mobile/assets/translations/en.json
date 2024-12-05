@@ -49,6 +49,10 @@
     },
     "success": {
       "accepted": "Challenge successfully accepted!"
+    },
+    "states": {
+      "loading": "Loading...",
+      "error": "Error: {}"
     }
   },
   "welcome": "Welcome",

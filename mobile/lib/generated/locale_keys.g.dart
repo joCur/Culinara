@@ -48,6 +48,9 @@ abstract class  LocaleKeys {
   static const challenge_errors = 'challenge.errors';
   static const challenge_success_accepted = 'challenge.success.accepted';
   static const challenge_success = 'challenge.success';
+  static const challenge_states_loading = 'challenge.states.loading';
+  static const challenge_states_error = 'challenge.states.error';
+  static const challenge_states = 'challenge.states';
   static const challenge = 'challenge';
   static const welcome = 'welcome';
   static const guest = 'guest';

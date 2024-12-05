@@ -22,6 +22,7 @@ Challenge _$ChallengeFromJson(Map<String, dynamic> json) {
 mixin _$Challenge {
   String get id => throw _privateConstructorUsedError;
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
+  @TimestampOrStringConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
 
@@ -43,7 +44,7 @@ abstract class $ChallengeCopyWith<$Res> {
   $Res call(
       {String id,
       List<Ingredient> ingredients,
-      DateTime createdAt,
+      @TimestampOrStringConverter() DateTime createdAt,
       String creatorId});
 }
 
@@ -99,7 +100,7 @@ abstract class _$$ChallengeImplCopyWith<$Res>
   $Res call(
       {String id,
       List<Ingredient> ingredients,
-      DateTime createdAt,
+      @TimestampOrStringConverter() DateTime createdAt,
       String creatorId});
 }
 
@@ -148,7 +149,7 @@ class _$ChallengeImpl extends _Challenge {
   const _$ChallengeImpl(
       {required this.id,
       required final List<Ingredient> ingredients,
-      required this.createdAt,
+      @TimestampOrStringConverter() required this.createdAt,
       required this.creatorId})
       : _ingredients = ingredients,
         super._();
@@ -167,6 +168,7 @@ class _$ChallengeImpl extends _Challenge {
   }
 
   @override
+  @TimestampOrStringConverter()
   final DateTime createdAt;
   @override
   final String creatorId;
@@ -215,7 +217,7 @@ abstract class _Challenge extends Challenge {
   const factory _Challenge(
       {required final String id,
       required final List<Ingredient> ingredients,
-      required final DateTime createdAt,
+      @TimestampOrStringConverter() required final DateTime createdAt,
       required final String creatorId}) = _$ChallengeImpl;
   const _Challenge._() : super._();
 
@@ -227,6 +229,7 @@ abstract class _Challenge extends Challenge {
   @override
   List<Ingredient> get ingredients;
   @override
+  @TimestampOrStringConverter()
   DateTime get createdAt;
   @override
   String get creatorId;

@@ -9,6 +9,7 @@ import '../../../common/presentation/widgets/profile/circular_profile_image.dart
 import '../../../common/presentation/widgets/gradient_background.dart';
 import '../../../common/presentation/constants/ui_constants.dart';
 import '../../../challenges/presentation/screens/generate_challenge_screen.dart';
+import '../../../challenges/presentation/widgets/active_challenges_list.dart';
 
 class HomeScreen extends ConsumerWidget {
   static const String name = 'home';
@@ -122,15 +123,7 @@ class HomeScreen extends ConsumerWidget {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           VGap.md,
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.flag_outlined),
-              title: Text(LocaleKeys.noChallengesYet.tr()),
-              subtitle: Text(LocaleKeys.startNewChallenge.tr()),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () => context.pushNamed(GenerateChallengeScreen.name),
-            ),
-          ),
+          const ActiveChallengesList(),
         ],
       ),
     );
