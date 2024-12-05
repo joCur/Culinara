@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../domain/models/ingredient.dart';
-import '../../../common/presentation/constants/ui_constants.dart';
+import '../../../domain/models/ingredient.dart';
+import '../../../../common/presentation/constants/ui_constants.dart';
 
 class IngredientDetailsSection extends StatelessWidget {
   final Ingredient ingredient;

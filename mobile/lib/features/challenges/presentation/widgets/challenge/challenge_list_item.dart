@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../../../generated/locale_keys.g.dart';
-import '../../domain/models/challenge_attempt.dart';
-import '../controllers/challenge_details_controller.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../../domain/models/challenge_attempt.dart';
+import '../../controllers/challenge_details_controller.dart';
 
 class ChallengeListItem extends ConsumerWidget {
   final ChallengeAttempt attempt;

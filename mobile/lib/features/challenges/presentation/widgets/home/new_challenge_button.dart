@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../generated/locale_keys.g.dart';
-import '../../../common/presentation/constants/ui_constants.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../../../common/presentation/constants/ui_constants.dart';
 
 class NewChallengeButton extends StatelessWidget {
   final VoidCallback onTap;

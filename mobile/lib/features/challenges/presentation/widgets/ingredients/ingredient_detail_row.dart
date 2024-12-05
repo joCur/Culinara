@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../common/presentation/constants/ui_constants.dart';
-import '../../domain/models/ingredient.dart';
+import '../../../../common/presentation/constants/ui_constants.dart';
+import '../../../domain/models/ingredient.dart';
 
 class IngredientDetailRow extends StatelessWidget {
   final Ingredient ingredient;

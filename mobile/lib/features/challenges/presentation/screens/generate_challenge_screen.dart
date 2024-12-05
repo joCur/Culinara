@@ -5,10 +5,10 @@ import '../../../../generated/locale_keys.g.dart';
 import '../../domain/exceptions/challenge_exception.dart';
 import '../controllers/challenge_controller.dart';
 import '../../../common/presentation/widgets/loading/cooking_loading_animation.dart';
-import '../widgets/challenge_initial_view.dart';
-import '../widgets/challenge_error_view.dart';
-import '../widgets/challenge_ingredients_list.dart';
-import '../widgets/challenge_action_buttons.dart';
+import '../widgets/challenge/challenge_initial_view.dart';
+import '../widgets/challenge/challenge_error_view.dart';
+import '../widgets/ingredients/challenge_ingredients_list.dart';
+import '../widgets/challenge/challenge_action_buttons.dart';
 import '../../../common/presentation/constants/ui_constants.dart';
 
 class GenerateChallengeScreen extends ConsumerWidget {

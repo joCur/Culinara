@@ -9,7 +9,7 @@ import '../../../common/presentation/widgets/profile/circular_profile_image.dart
 import '../../../common/presentation/widgets/gradient_background.dart';
 import '../../../common/presentation/constants/ui_constants.dart';
 import '../../../challenges/presentation/screens/generate_challenge_screen.dart';
-import '../../../challenges/presentation/widgets/active_challenges_list.dart';
+import '../../../challenges/presentation/widgets/home/active_challenges_list.dart';
 
 class HomeScreen extends ConsumerWidget {
   static const String name = 'home';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../common/presentation/constants/ui_constants.dart';
-import '../../domain/exceptions/challenge_exception.dart';
+import '../../../../common/presentation/constants/ui_constants.dart';
+import '../../../domain/exceptions/challenge_exception.dart';
 
 class ChallengeErrorView extends StatelessWidget {
   final ChallengeException error;
