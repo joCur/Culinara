@@ -7,7 +7,7 @@ part of 'challenge_controller.dart';
 // **************************************************************************
 
 String _$challengeControllerHash() =>
-    r'd28471f144d765cd4dccd74ac6b5d8f2a44459e6';
+    r'3082b74de00663e1d7d0600a22e8b9c43b4a6353';
 
 /// See also [ChallengeController].
 @ProviderFor(ChallengeController)

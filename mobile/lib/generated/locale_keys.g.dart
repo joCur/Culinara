@@ -38,4 +38,13 @@ abstract class LocaleKeys {
   static const challenge_actions_accept = 'challenge.actions.accept';
   static const challenge_actions = 'challenge.actions';
   static const challenge = 'challenge';
+  static const welcome = 'welcome';
+  static const guest = 'guest';
+  static const todayMotivation = 'todayMotivation';
+  static const completedChallenges = 'completedChallenges';
+  static const activeStreak = 'activeStreak';
+  static const currentChallenges = 'currentChallenges';
+  static const noChallengesYet = 'noChallengesYet';
+  static const startNewChallenge = 'startNewChallenge';
+  static const newChallenge = 'newChallenge';
 }

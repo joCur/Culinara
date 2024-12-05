@@ -35,5 +35,14 @@
       "new": "New Challenge",
       "accept": "Accept Challenge"
     }
-  }
+  },
+  "welcome": "Welcome",
+  "guest": "Guest",
+  "todayMotivation": "Ready for new challenges?",
+  "completedChallenges": "Completed Challenges",
+  "activeStreak": "Active Streak",
+  "currentChallenges": "Current Challenges",
+  "noChallengesYet": "No challenges yet",
+  "startNewChallenge": "Start your first challenge now",
+  "newChallenge": "New Challenge"
 } 

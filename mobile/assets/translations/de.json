@@ -35,5 +35,14 @@
       "new": "Neue Challenge",
       "accept": "Challenge annehmen"
     }
-  }
+  },
+  "welcome": "Willkommen",
+  "guest": "Gast",
+  "todayMotivation": "Bereit für neue Herausforderungen?",
+  "completedChallenges": "Abgeschlossene Challenges",
+  "activeStreak": "Aktuelle Serie",
+  "currentChallenges": "Aktuelle Challenges",
+  "noChallengesYet": "Noch keine Challenges",
+  "startNewChallenge": "Starte jetzt deine erste Challenge",
+  "newChallenge": "Neue Challenge"
 } 

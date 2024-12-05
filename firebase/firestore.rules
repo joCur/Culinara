@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Hilfsfunktion um zu prüfen ob der Nutzer eingeloggt ist
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Hilfsfunktion um zu prüfen ob der Nutzer der Ersteller ist
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Challenges Collection
+    match /challenges/{challengeId} {
+      allow read: if isAuthenticated();
+      // Nur erstellen erlauben, keine Updates oder Löschungen
+      allow create: if isAuthenticated() 
+        && request.resource.data.creatorId == request.auth.uid;
+      allow update, delete: false;
+    }
+
+    // Challenge Attempts Collection
+    match /challengeAttempts/{attemptId} {
+      allow read: if isAuthenticated();
+      // Erstellen nur wenn der Nutzer sich selbst als userId einträgt
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid;
+      // Updates nur für eigene Attempts
+      allow update: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid
+        // Verhindern dass userId nachträglich geändert wird
+        && request.resource.data.userId == resource.data.userId
+        // Verhindern dass challengeId nachträglich geändert wird
+        && request.resource.data.challengeId == resource.data.challengeId;
+      allow delete: false;
+    }
+  }
+}

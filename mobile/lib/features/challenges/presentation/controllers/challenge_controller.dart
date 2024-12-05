@@ -4,6 +4,7 @@ import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../common/presentation/controllers/flash_controller.dart';
 import '../../data/repositories/challenge_repository.dart';
 import '../../domain/models/challenge.dart';
+import '../../domain/models/challenge_attempt.dart';
 import '../../domain/models/ingredient.dart';
 import '../../domain/models/challenge_result.dart';
 
@@ -47,15 +48,29 @@ class ChallengeController extends _$ChallengeController {
 
   Future<void> acceptChallenge() async {
     if (state.value == null) return;
+    final userId = ref.read(userProfileProvider).value?.uid;
+    if (userId == null) return;
 
+    // Challenge erstellen
     final challenge = Challenge(
       id: '', // wird von Firestore generiert
       ingredients: state.value!,
       createdAt: DateTime.now(),
-      userId: ref.read(userProfileProvider).value?.uid ??
-          '', // Get current user ID from auth state
+      creatorId: userId,
     );
 
-    await ref.read(challengeRepositoryProvider).saveChallenge(challenge);
+    final challengeId =
+        await ref.read(challengeRepositoryProvider).saveChallenge(challenge);
+
+    // Dann den Attempt erstellen
+    final attempt = ChallengeAttempt(
+      id: '', // wird von Firestore generiert
+      challengeId: challengeId,
+      userId: userId,
+      startedAt: DateTime.now(),
+      status: ChallengeStatus.started,
+    );
+
+    await ref.read(challengeRepositoryProvider).saveChallengeAttempt(attempt);
   }
 }

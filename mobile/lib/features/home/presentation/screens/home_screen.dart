@@ -6,6 +6,8 @@ import '../../../../generated/locale_keys.g.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../common/presentation/widgets/drawer/app_drawer.dart';
 import '../../../common/presentation/widgets/profile/circular_profile_image.dart';
+import '../../../common/presentation/widgets/gradient_background.dart';
+import '../../../common/presentation/constants/ui_constants.dart';
 import '../../../challenges/presentation/screens/generate_challenge_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -25,7 +27,8 @@ class HomeScreen extends ConsumerWidget {
         leading: Builder(
           builder: (context) => GestureDetector(
             onTap: () => Scaffold.of(context).openDrawer(),
-            child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: CircularProfileImage(
                 imageUrl: user?.photoURL,
                 size: 36,
@@ -33,18 +36,133 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {
+              // TODO: Implement notifications
+            },
+          ),
+        ],
       ),
       drawer: const AppDrawer(),
-      body: Center(
+      body: GradientBackground(
         child: authState.when(
-          data: (user) => Text(user?.email ?? LocaleKeys.notLoggedIn.tr()),
-          loading: () => const CircularProgressIndicator(),
-          error: (error, stack) => Text('${LocaleKeys.error.tr()}: $error'),
+          data: (user) => _buildHomeContent(context, user),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stack) => Center(
+            child: Text('${LocaleKeys.error.tr()}: $error'),
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.pushNamed(GenerateChallengeScreen.name),
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: Text(LocaleKeys.newChallenge.tr()),
+      ),
+    );
+  }
+
+  Widget _buildHomeContent(BuildContext context, user) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(Spacing.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Willkommenssektion
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(Spacing.md),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${LocaleKeys.welcome.tr()}, ${user?.displayName ?? LocaleKeys.guest.tr()}!',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  VGap.sm,
+                  Text(
+                    LocaleKeys.todayMotivation.tr(),
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          VGap.lg,
+
+          // Statistik-Karten
+          Row(
+            children: [
+              Expanded(
+                child: _buildStatCard(
+                  context,
+                  Icons.emoji_events_outlined,
+                  '0',
+                  LocaleKeys.completedChallenges.tr(),
+                ),
+              ),
+              HGap.md,
+              Expanded(
+                child: _buildStatCard(
+                  context,
+                  Icons.trending_up_outlined,
+                  '0',
+                  LocaleKeys.activeStreak.tr(),
+                ),
+              ),
+            ],
+          ),
+          VGap.lg,
+
+          // Aktuelle Challenges Sektion
+          Text(
+            LocaleKeys.currentChallenges.tr(),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          VGap.md,
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.flag_outlined),
+              title: Text(LocaleKeys.noChallengesYet.tr()),
+              subtitle: Text(LocaleKeys.startNewChallenge.tr()),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () => context.pushNamed(GenerateChallengeScreen.name),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatCard(
+    BuildContext context,
+    IconData icon,
+    String value,
+    String label,
+  ) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(Spacing.md),
+        child: IntrinsicHeight(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 32),
+              VGap.sm,
+              Text(
+                value,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Text(
+                label,
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

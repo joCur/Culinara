@@ -7,11 +7,13 @@ part 'challenge.g.dart';
 
 @freezed
 class Challenge with _$Challenge {
+  const Challenge._();
+
   const factory Challenge({
     required String id,
     required List<Ingredient> ingredients,
     required DateTime createdAt,
-    required String userId,
+    required String creatorId,
   }) = _Challenge;
 
   factory Challenge.fromJson(Map<String, dynamic> json) =>
@@ -26,5 +28,13 @@ class Challenge with _$Challenge {
       ...data,
       'id': snapshot.id,
     });
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'ingredients': ingredients.map((i) => i.toJson()).toList(),
+      'createdAt': createdAt,
+      'creatorId': creatorId,
+    };
   }
 }

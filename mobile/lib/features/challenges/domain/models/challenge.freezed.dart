@@ -23,7 +23,7 @@ mixin _$Challenge {
   String get id => throw _privateConstructorUsedError;
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
+  String get creatorId => throw _privateConstructorUsedError;
 
   /// Serializes this Challenge to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $ChallengeCopyWith<$Res> {
       {String id,
       List<Ingredient> ingredients,
       DateTime createdAt,
-      String userId});
+      String creatorId});
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$ChallengeCopyWithImpl<$Res, $Val extends Challenge>
     Object? id = null,
     Object? ingredients = null,
     Object? createdAt = null,
-    Object? userId = null,
+    Object? creatorId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -80,9 +80,9 @@ class _$ChallengeCopyWithImpl<$Res, $Val extends Challenge>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      creatorId: null == creatorId
+          ? _value.creatorId
+          : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -100,7 +100,7 @@ abstract class _$$ChallengeImplCopyWith<$Res>
       {String id,
       List<Ingredient> ingredients,
       DateTime createdAt,
-      String userId});
+      String creatorId});
 }
 
 /// @nodoc
@@ -119,7 +119,7 @@ class __$$ChallengeImplCopyWithImpl<$Res>
     Object? id = null,
     Object? ingredients = null,
     Object? createdAt = null,
-    Object? userId = null,
+    Object? creatorId = null,
   }) {
     return _then(_$ChallengeImpl(
       id: null == id
@@ -134,9 +134,9 @@ class __$$ChallengeImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      creatorId: null == creatorId
+          ? _value.creatorId
+          : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -144,13 +144,14 @@ class __$$ChallengeImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ChallengeImpl implements _Challenge {
+class _$ChallengeImpl extends _Challenge {
   const _$ChallengeImpl(
       {required this.id,
       required final List<Ingredient> ingredients,
       required this.createdAt,
-      required this.userId})
-      : _ingredients = ingredients;
+      required this.creatorId})
+      : _ingredients = ingredients,
+        super._();
 
   factory _$ChallengeImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChallengeImplFromJson(json);
@@ -168,11 +169,11 @@ class _$ChallengeImpl implements _Challenge {
   @override
   final DateTime createdAt;
   @override
-  final String userId;
+  final String creatorId;
 
   @override
   String toString() {
-    return 'Challenge(id: $id, ingredients: $ingredients, createdAt: $createdAt, userId: $userId)';
+    return 'Challenge(id: $id, ingredients: $ingredients, createdAt: $createdAt, creatorId: $creatorId)';
   }
 
   @override
@@ -185,13 +186,14 @@ class _$ChallengeImpl implements _Challenge {
                 .equals(other._ingredients, _ingredients) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.creatorId, creatorId) ||
+                other.creatorId == creatorId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id,
-      const DeepCollectionEquality().hash(_ingredients), createdAt, userId);
+      const DeepCollectionEquality().hash(_ingredients), createdAt, creatorId);
 
   /// Create a copy of Challenge
   /// with the given fields replaced by the non-null parameter values.
@@ -209,12 +211,13 @@ class _$ChallengeImpl implements _Challenge {
   }
 }
 
-abstract class _Challenge implements Challenge {
+abstract class _Challenge extends Challenge {
   const factory _Challenge(
       {required final String id,
       required final List<Ingredient> ingredients,
       required final DateTime createdAt,
-      required final String userId}) = _$ChallengeImpl;
+      required final String creatorId}) = _$ChallengeImpl;
+  const _Challenge._() : super._();
 
   factory _Challenge.fromJson(Map<String, dynamic> json) =
       _$ChallengeImpl.fromJson;
@@ -226,7 +229,7 @@ abstract class _Challenge implements Challenge {
   @override
   DateTime get createdAt;
   @override
-  String get userId;
+  String get creatorId;
 
   /// Create a copy of Challenge
   /// with the given fields replaced by the non-null parameter values.

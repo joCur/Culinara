@@ -3,10 +3,11 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../domain/models/challenge.dart';
 import '../../domain/models/ingredient.dart';
 import '../../domain/exceptions/challenge_exception.dart';
 import '../../domain/models/challenge_result.dart';
+import '../../domain/models/challenge_attempt.dart';
+import '../../domain/models/challenge.dart';
 
 part 'challenge_repository.g.dart';
 
@@ -99,7 +100,13 @@ class ChallengeRepository {
     }
   }
 
-  Future<void> saveChallenge(Challenge challenge) async {
-    await _firestore.collection('challenges').add(challenge.toJson());
+  Future<String> saveChallenge(Challenge challenge) async {
+    final docRef =
+        await _firestore.collection('challenges').add(challenge.toFirestore());
+    return docRef.id;
+  }
+
+  Future<void> saveChallengeAttempt(ChallengeAttempt attempt) async {
+    await _firestore.collection('challengeAttempts').add(attempt.toJson());
   }
 }

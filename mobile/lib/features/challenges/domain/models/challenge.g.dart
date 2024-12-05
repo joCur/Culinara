@@ -13,7 +13,7 @@ _$ChallengeImpl _$$ChallengeImplFromJson(Map<String, dynamic> json) =>
           .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
           .toList(),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      userId: json['userId'] as String,
+      creatorId: json['creatorId'] as String,
     );
 
 Map<String, dynamic> _$$ChallengeImplToJson(_$ChallengeImpl instance) =>
@@ -21,5 +21,5 @@ Map<String, dynamic> _$$ChallengeImplToJson(_$ChallengeImpl instance) =>
       'id': instance.id,
       'ingredients': instance.ingredients,
       'createdAt': instance.createdAt.toIso8601String(),
-      'userId': instance.userId,
+      'creatorId': instance.creatorId,
     };
