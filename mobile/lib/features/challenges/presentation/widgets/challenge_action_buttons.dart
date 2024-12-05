@@ -17,6 +17,8 @@ class ChallengeActionButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -28,7 +30,8 @@ class ChallengeActionButtons extends ConsumerWidget {
           label: Text(LocaleKeys.challenge_actions_new.tr()),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(
-              vertical: Spacing.xs,
+              horizontal: Spacing.md,
+              vertical: Spacing.sm,
             ),
           ),
         ),
@@ -48,8 +51,14 @@ class ChallengeActionButtons extends ConsumerWidget {
             icon: const Icon(Icons.check),
             label: Text(LocaleKeys.challenge_actions_accept.tr()),
             style: FilledButton.styleFrom(
+              backgroundColor: Colors.green.shade700,
               padding: const EdgeInsets.symmetric(
-                vertical: Spacing.xs,
+                horizontal: Spacing.md,
+                vertical: Spacing.sm,
+              ),
+              minimumSize: const Size(160, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
           ),
