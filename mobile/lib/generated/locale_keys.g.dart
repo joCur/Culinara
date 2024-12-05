@@ -45,6 +45,7 @@ abstract class  LocaleKeys {
   static const challenge_errors_default = 'challenge.errors.default';
   static const challenge_errors_acceptFailed = 'challenge.errors.acceptFailed';
   static const challenge_errors_noUser = 'challenge.errors.noUser';
+  static const challenge_errors_tooManyChallenges = 'challenge.errors.tooManyChallenges';
   static const challenge_errors = 'challenge.errors';
   static const challenge_success_accepted = 'challenge.success.accepted';
   static const challenge_success = 'challenge.success';

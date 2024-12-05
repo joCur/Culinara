@@ -1,10 +1,10 @@
 enum ChallengeErrorType {
-  network,
   authentication,
   invalidArguments,
   serverError,
   timeout,
   unknown,
+  maxChallengesReached,
 }
 
 class ChallengeException implements Exception {

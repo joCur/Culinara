@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../domain/constants/challenge_constants.dart';
 import '../../domain/models/ingredient.dart';
 import '../../domain/exceptions/challenge_exception.dart';
 import '../../domain/models/challenge_result.dart';
@@ -64,7 +65,7 @@ class ChallengeRepository {
     } catch (e) {
       return Failure(
         ChallengeException(
-          message: 'Ein unerwarteter Fehler ist aufgetreten',
+          message: LocaleKeys.challenge_errors_default.tr(),
           type: ChallengeErrorType.unknown,
           originalError: e,
         ),
@@ -110,6 +111,20 @@ class ChallengeRepository {
   }
 
   Future<void> saveChallengeAttempt(ChallengeAttempt attempt) async {
+    final activeCount = await _firestore
+        .collection('challengeAttempts')
+        .where('userId', isEqualTo: attempt.userId)
+        .where('status', isEqualTo: ChallengeStatus.started.name)
+        .count()
+        .get();
+
+    if (activeCount.count! >= maxActiveChallenges) {
+      throw ChallengeException(
+        message: LocaleKeys.challenge_errors_tooManyChallenges.tr(),
+        type: ChallengeErrorType.maxChallengesReached,
+      );
+    }
+
     await _firestore.collection('challengeAttempts').add(attempt.toJson());
   }
 

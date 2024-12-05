@@ -45,7 +45,8 @@
       "unknown": "Ein unerwarteter Fehler ist aufgetreten",
       "default": "Ein Fehler ist aufgetreten. Bitte versuche es später erneut",
       "acceptFailed": "Die Challenge konnte nicht gespeichert werden",
-      "noUser": "Du musst angemeldet sein, um eine Challenge zu akzeptieren"
+      "noUser": "Du musst angemeldet sein, um eine Challenge zu akzeptieren",
+      "tooManyChallenges": "Du hast bereits die maximale Anzahl an aktiven Challenges erreicht"
     },
     "success": {
       "accepted": "Challenge erfolgreich akzeptiert!"
