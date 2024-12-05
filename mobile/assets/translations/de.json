@@ -36,7 +36,30 @@
       "accept": "Challenge annehmen",
       "tryAgain": "Erneut versuchen"
     },
-    "loading": "Generiere neue Challenge...",
+    "loading": {
+      "generate": {
+        "checkFridge": "Durchstöbere den Kühlschrank...",
+        "checkPantry": "Schaue in die Vorratskammer...",
+        "checkSpices": "Überprüfe die Gewürze...",
+        "getIngredients": "Hole frische Zutaten vom Markt...",
+        "consultChef": "Spreche mit dem Koch...",
+        "checkCookbook": "Blättere durch Omas Kochbuch..."
+      },
+      "details": {
+        "setTable": "Decke den Tisch...",
+        "getApron": "Hole die Kochschürze...",
+        "washIngredients": "Wasche die Zutaten...",
+        "prepareKitchen": "Bereite die Küche vor...",
+        "sharpenKnives": "Schärfe die Messer...",
+        "preheatOven": "Heize den Ofen vor..."
+      },
+      "save": {
+        "writeRecipe": "Schreibe das Rezept auf...",
+        "takePhoto": "Mache ein Foto vom Gericht...",
+        "shareMasterpiece": "Teile dein Meisterwerk...",
+        "cleanKitchen": "Räume die Küche auf..."
+      }
+    },
     "errors": {
       "unauthenticated": "Bitte melde dich erneut an",
       "invalidArgument": "Ungültige Eingabedaten",

@@ -1,3 +1,4 @@
+import 'package:culinara/features/common/presentation/providers/loading_message_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,8 +55,8 @@ class GenerateChallengeScreen extends ConsumerWidget {
                       return ChallengeIngredientsList(ingredients: ingredients);
                     },
                     loading: () => CookingLoadingAnimation(
-                      message: LocaleKeys.challenge_loading.tr(),
-                    ),
+                        message: ref.watch(loadingMessageNotifierProvider(
+                            LoadingContext.generateChallenge))),
                     error: (error, _) => ChallengeErrorView(
                       error: error is ChallengeException
                           ? error

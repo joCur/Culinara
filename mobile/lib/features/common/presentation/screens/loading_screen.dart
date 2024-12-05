@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/loading/cooking_loading_animation.dart';
 
 class LoadingScreen extends StatelessWidget {
-  final String? message;
+  final String message;
   final double size;
 
   const LoadingScreen({
     super.key,
-    this.message,
+    required this.message,
     this.size = 200,
   });
 

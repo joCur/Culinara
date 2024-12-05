@@ -6,7 +6,7 @@ part of 'challenge_attempt_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$challengeAttemptHash() => r'1d02cb318db6bf975e9ebdc89c329eeab7334d46';
+String _$challengeAttemptHash() => r'2fc923041649415ed522047546ef1d4624433bfc';
 
 /// Copied from Dart SDK
 class _SystemHash {

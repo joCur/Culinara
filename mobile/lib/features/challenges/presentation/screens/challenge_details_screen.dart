@@ -10,6 +10,7 @@ import '../widgets/details/challenge_action_buttons.dart';
 import '../widgets/details/challenge_header_section.dart';
 import '../widgets/details/challenge_ingredients_section.dart';
 import '../../../common/presentation/screens/loading_screen.dart';
+import '../../../common/presentation/providers/loading_message_provider.dart';
 
 class ChallengeDetailsScreen extends ConsumerWidget {
   static const String name = 'challenge-details';
@@ -75,7 +76,8 @@ class ChallengeDetailsScreen extends ConsumerWidget {
             ),
           ),
           loading: () => LoadingScreen(
-            message: LocaleKeys.challenge_details_loading.tr(),
+            message: ref.watch(loadingMessageNotifierProvider(
+                LoadingContext.challengeDetails)),
           ),
           error: (error, _) => Scaffold(
             body: Center(
@@ -85,7 +87,8 @@ class ChallengeDetailsScreen extends ConsumerWidget {
         );
       },
       loading: () => LoadingScreen(
-        message: LocaleKeys.challenge_details_loading.tr(),
+        message: ref.watch(
+            loadingMessageNotifierProvider(LoadingContext.challengeDetails)),
       ),
       error: (error, _) => Scaffold(
         body: Center(

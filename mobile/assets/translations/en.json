@@ -36,7 +36,30 @@
       "accept": "Accept Challenge",
       "tryAgain": "Try again"
     },
-    "loading": "Generating new challenge...",
+    "loading": {
+      "generate": {
+        "checkFridge": "Checking the fridge...",
+        "checkPantry": "Looking through the pantry...",
+        "checkSpices": "Inspecting the spices...",
+        "getIngredients": "Getting fresh ingredients from the market...",
+        "consultChef": "Consulting with the chef...",
+        "checkCookbook": "Browsing grandma's cookbook..."
+      },
+      "details": {
+        "setTable": "Setting the table...",
+        "getApron": "Getting the apron...",
+        "washIngredients": "Washing the ingredients...",
+        "prepareKitchen": "Preparing the kitchen...",
+        "sharpenKnives": "Sharpening the knives...",
+        "preheatOven": "Preheating the oven..."
+      },
+      "save": {
+        "writeRecipe": "Writing down the recipe...",
+        "takePhoto": "Taking a photo of the dish...",
+        "shareMasterpiece": "Sharing your masterpiece...",
+        "cleanKitchen": "Cleaning up the kitchen..."
+      }
+    },
     "errors": {
       "unauthenticated": "Please login again",
       "invalidArgument": "Invalid input data",
