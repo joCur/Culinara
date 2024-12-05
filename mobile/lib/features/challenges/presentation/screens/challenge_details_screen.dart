@@ -5,6 +5,7 @@ import '../../../../generated/locale_keys.g.dart';
 import '../../../common/presentation/constants/ui_constants.dart';
 import '../../domain/models/challenge_attempt.dart';
 import '../controllers/challenge_attempt_controller.dart';
+import '../controllers/challenge_details_controller.dart';
 import '../widgets/details/challenge_feedback_section.dart';
 import '../widgets/details/challenge_action_buttons.dart';
 import '../widgets/details/challenge_header_section.dart';
@@ -31,8 +32,7 @@ class ChallengeDetailsScreen extends ConsumerWidget {
     return attemptAsync.when(
       data: (attempt) {
         final challengeAsync =
-            AsyncLoading(); // TODO: implement after finishing loading screen
-        // ref.watch(challengeDetailsProvider(attempt.challengeRef));
+            ref.watch(challengeDetailsProvider(attempt.challengeRef));
 
         return challengeAsync.when(
           data: (challenge) => Scaffold(
