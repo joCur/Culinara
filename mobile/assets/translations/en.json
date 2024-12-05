@@ -67,7 +67,8 @@
       },
       "started": "Started",
       "completed": "Completed",
-      "failed": "Failed"
+      "failed": "Failed",
+      "loading": "Loading challenge details..."
     }
   },
   "welcome": "Welcome",

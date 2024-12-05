@@ -14,50 +14,71 @@ class ChallengeIngredientsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(Spacing.md),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
+            Icon(
+              Icons.restaurant_menu,
+              size: 24,
+              color: colorScheme.primary,
+            ),
+            HGap.sm,
             Text(
               LocaleKeys.challenge_ingredients.tr(),
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            VGap.md,
-            ...ingredients.map((ingredient) => Padding(
-                  padding: const EdgeInsets.only(bottom: Spacing.sm),
-                  child: _IngredientItem(ingredient: ingredient),
-                )),
           ],
         ),
-      ),
+        VGap.md,
+        ...ingredients
+            .map((ingredient) => _IngredientCard(ingredient: ingredient)),
+      ],
     );
   }
 }
 
-class _IngredientItem extends StatelessWidget {
+class _IngredientCard extends StatelessWidget {
   final Ingredient ingredient;
 
-  const _IngredientItem({required this.ingredient});
+  const _IngredientCard({required this.ingredient});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          ingredient.name,
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        if (ingredient.notes != null) ...[
-          VGap.xxs,
-          Text(
-            ingredient.notes!,
-            style: Theme.of(context).textTheme.bodySmall,
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Spacing.sm),
+      child: Card(
+        elevation: 0,
+        color: colorScheme.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(
+            color: colorScheme.outlineVariant,
+            width: 1,
           ),
-        ],
-      ],
+        ),
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: Spacing.md,
+            vertical: Spacing.sm,
+          ),
+          title: Text(
+            ingredient.name,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          subtitle: ingredient.notes != null
+              ? Padding(
+                  padding: const EdgeInsets.only(top: Spacing.xs),
+                  child: Text(ingredient.notes!),
+                )
+              : null,
+        ),
+      ),
     );
   }
 }

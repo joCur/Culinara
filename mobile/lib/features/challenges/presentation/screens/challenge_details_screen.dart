@@ -5,10 +5,11 @@ import '../../../../generated/locale_keys.g.dart';
 import '../../../common/presentation/constants/ui_constants.dart';
 import '../../domain/models/challenge_attempt.dart';
 import '../controllers/challenge_attempt_controller.dart';
-import '../controllers/challenge_details_controller.dart';
 import '../widgets/details/challenge_feedback_section.dart';
-import '../widgets/details/challenge_status_chip.dart';
 import '../widgets/details/challenge_action_buttons.dart';
+import '../widgets/details/challenge_header_section.dart';
+import '../widgets/details/challenge_ingredients_section.dart';
+import '../../../common/presentation/screens/loading_screen.dart';
 
 class ChallengeDetailsScreen extends ConsumerWidget {
   static const String name = 'challenge-details';
@@ -26,14 +27,15 @@ class ChallengeDetailsScreen extends ConsumerWidget {
     final attemptAsync = ref.watch(challengeAttemptProvider(attemptId));
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Scaffold(
-      body: attemptAsync.when(
-        data: (attempt) {
-          final challengeAsync =
-              ref.watch(challengeDetailsProvider(attempt.challengeRef));
+    return attemptAsync.when(
+      data: (attempt) {
+        final challengeAsync =
+            AsyncLoading(); // TODO: implement after finishing loading screen
+        // ref.watch(challengeDetailsProvider(attempt.challengeRef));
 
-          return challengeAsync.when(
-            data: (challenge) => CustomScrollView(
+        return challengeAsync.when(
+          data: (challenge) => Scaffold(
+            body: CustomScrollView(
               slivers: [
                 SliverAppBar(
                   pinned: true,
@@ -45,129 +47,48 @@ class ChallengeDetailsScreen extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(Spacing.md),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(Spacing.md),
-                          decoration: BoxDecoration(
-                            color:
-                                colorScheme.primaryContainer.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: colorScheme.primaryContainer,
-                              width: 1,
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  ChallengeStatusChip(status: attempt.status),
-                                  const Spacer(),
-                                  Text(
-                                    DateFormat.yMMMMd()
-                                        .format(attempt.startedAt),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                          color: colorScheme.onSurfaceVariant,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              if (attempt.status ==
-                                  ChallengeStatus.started) ...[
-                                VGap.md,
-                                Text(
-                                  LocaleKeys.challenge_details_inProgress.tr(),
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ],
-                            ],
-                          ),
+                SliverPadding(
+                  padding: const EdgeInsets.all(Spacing.md),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate([
+                      ChallengeHeaderSection(attempt: attempt),
+                      VGap.lg,
+                      ChallengeIngredientsSection(
+                          ingredients: challenge.ingredients),
+                      VGap.xl,
+                      if (attempt.status == ChallengeStatus.started)
+                        ChallengeActionButtons(attemptId: attemptId),
+                      if (attempt.status == ChallengeStatus.completed)
+                        ChallengeFeedbackSection(
+                          attempt: attempt,
+                          onFeedbackSubmitted: (feedback, rating) {
+                            ref
+                                .read(
+                                    challengeAttemptControllerProvider.notifier)
+                                .submitFeedback(attemptId, feedback, rating);
+                          },
                         ),
-                        VGap.lg,
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.restaurant_menu,
-                              size: 24,
-                              color: colorScheme.primary,
-                            ),
-                            HGap.sm,
-                            Text(
-                              LocaleKeys.challenge_ingredients.tr(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                        VGap.md,
-                        ...challenge.ingredients.map((ingredient) => Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: Spacing.sm),
-                              child: Card(
-                                elevation: 0,
-                                color: colorScheme.surface,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side: BorderSide(
-                                    color: colorScheme.outlineVariant,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: Spacing.md,
-                                    vertical: Spacing.sm,
-                                  ),
-                                  title: Text(
-                                    ingredient.name,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  subtitle: ingredient.notes != null
-                                      ? Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: Spacing.xs),
-                                          child: Text(ingredient.notes!),
-                                        )
-                                      : null,
-                                ),
-                              ),
-                            )),
-                        VGap.xl,
-                        if (attempt.status == ChallengeStatus.started)
-                          ChallengeActionButtons(attemptId: attemptId),
-                        if (attempt.status == ChallengeStatus.completed)
-                          ChallengeFeedbackSection(
-                            attempt: attempt,
-                            onFeedbackSubmitted: (feedback, rating) {
-                              ref
-                                  .read(challengeAttemptControllerProvider
-                                      .notifier)
-                                  .submitFeedback(attemptId, feedback, rating);
-                            },
-                          ),
-                      ],
-                    ),
+                    ]),
                   ),
                 ),
               ],
             ),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, _) => Center(
+          ),
+          loading: () => LoadingScreen(
+            message: LocaleKeys.challenge_details_loading.tr(),
+          ),
+          error: (error, _) => Scaffold(
+            body: Center(
               child: Text('${LocaleKeys.error.tr()}: $error'),
             ),
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(
+          ),
+        );
+      },
+      loading: () => LoadingScreen(
+        message: LocaleKeys.challenge_details_loading.tr(),
+      ),
+      error: (error, _) => Scaffold(
+        body: Center(
           child: Text('${LocaleKeys.error.tr()}: $error'),
         ),
       ),

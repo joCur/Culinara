@@ -67,7 +67,8 @@
       },
       "started": "Gestartet",
       "completed": "Abgeschlossen",
-      "failed": "Nicht geschafft"
+      "failed": "Nicht geschafft",
+      "loading": "Lade Challenge Details..."
     }
   },
   "welcome": "Willkommen",

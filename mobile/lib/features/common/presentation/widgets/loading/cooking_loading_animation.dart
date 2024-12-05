@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
-import '../../../../../generated/locale_keys.g.dart';
+import '../../constants/ui_constants.dart';
 
 class CookingLoadingAnimation extends StatelessWidget {
+  final String? message;
   final double size;
 
   const CookingLoadingAnimation({
     super.key,
+    this.message,
     this.size = 200,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            width: size,
-            height: size,
-            child: Lottie.asset(
-              'assets/animations/cooking_loading.json',
-              fit: BoxFit.contain,
-            ),
-          ),
-          const SizedBox(height: 16),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Lottie.asset(
+          'assets/animations/cooking.json',
+          width: size,
+          height: size,
+        ),
+        if (message != null) ...[
+          VGap.md,
           Text(
-            LocaleKeys.challenge_loading.tr(),
+            message!,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ],
-      ),
+      ],
     );
   }
 }

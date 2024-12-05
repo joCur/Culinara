@@ -53,7 +53,9 @@ class GenerateChallengeScreen extends ConsumerWidget {
                       }
                       return ChallengeIngredientsList(ingredients: ingredients);
                     },
-                    loading: () => const CookingLoadingAnimation(),
+                    loading: () => CookingLoadingAnimation(
+                      message: LocaleKeys.challenge_loading.tr(),
+                    ),
                     error: (error, _) => ChallengeErrorView(
                       error: error is ChallengeException
                           ? error
