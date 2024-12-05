@@ -104,9 +104,9 @@ class ChallengeRepository {
 
   Future<DocumentReference<Map<String, dynamic>>> saveChallenge(
       Challenge challenge) async {
-    final docRef =
-        await _firestore.collection('challenges').add(challenge.toFirestore());
-    return docRef;
+    return await _firestore
+        .collection('challenges')
+        .add(challenge.toFirestore());
   }
 
   Future<void> saveChallengeAttempt(ChallengeAttempt attempt) async {

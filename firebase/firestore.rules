@@ -6,20 +6,13 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Hilfsfunktion um zu prüfen ob der Nutzer der Ersteller ist
-    function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
-    }
-
     // Challenges Collection
     match /challenges/{challengeId} {
       allow read: if isAuthenticated();
       // Nur erstellen erlauben, keine Updates oder Löschungen
-      allow create: if isAuthenticated() 
-        && request.resource.data.creatorId == request.auth.uid
-        && request.resource.data.keys().hasAll(['creatorId', 'ingredients', 'timestamp'])
-        && request.resource.data.creatorId is string
-        && request.resource.data.ingredients is list;
+      allow create: if isAuthenticated()
+      	&& request.resource.data.creatorId == request.auth.uid
+        && request.resource.data.keys().hasAll(['ingredients', 'createdAt']);
       allow update: if false;
       allow delete: if false;
     }
@@ -28,17 +21,11 @@ service cloud.firestore {
     match /challengeAttempts/{attemptId} {
       allow read: if isAuthenticated();
       // Erstellen nur wenn der Nutzer sich selbst als userId einträgt
-      allow create: if isAuthenticated() 
-        && request.resource.data.userId == request.auth.uid
-        && request.resource.data.keys().hasAll(['userId', 'challengeId', 'timestamp'])
-        && request.resource.data.userId is string
-        && request.resource.data.challengeId is string;
+      allow create: if isAuthenticated()
+      	&& request.resource.data.userId == request.auth.uid;
       // Updates nur für eigene Attempts
-      allow update: if isAuthenticated() 
-        && resource.data.userId == request.auth.uid
-        && request.resource.data.userId == resource.data.userId
-        && request.resource.data.challengeId == resource.data.challengeId
-        && request.resource.data.keys().hasAll(['userId', 'challengeId', 'timestamp']);
+      allow update: if isAuthenticated()
+      	&& request.resource.data.userId == request.auth.uid;
       allow delete: if false;
     }
   }
