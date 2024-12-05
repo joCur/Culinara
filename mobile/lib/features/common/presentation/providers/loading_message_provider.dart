@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:culinara/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../../generated/locale_keys.g.dart';
 
 part 'loading_message_provider.g.dart';
 
@@ -23,7 +23,6 @@ class LoadingMessageNotifier extends _$LoadingMessageNotifier {
       _timer?.cancel();
     });
 
-    // Start rotating messages
     _timer = Timer.periodic(
       const Duration(seconds: 3),
       (_) => _refresh(context),
@@ -34,37 +33,30 @@ class LoadingMessageNotifier extends _$LoadingMessageNotifier {
 
   String _getRandomMessage(LoadingContext context) {
     final messages = _getMessagesForContext(context);
-    return messages[_random.nextInt(messages.length)].tr();
+    return messages[_random.nextInt(messages.length)];
   }
 
   List<String> _getMessagesForContext(LoadingContext context) {
-    switch (context) {
-      case LoadingContext.generateChallenge:
-        return [
-          LocaleKeys.challenge_loading_generate_checkFridge,
-          LocaleKeys.challenge_loading_generate_checkPantry,
-          LocaleKeys.challenge_loading_generate_checkSpices,
-          LocaleKeys.challenge_loading_generate_getIngredients,
-          LocaleKeys.challenge_loading_generate_consultChef,
-          LocaleKeys.challenge_loading_generate_checkCookbook,
-        ];
-      case LoadingContext.challengeDetails:
-        return [
-          LocaleKeys.challenge_loading_details_setTable,
-          LocaleKeys.challenge_loading_details_getApron,
-          LocaleKeys.challenge_loading_details_washIngredients,
-          LocaleKeys.challenge_loading_details_prepareKitchen,
-          LocaleKeys.challenge_loading_details_sharpenKnives,
-          LocaleKeys.challenge_loading_details_preheatOven,
-        ];
-      case LoadingContext.saveChallenge:
-        return [
-          LocaleKeys.challenge_loading_save_writeRecipe,
-          LocaleKeys.challenge_loading_save_takePhoto,
-          LocaleKeys.challenge_loading_save_shareMasterpiece,
-          LocaleKeys.challenge_loading_save_cleanKitchen,
-        ];
+    final basePath = switch (context) {
+      LoadingContext.generateChallenge => 'challenge.loading.generate',
+      LoadingContext.challengeDetails => 'challenge.loading.details',
+      LoadingContext.saveChallenge => 'challenge.loading.save',
+    };
+
+    final translations = <String>[];
+    var index = 0;
+
+    while (true) {
+      final key = '$basePath.$index';
+      final translation = key.tr();
+
+      if (translation == key) break;
+
+      translations.add(translation);
+      index++;
     }
+
+    return translations;
   }
 
   void _refresh(LoadingContext context) {

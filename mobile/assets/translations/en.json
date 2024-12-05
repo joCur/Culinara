@@ -38,26 +38,26 @@
     },
     "loading": {
       "generate": {
-        "checkFridge": "Checking the fridge...",
-        "checkPantry": "Looking through the pantry...",
-        "checkSpices": "Inspecting the spices...",
-        "getIngredients": "Getting fresh ingredients from the market...",
-        "consultChef": "Consulting with the chef...",
-        "checkCookbook": "Browsing grandma's cookbook..."
+        "0": "Checking the fridge...",
+        "1": "Looking through the pantry...",
+        "2": "Inspecting the spices...",
+        "3": "Getting fresh ingredients from the market...",
+        "4": "Consulting with the chef...",
+        "5": "Browsing grandma's cookbook..."
       },
       "details": {
-        "setTable": "Setting the table...",
-        "getApron": "Getting the apron...",
-        "washIngredients": "Washing the ingredients...",
-        "prepareKitchen": "Preparing the kitchen...",
-        "sharpenKnives": "Sharpening the knives...",
-        "preheatOven": "Preheating the oven..."
+        "0": "Setting the table...",
+        "1": "Getting the apron...",
+        "2": "Washing the ingredients...",
+        "3": "Preparing the kitchen...",
+        "4": "Sharpening the knives...",
+        "5": "Preheating the oven..."
       },
       "save": {
-        "writeRecipe": "Writing down the recipe...",
-        "takePhoto": "Taking a photo of the dish...",
-        "shareMasterpiece": "Sharing your masterpiece...",
-        "cleanKitchen": "Cleaning up the kitchen..."
+        "0": "Writing down the recipe...",
+        "1": "Taking a photo of the dish...",
+        "2": "Sharing your masterpiece...",
+        "3": "Cleaning up the kitchen..."
       }
     },
     "errors": {

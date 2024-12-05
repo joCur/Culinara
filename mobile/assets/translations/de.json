@@ -38,26 +38,26 @@
     },
     "loading": {
       "generate": {
-        "checkFridge": "Durchstöbere den Kühlschrank...",
-        "checkPantry": "Schaue in die Vorratskammer...",
-        "checkSpices": "Überprüfe die Gewürze...",
-        "getIngredients": "Hole frische Zutaten vom Markt...",
-        "consultChef": "Spreche mit dem Koch...",
-        "checkCookbook": "Blättere durch Omas Kochbuch..."
+        "0": "Durchstöbere den Kühlschrank...",
+        "1": "Schaue in die Vorratskammer...",
+        "2": "Überprüfe die Gewürze...",
+        "3": "Hole frische Zutaten vom Markt...",
+        "4": "Spreche mit dem Koch...",
+        "5": "Blättere durch Omas Kochbuch..."
       },
       "details": {
-        "setTable": "Decke den Tisch...",
-        "getApron": "Hole die Kochschürze...",
-        "washIngredients": "Wasche die Zutaten...",
-        "prepareKitchen": "Bereite die Küche vor...",
-        "sharpenKnives": "Schärfe die Messer...",
-        "preheatOven": "Heize den Ofen vor..."
+        "0": "Decke den Tisch...",
+        "1": "Hole die Kochschürze...",
+        "2": "Wasche die Zutaten...",
+        "3": "Bereite die Küche vor...",
+        "4": "Schärfe die Messer...",
+        "5": "Heize den Ofen vor..."
       },
       "save": {
-        "writeRecipe": "Schreibe das Rezept auf...",
-        "takePhoto": "Mache ein Foto vom Gericht...",
-        "shareMasterpiece": "Teile dein Meisterwerk...",
-        "cleanKitchen": "Räume die Küche auf..."
+        "0": "Schreibe das Rezept auf...",
+        "1": "Mache ein Foto vom Gericht...",
+        "2": "Teile dein Meisterwerk...",
+        "3": "Räume die Küche auf..."
       }
     },
     "errors": {

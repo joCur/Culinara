@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../constants/ui_constants.dart';
+import 'animated_loading_text.dart';
 
 class CookingLoadingAnimation extends StatelessWidget {
   final String? message;
@@ -24,8 +25,8 @@ class CookingLoadingAnimation extends StatelessWidget {
         ),
         if (message != null) ...[
           VGap.md,
-          Text(
-            message!,
+          AnimatedLoadingText(
+            text: message!,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ],
