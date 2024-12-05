@@ -55,10 +55,14 @@ abstract class  LocaleKeys {
   static const challenge_details_title = 'challenge.details.title';
   static const challenge_details_status = 'challenge.details.status';
   static const challenge_details_updateStatus = 'challenge.details.updateStatus';
+  static const challenge_details_inProgress = 'challenge.details.inProgress';
   static const challenge_details_feedback_title = 'challenge.details.feedback.title';
   static const challenge_details_feedback_hint = 'challenge.details.feedback.hint';
   static const challenge_details_feedback_submit = 'challenge.details.feedback.submit';
   static const challenge_details_feedback = 'challenge.details.feedback';
+  static const challenge_details_started = 'challenge.details.started';
+  static const challenge_details_completed = 'challenge.details.completed';
+  static const challenge_details_failed = 'challenge.details.failed';
   static const challenge_details = 'challenge.details';
   static const challenge = 'challenge';
   static const welcome = 'welcome';

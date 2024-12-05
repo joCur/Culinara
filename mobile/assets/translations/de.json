@@ -59,11 +59,15 @@
       "title": "Challenge Details",
       "status": "Status",
       "updateStatus": "Status aktualisieren",
+      "inProgress": "Koche jetzt dein Gericht mit den vorgegebenen Zutaten!",
       "feedback": {
         "title": "Dein Feedback",
         "hint": "Wie war die Challenge? Was hast du gekocht?",
         "submit": "Feedback senden"
-      }
+      },
+      "started": "Gestartet",
+      "completed": "Abgeschlossen",
+      "failed": "Nicht geschafft"
     }
   },
   "welcome": "Willkommen",

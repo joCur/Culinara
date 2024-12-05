@@ -59,11 +59,15 @@
       "title": "Challenge Details",
       "status": "Status",
       "updateStatus": "Update Status",
+      "inProgress": "Cook your dish now with the given ingredients!",
       "feedback": {
         "title": "Your Feedback",
         "hint": "How was the challenge? What did you cook?",
         "submit": "Submit Feedback"
-      }
+      },
+      "started": "Started",
+      "completed": "Completed",
+      "failed": "Failed"
     }
   },
   "welcome": "Welcome",
