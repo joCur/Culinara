@@ -35,4 +35,44 @@ service cloud.firestore {
       allow delete: false;
     }
   }
+}
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Profilbilder-Pfad: 'profile_images/{userId}/profile.jpg'
+    match /profile_images/{userId}/{fileName} {
+      // Erlaubt Lesen für alle
+      allow read: if true;
+      // Erlaubt Löschen für den Besitzer
+      allow delete: if
+        // Prüft ob der Nutzer eingeloggt ist
+        request.auth != null &&
+        // Prüft ob der Nutzer sein eigenes Verzeichnis bearbeitet
+        request.auth.uid == userId;
+      // Erlaubt Schreiben nur für den Besitzer
+      allow write: if 
+        // Prüft ob der Nutzer eingeloggt ist
+        request.auth != null &&
+        // Prüft ob der Nutzer sein eigenes Verzeichnis bearbeitet
+        request.auth.uid == userId &&
+        // Optional: Prüft ob es sich um ein Bild handelt
+        request.resource.contentType.matches('image/.*') &&
+        // Optional: Limitiert die Dateigröße (hier: 5MB)
+        request.resource.size < 5 * 1024 * 1024;
+    }
+
+    // Challenge-Bilder-Pfad: 'challenge_images/{attemptId}/{fileName}'
+    match /challenge_images/{attemptId}/{fileName} {
+      // Erlaubt Lesen für alle
+      allow read: if true;
+      // Erlaubt Schreiben nur für authentifizierte Nutzer
+      allow write: if
+        // Prüft ob der Nutzer eingeloggt ist
+        request.auth != null &&
+        // Prüft ob es sich um ein Bild handelt
+        request.resource.contentType.matches('image/.*') &&
+        // Limitiert die Dateigröße (hier: 5MB)
+        request.resource.size < 5 * 1024 * 1024;
+    }
+  }
 } 

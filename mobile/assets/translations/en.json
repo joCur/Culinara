@@ -69,7 +69,10 @@
       "default": "An error occurred. Please try again later",
       "acceptFailed": "Failed to save the challenge",
       "noUser": "You need to be logged in to accept a challenge",
-      "tooManyChallenges": "You have reached the maximum number of active challenges"
+      "tooManyChallenges": "You have reached the maximum number of active challenges",
+      "updateFailed": "Failed to update the challenge status",
+      "imageUploadFailed": "Failed to upload one or more images",
+      "reflectionFailed": "Failed to save your reflection"
     },
     "success": {
       "accepted": "Challenge successfully accepted!"
@@ -82,6 +85,7 @@
       "title": "Challenge Details",
       "status": "Status",
       "updateStatus": "Update Status",
+      "statusWarning": "This action cannot be undone. Choose carefully!",
       "inProgress": "Cook your dish now with the given ingredients!",
       "feedback": {
         "title": "Your Feedback",
@@ -91,7 +95,29 @@
       "started": "Started",
       "completed": "Completed",
       "failed": "Failed",
-      "loading": "Loading challenge details..."
+      "loading": "Loading challenge details...",
+      "reflection": {
+        "title": "Your Reflection",
+        "dish_name": "What did you cook?",
+        "dish_name_hint": "Enter the name of your dish",
+        "learnings_label": "How was your experience?",
+        "learnings_hint": "Share what you learned...",
+        "difficulty_label": "How difficult was it?",
+        "difficulty_very_easy": "Very Easy",
+        "difficulty_easy": "Easy",
+        "difficulty_moderate": "Moderate",
+        "difficulty_hard": "Hard",
+        "difficulty_very_hard": "Very Hard",
+        "would_try_again_label": "Would cook again",
+        "add_images": "Add photos of your dish",
+        "submit": "Save Reflection",
+        "prompt": "Great job completing the challenge! Take a moment to reflect on your experience.",
+        "start": "Start Reflection",
+        "add_images_title": "Add Photo",
+        "take_photo": "Take Photo",
+        "choose_photo": "Choose from Gallery",
+        "subtitle": "Share your experience and document your creation"
+      }
     }
   },
   "welcome": "Welcome",

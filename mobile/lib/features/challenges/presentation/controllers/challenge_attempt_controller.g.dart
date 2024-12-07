@@ -6,7 +6,8 @@ part of 'challenge_attempt_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$challengeAttemptHash() => r'2fc923041649415ed522047546ef1d4624433bfc';
+String _$challengeAttemptControllerHash() =>
+    r'3b91ebf9fe2193058e73745bd42ba92053aee6b1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +30,37 @@ class _SystemHash {
   }
 }
 
-/// See also [challengeAttempt].
-@ProviderFor(challengeAttempt)
-const challengeAttemptProvider = ChallengeAttemptFamily();
+abstract class _$ChallengeAttemptController
+    extends BuildlessAutoDisposeAsyncNotifier<ChallengeAttempt> {
+  late final String attemptId;
 
-/// See also [challengeAttempt].
-class ChallengeAttemptFamily extends Family<AsyncValue<ChallengeAttempt>> {
-  /// See also [challengeAttempt].
-  const ChallengeAttemptFamily();
+  FutureOr<ChallengeAttempt> build(
+    String attemptId,
+  );
+}
 
-  /// See also [challengeAttempt].
-  ChallengeAttemptProvider call(
+/// See also [ChallengeAttemptController].
+@ProviderFor(ChallengeAttemptController)
+const challengeAttemptControllerProvider = ChallengeAttemptControllerFamily();
+
+/// See also [ChallengeAttemptController].
+class ChallengeAttemptControllerFamily
+    extends Family<AsyncValue<ChallengeAttempt>> {
+  /// See also [ChallengeAttemptController].
+  const ChallengeAttemptControllerFamily();
+
+  /// See also [ChallengeAttemptController].
+  ChallengeAttemptControllerProvider call(
     String attemptId,
   ) {
-    return ChallengeAttemptProvider(
+    return ChallengeAttemptControllerProvider(
       attemptId,
     );
   }
 
   @override
-  ChallengeAttemptProvider getProviderOverride(
-    covariant ChallengeAttemptProvider provider,
+  ChallengeAttemptControllerProvider getProviderOverride(
+    covariant ChallengeAttemptControllerProvider provider,
   ) {
     return call(
       provider.attemptId,
@@ -68,33 +79,31 @@ class ChallengeAttemptFamily extends Family<AsyncValue<ChallengeAttempt>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'challengeAttemptProvider';
+  String? get name => r'challengeAttemptControllerProvider';
 }
 
-/// See also [challengeAttempt].
-class ChallengeAttemptProvider
-    extends AutoDisposeFutureProvider<ChallengeAttempt> {
-  /// See also [challengeAttempt].
-  ChallengeAttemptProvider(
+/// See also [ChallengeAttemptController].
+class ChallengeAttemptControllerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<ChallengeAttemptController,
+        ChallengeAttempt> {
+  /// See also [ChallengeAttemptController].
+  ChallengeAttemptControllerProvider(
     String attemptId,
   ) : this._internal(
-          (ref) => challengeAttempt(
-            ref as ChallengeAttemptRef,
-            attemptId,
-          ),
-          from: challengeAttemptProvider,
-          name: r'challengeAttemptProvider',
+          () => ChallengeAttemptController()..attemptId = attemptId,
+          from: challengeAttemptControllerProvider,
+          name: r'challengeAttemptControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$challengeAttemptHash,
-          dependencies: ChallengeAttemptFamily._dependencies,
+                  : _$challengeAttemptControllerHash,
+          dependencies: ChallengeAttemptControllerFamily._dependencies,
           allTransitiveDependencies:
-              ChallengeAttemptFamily._allTransitiveDependencies,
+              ChallengeAttemptControllerFamily._allTransitiveDependencies,
           attemptId: attemptId,
         );
 
-  ChallengeAttemptProvider._internal(
+  ChallengeAttemptControllerProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -107,13 +116,20 @@ class ChallengeAttemptProvider
   final String attemptId;
 
   @override
-  Override overrideWith(
-    FutureOr<ChallengeAttempt> Function(ChallengeAttemptRef provider) create,
+  FutureOr<ChallengeAttempt> runNotifierBuild(
+    covariant ChallengeAttemptController notifier,
   ) {
+    return notifier.build(
+      attemptId,
+    );
+  }
+
+  @override
+  Override overrideWith(ChallengeAttemptController Function() create) {
     return ProviderOverride(
       origin: this,
-      override: ChallengeAttemptProvider._internal(
-        (ref) => create(ref as ChallengeAttemptRef),
+      override: ChallengeAttemptControllerProvider._internal(
+        () => create()..attemptId = attemptId,
         from: from,
         name: null,
         dependencies: null,
@@ -125,13 +141,15 @@ class ChallengeAttemptProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<ChallengeAttempt> createElement() {
-    return _ChallengeAttemptProviderElement(this);
+  AutoDisposeAsyncNotifierProviderElement<ChallengeAttemptController,
+      ChallengeAttempt> createElement() {
+    return _ChallengeAttemptControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ChallengeAttemptProvider && other.attemptId == attemptId;
+    return other is ChallengeAttemptControllerProvider &&
+        other.attemptId == attemptId;
   }
 
   @override
@@ -145,36 +163,20 @@ class ChallengeAttemptProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin ChallengeAttemptRef on AutoDisposeFutureProviderRef<ChallengeAttempt> {
+mixin ChallengeAttemptControllerRef
+    on AutoDisposeAsyncNotifierProviderRef<ChallengeAttempt> {
   /// The parameter `attemptId` of this provider.
   String get attemptId;
 }
 
-class _ChallengeAttemptProviderElement
-    extends AutoDisposeFutureProviderElement<ChallengeAttempt>
-    with ChallengeAttemptRef {
-  _ChallengeAttemptProviderElement(super.provider);
+class _ChallengeAttemptControllerProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<ChallengeAttemptController,
+        ChallengeAttempt> with ChallengeAttemptControllerRef {
+  _ChallengeAttemptControllerProviderElement(super.provider);
 
   @override
-  String get attemptId => (origin as ChallengeAttemptProvider).attemptId;
+  String get attemptId =>
+      (origin as ChallengeAttemptControllerProvider).attemptId;
 }
-
-String _$challengeAttemptControllerHash() =>
-    r'2bf3cbdfc7d6c79c1886d804b6a9a3ee6501990e';
-
-/// See also [ChallengeAttemptController].
-@ProviderFor(ChallengeAttemptController)
-final challengeAttemptControllerProvider =
-    AutoDisposeAsyncNotifierProvider<ChallengeAttemptController, void>.internal(
-  ChallengeAttemptController.new,
-  name: r'challengeAttemptControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$challengeAttemptControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$ChallengeAttemptController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

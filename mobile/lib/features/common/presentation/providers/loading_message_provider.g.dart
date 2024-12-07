@@ -7,7 +7,7 @@ part of 'loading_message_provider.dart';
 // **************************************************************************
 
 String _$loadingMessageNotifierHash() =>
-    r'33ccf7839606c18fb7e7c2240aa128f59bf8c639';
+    r'fa45cd2ff6398509fdcdc4312bb4adb0c53dd0da';
 
 /// Copied from Dart SDK
 class _SystemHash {

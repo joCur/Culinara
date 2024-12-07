@@ -11,6 +11,7 @@ import '../features/auth/presentation/screens/change_password_screen.dart';
 import '../features/auth/presentation/screens/forgot_password_screen.dart';
 import '../features/challenges/presentation/screens/generate_challenge_screen.dart';
 import '../features/challenges/presentation/screens/challenge_details_screen.dart';
+import '../features/challenges/presentation/screens/challenge_reflection_screen.dart';
 
 part 'router.g.dart';
 
@@ -106,6 +107,15 @@ GoRouter router(Ref ref) {
         builder: (context, state) => ChallengeDetailsScreen(
           attemptId: state.pathParameters['id']!,
         ),
+        routes: [
+          GoRoute(
+            path: 'reflection',
+            name: ChallengeReflectionScreen.name,
+            builder: (context, state) => ChallengeReflectionScreen(
+              attemptId: state.pathParameters['id']!,
+            ),
+          ),
+        ],
       ),
     ],
   );

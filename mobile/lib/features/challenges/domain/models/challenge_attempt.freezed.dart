@@ -31,8 +31,7 @@ mixin _$ChallengeAttempt {
   String? get completedImageUrl => throw _privateConstructorUsedError;
   @NullableTimestampOrStringConverter()
   DateTime? get completedAt => throw _privateConstructorUsedError;
-  String? get feedback => throw _privateConstructorUsedError;
-  int? get rating => throw _privateConstructorUsedError;
+  ChallengeReflection? get reflection => throw _privateConstructorUsedError;
 
   /// Serializes this ChallengeAttempt to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -59,8 +58,9 @@ abstract class $ChallengeAttemptCopyWith<$Res> {
       ChallengeStatus status,
       String? completedImageUrl,
       @NullableTimestampOrStringConverter() DateTime? completedAt,
-      String? feedback,
-      int? rating});
+      ChallengeReflection? reflection});
+
+  $ChallengeReflectionCopyWith<$Res>? get reflection;
 }
 
 /// @nodoc
@@ -85,8 +85,7 @@ class _$ChallengeAttemptCopyWithImpl<$Res, $Val extends ChallengeAttempt>
     Object? status = null,
     Object? completedImageUrl = freezed,
     Object? completedAt = freezed,
-    Object? feedback = freezed,
-    Object? rating = freezed,
+    Object? reflection = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -117,15 +116,25 @@ class _$ChallengeAttemptCopyWithImpl<$Res, $Val extends ChallengeAttempt>
           ? _value.completedAt
           : completedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      feedback: freezed == feedback
-          ? _value.feedback
-          : feedback // ignore: cast_nullable_to_non_nullable
-              as String?,
-      rating: freezed == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as int?,
+      reflection: freezed == reflection
+          ? _value.reflection
+          : reflection // ignore: cast_nullable_to_non_nullable
+              as ChallengeReflection?,
     ) as $Val);
+  }
+
+  /// Create a copy of ChallengeAttempt
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ChallengeReflectionCopyWith<$Res>? get reflection {
+    if (_value.reflection == null) {
+      return null;
+    }
+
+    return $ChallengeReflectionCopyWith<$Res>(_value.reflection!, (value) {
+      return _then(_value.copyWith(reflection: value) as $Val);
+    });
   }
 }
 
@@ -146,8 +155,10 @@ abstract class _$$ChallengeAttemptImplCopyWith<$Res>
       ChallengeStatus status,
       String? completedImageUrl,
       @NullableTimestampOrStringConverter() DateTime? completedAt,
-      String? feedback,
-      int? rating});
+      ChallengeReflection? reflection});
+
+  @override
+  $ChallengeReflectionCopyWith<$Res>? get reflection;
 }
 
 /// @nodoc
@@ -170,8 +181,7 @@ class __$$ChallengeAttemptImplCopyWithImpl<$Res>
     Object? status = null,
     Object? completedImageUrl = freezed,
     Object? completedAt = freezed,
-    Object? feedback = freezed,
-    Object? rating = freezed,
+    Object? reflection = freezed,
   }) {
     return _then(_$ChallengeAttemptImpl(
       id: null == id
@@ -202,14 +212,10 @@ class __$$ChallengeAttemptImplCopyWithImpl<$Res>
           ? _value.completedAt
           : completedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      feedback: freezed == feedback
-          ? _value.feedback
-          : feedback // ignore: cast_nullable_to_non_nullable
-              as String?,
-      rating: freezed == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as int?,
+      reflection: freezed == reflection
+          ? _value.reflection
+          : reflection // ignore: cast_nullable_to_non_nullable
+              as ChallengeReflection?,
     ));
   }
 }
@@ -225,8 +231,7 @@ class _$ChallengeAttemptImpl extends _ChallengeAttempt {
       required this.status,
       this.completedImageUrl,
       @NullableTimestampOrStringConverter() this.completedAt,
-      this.feedback,
-      this.rating})
+      this.reflection})
       : super._();
 
   factory _$ChallengeAttemptImpl.fromJson(Map<String, dynamic> json) =>
@@ -250,13 +255,11 @@ class _$ChallengeAttemptImpl extends _ChallengeAttempt {
   @NullableTimestampOrStringConverter()
   final DateTime? completedAt;
   @override
-  final String? feedback;
-  @override
-  final int? rating;
+  final ChallengeReflection? reflection;
 
   @override
   String toString() {
-    return 'ChallengeAttempt(id: $id, challengeRef: $challengeRef, userId: $userId, startedAt: $startedAt, status: $status, completedImageUrl: $completedImageUrl, completedAt: $completedAt, feedback: $feedback, rating: $rating)';
+    return 'ChallengeAttempt(id: $id, challengeRef: $challengeRef, userId: $userId, startedAt: $startedAt, status: $status, completedImageUrl: $completedImageUrl, completedAt: $completedAt, reflection: $reflection)';
   }
 
   @override
@@ -275,15 +278,14 @@ class _$ChallengeAttemptImpl extends _ChallengeAttempt {
                 other.completedImageUrl == completedImageUrl) &&
             (identical(other.completedAt, completedAt) ||
                 other.completedAt == completedAt) &&
-            (identical(other.feedback, feedback) ||
-                other.feedback == feedback) &&
-            (identical(other.rating, rating) || other.rating == rating));
+            (identical(other.reflection, reflection) ||
+                other.reflection == reflection));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, challengeRef, userId,
-      startedAt, status, completedImageUrl, completedAt, feedback, rating);
+      startedAt, status, completedImageUrl, completedAt, reflection);
 
   /// Create a copy of ChallengeAttempt
   /// with the given fields replaced by the non-null parameter values.
@@ -312,8 +314,7 @@ abstract class _ChallengeAttempt extends ChallengeAttempt {
       required final ChallengeStatus status,
       final String? completedImageUrl,
       @NullableTimestampOrStringConverter() final DateTime? completedAt,
-      final String? feedback,
-      final int? rating}) = _$ChallengeAttemptImpl;
+      final ChallengeReflection? reflection}) = _$ChallengeAttemptImpl;
   const _ChallengeAttempt._() : super._();
 
   factory _ChallengeAttempt.fromJson(Map<String, dynamic> json) =
@@ -337,9 +338,7 @@ abstract class _ChallengeAttempt extends ChallengeAttempt {
   @NullableTimestampOrStringConverter()
   DateTime? get completedAt;
   @override
-  String? get feedback;
-  @override
-  int? get rating;
+  ChallengeReflection? get reflection;
 
   /// Create a copy of ChallengeAttempt
   /// with the given fields replaced by the non-null parameter values.

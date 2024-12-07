@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:culinara/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

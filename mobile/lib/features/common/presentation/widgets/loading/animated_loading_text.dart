@@ -44,15 +44,25 @@ class _AnimatedLoadingTextState extends State<AnimatedLoadingText>
 
   void _startAnimation() {
     _timer?.cancel();
+
+    if (!mounted) return;
+
     Future.delayed(widget.startDelay, () {
+      if (!mounted) return;
+
       _timer = Timer.periodic(widget.typingSpeed, (timer) {
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
+
         if (_charIndex < widget.text.length) {
           setState(() {
             _displayedText += widget.text[_charIndex];
             _charIndex++;
           });
         } else {
-          _timer?.cancel();
+          timer.cancel();
         }
       });
     });

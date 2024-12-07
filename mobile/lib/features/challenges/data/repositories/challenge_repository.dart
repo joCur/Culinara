@@ -174,4 +174,24 @@ class ChallengeRepository {
       'rating': rating,
     });
   }
+
+  Future<void> updateChallengeReflection(
+    String attemptId, {
+    required String dishName,
+    required String learnings,
+    required int difficultyRating,
+    required bool wouldTryAgain,
+    List<String>? imageUrls,
+  }) async {
+    await _firestore.collection('challengeAttempts').doc(attemptId).update({
+      'reflection': {
+        'dishName': dishName,
+        'learnings': learnings,
+        'difficultyRating': difficultyRating,
+        'wouldTryAgain': wouldTryAgain,
+        'imageUrls': imageUrls,
+        'timestamp': FieldValue.serverTimestamp(),
+      },
+    });
+  }
 }

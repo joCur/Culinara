@@ -69,7 +69,10 @@
       "default": "Ein Fehler ist aufgetreten. Bitte versuche es später erneut",
       "acceptFailed": "Die Challenge konnte nicht gespeichert werden",
       "noUser": "Du musst angemeldet sein, um eine Challenge zu akzeptieren",
-      "tooManyChallenges": "Du hast bereits die maximale Anzahl an aktiven Challenges erreicht"
+      "tooManyChallenges": "Du hast bereits die maximale Anzahl an aktiven Challenges erreicht",
+      "updateFailed": "Der Status konnte nicht aktualisiert werden",
+      "imageUploadFailed": "Ein oder mehrere Bilder konnten nicht hochgeladen werden",
+      "reflectionFailed": "Deine Reflexion konnte nicht gespeichert werden"
     },
     "success": {
       "accepted": "Challenge erfolgreich akzeptiert!"
@@ -82,6 +85,7 @@
       "title": "Challenge Details",
       "status": "Status",
       "updateStatus": "Status aktualisieren",
+      "statusWarning": "Diese Aktion kann nicht rückgängig gemacht werden. Wähle sorgfältig!",
       "inProgress": "Koche jetzt dein Gericht mit den vorgegebenen Zutaten!",
       "feedback": {
         "title": "Dein Feedback",
@@ -91,7 +95,29 @@
       "started": "Gestartet",
       "completed": "Abgeschlossen",
       "failed": "Nicht geschafft",
-      "loading": "Lade Challenge Details..."
+      "loading": "Lade Challenge Details...",
+      "reflection": {
+        "title": "Deine Reflexion",
+        "dish_name": "Was hast du gekocht?",
+        "dish_name_hint": "Gib den Namen deines Gerichts ein",
+        "learnings_label": "Wie war deine Erfahrung?",
+        "learnings_hint": "Teile, was du gelernt hast...",
+        "difficulty_label": "Wie schwierig war es?",
+        "difficulty_very_easy": "Sehr Einfach",
+        "difficulty_easy": "Einfach",
+        "difficulty_moderate": "Mittel",
+        "difficulty_hard": "Schwierig",
+        "difficulty_very_hard": "Sehr Schwierig",
+        "would_try_again_label": "Würde ich wieder kochen",
+        "add_images": "Fotos deines Gerichts hinzufügen",
+        "submit": "Reflexion Speichern",
+        "prompt": "Toll, dass du die Challenge geschafft hast! Nimm dir einen Moment Zeit, um über deine Erfahrung nachzudenken.",
+        "start": "Reflexion Starten",
+        "add_images_title": "Foto hinzufügen",
+        "take_photo": "Foto aufnehmen",
+        "choose_photo": "Aus Galerie wählen",
+        "subtitle": "Teile deine Erfahrung und dokumentiere deine Kreation"
+      }
     }
   },
   "welcome": "Willkommen",

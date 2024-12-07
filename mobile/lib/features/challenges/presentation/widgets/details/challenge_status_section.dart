@@ -17,6 +17,8 @@ class ChallengeStatusSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(Spacing.md),
@@ -28,20 +30,39 @@ class ChallengeStatusSection extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             VGap.md,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _StatusButton(
-                  status: ChallengeStatus.completed,
-                  currentStatus: attempt.status,
-                  onPressed: () => onStatusChanged(ChallengeStatus.completed),
-                ),
-                _StatusButton(
-                  status: ChallengeStatus.failed,
-                  currentStatus: attempt.status,
-                  onPressed: () => onStatusChanged(ChallengeStatus.failed),
-                ),
-              ],
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _StatusButton(
+                      onPressed: () =>
+                          onStatusChanged(ChallengeStatus.completed),
+                      icon: Icons.check_circle_outline,
+                      label: ChallengeStatus.completed.name.tr(),
+                      backgroundColor: Colors.green.shade700.withOpacity(0.15),
+                      foregroundColor: Colors.green.shade700,
+                    ),
+                  ),
+                  HGap.md,
+                  Expanded(
+                    child: _StatusButton(
+                      onPressed: () => onStatusChanged(ChallengeStatus.failed),
+                      icon: Icons.cancel_outlined,
+                      label: ChallengeStatus.failed.name.tr(),
+                      backgroundColor: Colors.red.shade700.withOpacity(0.15),
+                      foregroundColor: Colors.red.shade700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            VGap.sm,
+            Text(
+              LocaleKeys.challenge_details_statusWarning.tr(),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
@@ -51,38 +72,58 @@ class ChallengeStatusSection extends ConsumerWidget {
 }
 
 class _StatusButton extends StatelessWidget {
-  final ChallengeStatus status;
-  final ChallengeStatus currentStatus;
   final VoidCallback onPressed;
+  final IconData icon;
+  final String label;
+  final Color backgroundColor;
+  final Color foregroundColor;
 
   const _StatusButton({
-    required this.status,
-    required this.currentStatus,
     required this.onPressed,
+    required this.icon,
+    required this.label,
+    required this.backgroundColor,
+    required this.foregroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isSelected = status == currentStatus;
-    return FilledButton.icon(
-      onPressed: isSelected ? null : onPressed,
-      icon: Icon(_getStatusIcon(status)),
-      label: Text(status.name.tr()),
-      style: FilledButton.styleFrom(
-        backgroundColor:
-            isSelected ? Theme.of(context).colorScheme.primaryContainer : null,
+    return Material(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(24),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(24),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Spacing.sm,
+            vertical: Spacing.sm,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                color: foregroundColor,
+                size: 18,
+              ),
+              HGap.xs,
+              Flexible(
+                child: Text(
+                  label.toLowerCase(),
+                  style: TextStyle(
+                    color: foregroundColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
-  }
-
-  IconData _getStatusIcon(ChallengeStatus status) {
-    switch (status) {
-      case ChallengeStatus.completed:
-        return Icons.check_circle_outline;
-      case ChallengeStatus.failed:
-        return Icons.cancel_outlined;
-      default:
-        return Icons.hourglass_empty;
-    }
   }
 }

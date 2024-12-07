@@ -1,0 +1,154 @@
+{
+    "project": {
+        "name": "Culinara",
+        "type": "Flutter Mobile Application",
+        "description": "A culinary app for recipe discovery and sharing",
+        "purpose": "Enable users to discover, create, and share culinary recipes with a focus on ingredient combinations and cooking techniques",
+        "target_platforms": ["iOS", "Android"]
+    },
+    "project_structure": {
+        "root_directories": {
+            "lib/": "Main source code directory",
+            "lib/features/": "Feature-based modules (each feature in its own directory)",
+            "lib/core/": "Shared core functionality, utilities, and base classes",
+            "lib/router/": "Application routing configuration",
+            "lib/constants/": "Global constants and configuration",
+            "lib/generated/": "Generated code (localizations, freezed models)",
+            "assets/": "Static assets (translations, animations, images)",
+            "test/": "Test files following the same structure as lib/"
+        },
+        "feature_module_structure": {
+            "data/": "Data layer (repositories, data sources)",
+            "domain/": "Business logic and models",
+            "presentation/": "UI components and screens",
+            "application/": "State management (providers, controllers)"
+        }
+    },
+    "code_organization": {
+        "feature_structure": {
+            "pattern": "Vertical slice architecture",
+            "guidelines": [
+                "Each feature should be self-contained",
+                "Shared code goes into core/",
+                "Feature-specific models stay within the feature",
+                "Follow Clean Architecture principles within features"
+            ]
+        },
+        "file_naming": {
+            "pattern": "snake_case",
+            "examples": {
+                "screens": "home_screen.dart",
+                "widgets": "recipe_card.dart",
+                "models": "recipe_model.dart",
+                "providers": "auth_provider.dart"
+            }
+        },
+        "folder_structure": {
+            "widgets": "Place reusable widgets in a widgets/ subdirectory",
+            "models": "Place models in a models/ subdirectory",
+            "providers": "Place providers in a providers/ subdirectory"
+        }
+    },
+    "technology_stack": {
+        "framework": "Flutter",
+        "sdk_version": "^3.5.4",
+        "state_management": "Riverpod",
+        "backend": "Firebase",
+        "localization": "easy_localization"
+    },
+    "code_style": {
+        "linting": {
+            "base": "package:flutter_lints/flutter.yaml",
+            "custom_rules": []
+        },
+        "formatting": {
+            "indentation": "2 spaces",
+            "max_line_length": "80",
+            "prefer_single_quotes": true
+        },
+        "naming_conventions": {
+            "classes": "PascalCase",
+            "variables": "camelCase",
+            "constants": "SCREAMING_SNAKE_CASE",
+            "private_members": "_camelCase"
+        }
+    },
+    "architecture": {
+        "state_management": {
+            "pattern": "Riverpod with code generation",
+            "annotations": ["@riverpod", "@riverpod_annotation"]
+        },
+        "routing": "go_router",
+        "models": {
+            "generation": ["freezed", "json_serializable"],
+            "immutability": true
+        }
+    },
+    "dependencies": {
+        "core": [
+            "firebase_core",
+            "firebase_auth",
+            "cloud_firestore",
+            "cloud_functions"
+        ],
+        "ui": [
+            "flex_color_scheme",
+            "lottie",
+            "shimmer"
+        ],
+        "dev_tools": [
+            "build_runner",
+            "riverpod_generator",
+            "custom_lint",
+            "riverpod_lint"
+        ]
+    },
+    "best_practices": {
+        "state_management": [
+            "Use Riverpod for all state management",
+            "Implement proper dependency injection",
+            "Use code generation for providers"
+        ],
+        "architecture": [
+            "Follow feature-first architecture",
+            "Keep widgets small and focused",
+            "Separate business logic from UI"
+        ],
+        "testing": [
+            "Write unit tests for business logic",
+            "Use widget tests for complex UI components"
+        ],
+        "localization": [
+            "Use easy_localization for all text",
+            "Keep translations in assets/translations/"
+        ],
+        "firebase": [
+            "Follow security rules in firestore.rules",
+            "Implement proper error handling for all Firebase operations"
+        ],
+        "code_quality": [
+            "Document complex business logic",
+            "Use meaningful variable and function names",
+            "Keep functions small and focused",
+            "Follow SOLID principles"
+        ]
+    },
+    "assets": {
+        "paths": [
+            "assets/translations/",
+            "assets/animations/"
+        ]
+    },
+    "git_practices": {
+        "branch_naming": {
+            "feature": "feature/",
+            "bugfix": "bugfix/",
+            "hotfix": "hotfix/",
+            "release": "release/"
+        },
+        "commit_messages": {
+            "format": "<type>(<scope>): <description>",
+            "types": ["feat", "fix", "docs", "style", "refactor", "test", "chore"]
+        }
+    }
+}

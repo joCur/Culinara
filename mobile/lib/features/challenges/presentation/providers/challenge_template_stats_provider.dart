@@ -17,7 +17,7 @@ final challengeTemplateStatsProvider = StreamProvider.family
       timesAttempted: attempts.length,
       timesCompleted:
           attempts.where((a) => a.status == ChallengeStatus.completed).length,
-      averageRating: _calculateAverageRating(attempts),
+      averageDifficulty: _calculateAverageDifficulty(attempts),
     );
   });
 });
@@ -25,24 +25,24 @@ final challengeTemplateStatsProvider = StreamProvider.family
 class ChallengeTemplateStats {
   final int timesAttempted;
   final int timesCompleted;
-  final double? averageRating;
+  final double? averageDifficulty;
 
   const ChallengeTemplateStats({
     required this.timesAttempted,
     required this.timesCompleted,
-    this.averageRating,
+    this.averageDifficulty,
   });
 }
 
-double? _calculateAverageRating(List<ChallengeAttempt> attempts) {
-  final completedWithRating = attempts
-      .where((a) => a.status == ChallengeStatus.completed && a.rating != null);
+double? _calculateAverageDifficulty(List<ChallengeAttempt> attempts) {
+  final completedWithReflection = attempts.where(
+      (a) => a.status == ChallengeStatus.completed && a.reflection != null);
 
-  if (completedWithRating.isEmpty) return null;
+  if (completedWithReflection.isEmpty) return null;
 
-  final sum = completedWithRating
-      .map((a) => a.rating!)
+  final sum = completedWithReflection
+      .map((a) => a.reflection!.difficultyRating)
       .reduce((value, element) => value + element);
 
-  return sum / completedWithRating.length;
+  return sum / completedWithReflection.length;
 }

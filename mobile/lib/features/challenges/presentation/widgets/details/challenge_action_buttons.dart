@@ -32,8 +32,9 @@ class ChallengeActionButtons extends ConsumerWidget {
                 Expanded(
                   child: FilledButton.icon(
                     onPressed: () => ref
-                        .read(challengeAttemptControllerProvider.notifier)
-                        .updateStatus(attemptId, ChallengeStatus.completed),
+                        .read(challengeAttemptControllerProvider(attemptId)
+                            .notifier)
+                        .updateStatus(ChallengeStatus.completed),
                     icon: const Icon(Icons.check_circle_outline),
                     label: Text(ChallengeStatus.completed.name.tr()),
                     style: FilledButton.styleFrom(
@@ -45,8 +46,9 @@ class ChallengeActionButtons extends ConsumerWidget {
                 Expanded(
                   child: OutlinedButton.icon(
                     onPressed: () => ref
-                        .read(challengeAttemptControllerProvider.notifier)
-                        .updateStatus(attemptId, ChallengeStatus.failed),
+                        .read(challengeAttemptControllerProvider(attemptId)
+                            .notifier)
+                        .updateStatus(ChallengeStatus.failed),
                     icon: const Icon(Icons.cancel_outlined),
                     label: Text(ChallengeStatus.failed.name.tr()),
                   ),

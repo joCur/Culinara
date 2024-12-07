@@ -18,8 +18,10 @@ _$ChallengeAttemptImpl _$$ChallengeAttemptImplFromJson(
       completedImageUrl: json['completedImageUrl'] as String?,
       completedAt: const NullableTimestampOrStringConverter()
           .fromJson(json['completedAt']),
-      feedback: json['feedback'] as String?,
-      rating: (json['rating'] as num?)?.toInt(),
+      reflection: json['reflection'] == null
+          ? null
+          : ChallengeReflection.fromJson(
+              json['reflection'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ChallengeAttemptImplToJson(
@@ -34,8 +36,7 @@ Map<String, dynamic> _$$ChallengeAttemptImplToJson(
       'completedImageUrl': instance.completedImageUrl,
       'completedAt': const NullableTimestampOrStringConverter()
           .toJson(instance.completedAt),
-      'feedback': instance.feedback,
-      'rating': instance.rating,
+      'reflection': instance.reflection,
     };
 
 const _$ChallengeStatusEnumMap = {

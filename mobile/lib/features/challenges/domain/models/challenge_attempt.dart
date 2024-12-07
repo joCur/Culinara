@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../core/json_converters/timestamp_converter.dart';
 import '../../../../core/json_converters/document_reference_converter.dart';
+import 'challenge_reflection.dart';
 
 part 'challenge_attempt.freezed.dart';
 part 'challenge_attempt.g.dart';
@@ -21,8 +22,7 @@ class ChallengeAttempt with _$ChallengeAttempt {
     required ChallengeStatus status,
     String? completedImageUrl,
     @NullableTimestampOrStringConverter() DateTime? completedAt,
-    String? feedback,
-    int? rating,
+    ChallengeReflection? reflection,
   }) = _ChallengeAttempt;
 
   factory ChallengeAttempt.fromJson(Map<String, dynamic> json) =>

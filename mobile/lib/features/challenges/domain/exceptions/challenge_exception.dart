@@ -5,6 +5,9 @@ enum ChallengeErrorType {
   timeout,
   unknown,
   maxChallengesReached,
+  updateFailed,
+  imageUploadFailed,
+  reflectionFailed,
 }
 
 class ChallengeException implements Exception {
