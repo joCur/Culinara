@@ -7,7 +7,7 @@ import '../../../common/presentation/constants/ui_constants.dart';
 import '../controllers/challenge_attempt_controller.dart';
 import '../../../common/presentation/widgets/loading_overlay.dart';
 import '../../../common/presentation/controllers/flash_controller.dart';
-import '../widgets/details/challenge_reflection_section.dart';
+import '../widgets/reflection/challenge_reflection_section.dart';
 
 class ChallengeReflectionScreen extends ConsumerWidget {
   static const String name = 'challenge-reflection';

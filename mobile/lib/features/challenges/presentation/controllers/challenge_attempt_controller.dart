@@ -96,10 +96,14 @@ class ChallengeAttemptController extends _$ChallengeAttemptController {
     List<File> images,
   ) async {
     try {
+      final currentAttempt = state.value!;
       return await Future.wait(
-        images.map((file) => ref
-            .read(storageRepositoryProvider)
-            .uploadChallengeImage(attemptId, file)),
+        images.map(
+            (file) => ref.read(storageRepositoryProvider).uploadChallengeImage(
+                  currentAttempt.challengeRef.id,
+                  attemptId,
+                  file,
+                )),
       );
     } catch (e) {
       ref.read(flashControllerProvider.notifier).showError(

@@ -72,10 +72,17 @@
       "tooManyChallenges": "You have reached the maximum number of active challenges",
       "updateFailed": "Failed to update the challenge status",
       "imageUploadFailed": "Failed to upload one or more images",
-      "reflectionFailed": "Failed to save your reflection"
+      "reflectionFailed": "Failed to save your reflection",
+      "camera": {
+        "access_denied": "Camera access denied. Please check your settings."
+      },
+      "gallery": {
+        "access_denied": "Gallery access denied. Please check your settings."
+      }
     },
     "success": {
-      "accepted": "Challenge successfully accepted!"
+      "accepted": "Challenge successfully accepted!",
+      "reflection_saved": "Your reflection has been saved successfully!"
     },
     "states": {
       "loading": "Loading...",
@@ -98,8 +105,8 @@
       "loading": "Loading challenge details...",
       "reflection": {
         "title": "Your Reflection",
-        "dish_name": "What did you cook?",
-        "dish_name_hint": "Enter the name of your dish",
+        "dish_name": "Dish Name",
+        "dish_name_hint": "What did you cook?",
         "learnings_label": "How was your experience?",
         "learnings_hint": "Share what you learned...",
         "difficulty_label": "How difficult was it?",

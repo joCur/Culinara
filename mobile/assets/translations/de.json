@@ -72,10 +72,17 @@
       "tooManyChallenges": "Du hast bereits die maximale Anzahl an aktiven Challenges erreicht",
       "updateFailed": "Der Status konnte nicht aktualisiert werden",
       "imageUploadFailed": "Ein oder mehrere Bilder konnten nicht hochgeladen werden",
-      "reflectionFailed": "Deine Reflexion konnte nicht gespeichert werden"
+      "reflectionFailed": "Deine Reflexion konnte nicht gespeichert werden",
+      "camera": {
+        "access_denied": "Kamerazugriff verweigert. Bitte überprüfe deine Einstellungen."
+      },
+      "gallery": {
+        "access_denied": "Galleriezugriff verweigert. Bitte überprüfe deine Einstellungen."
+      }
     },
     "success": {
-      "accepted": "Challenge erfolgreich akzeptiert!"
+      "accepted": "Challenge erfolgreich akzeptiert!",
+      "reflection_saved": "Deine Reflexion wurde erfolgreich gespeichert!"
     },
     "states": {
       "loading": "Lädt...",

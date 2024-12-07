@@ -7,7 +7,7 @@ part of 'challenge_attempt_controller.dart';
 // **************************************************************************
 
 String _$challengeAttemptControllerHash() =>
-    r'3b91ebf9fe2193058e73745bd42ba92053aee6b1';
+    r'25b57285f44ab22b7a99d2bb24ed9f71537e7f06';
 
 /// Copied from Dart SDK
 class _SystemHash {

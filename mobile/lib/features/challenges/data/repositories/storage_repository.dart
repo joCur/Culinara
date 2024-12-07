@@ -19,12 +19,18 @@ class StorageRepository {
 
   StorageRepository(this._storage);
 
-  Future<String> uploadChallengeImage(String challengeId, File image) async {
+  Future<String> uploadChallengeImage(
+    String challengeId,
+    String attemptId,
+    File image,
+  ) async {
     try {
       final storageRef = _storage
           .ref()
           .child('challenges')
           .child(challengeId)
+          .child('attempts')
+          .child(attemptId)
           .child('${DateTime.now().toIso8601String()}.jpg');
 
       final uploadTask = await storageRef.putFile(image);

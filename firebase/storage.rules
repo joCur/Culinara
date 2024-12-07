@@ -24,7 +24,7 @@ service firebase.storage {
     }
 
     // Challenge-Bilder-Pfad: 'challenge_images/{attemptId}/{fileName}'
-    match /challenges/{challengeId}/{fileName} {
+    match /challenges/{challengeId}/attempts/{attemptId}/{fileName} {
       // Erlaubt Lesen für alle
       allow read: if true;
       // Erlaubt Schreiben nur für authentifizierte Nutzer
