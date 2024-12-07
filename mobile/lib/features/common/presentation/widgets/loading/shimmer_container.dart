@@ -20,14 +20,14 @@ class ShimmerContainer extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Shimmer.fromColors(
-      baseColor: colorScheme.surfaceVariant,
+      baseColor: colorScheme.surfaceContainerHighest,
       highlightColor: colorScheme.surface,
       child: child ??
           Container(
             width: width,
             height: height,
             decoration: BoxDecoration(
-              color: colorScheme.surfaceVariant,
+              color: colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(borderRadius),
             ),
           ),
