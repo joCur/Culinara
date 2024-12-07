@@ -19,16 +19,19 @@ class ChallengeDetailsScreen extends ConsumerWidget {
   static const String path = '/challenge/:id';
 
   final String attemptId;
+  final ChallengeAttempt? initialAttempt;
 
   const ChallengeDetailsScreen({
     super.key,
     required this.attemptId,
+    this.initialAttempt,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final attemptAsync =
-        ref.watch(challengeAttemptControllerProvider(attemptId));
+    final attemptAsync = initialAttempt != null
+        ? AsyncValue.data(initialAttempt!)
+        : ref.watch(challengeAttemptControllerProvider(attemptId));
     final colorScheme = Theme.of(context).colorScheme;
 
     return attemptAsync.when(

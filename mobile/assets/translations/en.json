@@ -135,5 +135,12 @@
   "currentChallenges": "Current Challenges",
   "noChallengesYet": "No challenges yet",
   "startNewChallenge": "Start your first challenge now",
-  "newChallenge": "New Challenge"
+  "newChallenge": "New Challenge",
+  "errors": {
+    "notFound": {
+      "title": "Oops! Page not found",
+      "message": "The page you're looking for doesn't exist or has been moved.",
+      "button": "Back to Home"
+    }
+  }
 } 

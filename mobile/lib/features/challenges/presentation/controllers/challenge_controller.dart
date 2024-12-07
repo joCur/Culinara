@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../common/presentation/controllers/flash_controller.dart';
+import '../../../common/presentation/widgets/loading_overlay.dart';
 import '../../data/repositories/challenge_repository.dart';
 import '../../domain/models/challenge.dart';
 import '../../domain/models/challenge_attempt.dart';
@@ -18,17 +19,10 @@ class ChallengeController extends _$ChallengeController {
   @override
   AsyncValue<List<Ingredient>?> build() => const AsyncValue.data(null);
 
-  Future<void> acceptChallenge(
+  Future<ChallengeAttempt> acceptChallenge(
       BuildContext context, List<Ingredient> ingredients) async {
-    final user = ref.read(userProfileProvider).value;
-    if (user == null) {
-      if (!context.mounted) return;
-      ref.read(flashControllerProvider.notifier).showError(
-            context,
-            LocaleKeys.challenge_errors_noUser.tr(),
-          );
-      return;
-    }
+    final loadingOverlay = LoadingOverlay.of(context);
+    loadingOverlay.show();
 
     try {
       final repository = ref.read(challengeRepositoryProvider);
@@ -36,40 +30,50 @@ class ChallengeController extends _$ChallengeController {
         id: '', // wird von Firestore gesetzt
         ingredients: ingredients,
         createdAt: DateTime.now(),
-        creatorId: user.uid,
+        creatorId: ref.read(userProfileProvider).value!.uid,
       );
 
+      // Erst Challenge speichern
       final challengeRef = await repository.saveChallenge(challenge);
 
+      // Dann Attempt erstellen und speichern
       final attempt = ChallengeAttempt(
         id: '', // wird von Firestore gesetzt
         challengeRef: challengeRef,
-        userId: user.uid,
+        userId: ref.read(userProfileProvider).value!.uid,
         startedAt: DateTime.now(),
         status: ChallengeStatus.started,
       );
 
-      await repository.saveChallengeAttempt(attempt);
+      final attemptRef = await repository.saveChallengeAttempt(attempt);
 
-      if (!context.mounted) return;
-      ref.read(flashControllerProvider.notifier).showSuccess(
-            context,
-            LocaleKeys.challenge_success_accepted.tr(),
-          );
+      if (context.mounted) {
+        loadingOverlay.hide();
+        ref.read(flashControllerProvider.notifier).showSuccess(
+              context,
+              LocaleKeys.challenge_success_accepted.tr(),
+            );
+      }
 
-      state = const AsyncData(null);
+      return attempt.copyWith(id: attemptRef.id);
     } on ChallengeException catch (e) {
-      if (!context.mounted) return;
-      ref.read(flashControllerProvider.notifier).showError(
-            context,
-            e.message,
-          );
+      if (context.mounted) {
+        loadingOverlay.hide();
+        ref.read(flashControllerProvider.notifier).showError(
+              context,
+              e.message,
+            );
+      }
+      rethrow;
     } catch (e) {
-      if (!context.mounted) return;
-      ref.read(flashControllerProvider.notifier).showError(
-            context,
-            LocaleKeys.challenge_errors_acceptFailed.tr(),
-          );
+      if (context.mounted) {
+        loadingOverlay.hide();
+        ref.read(flashControllerProvider.notifier).showError(
+              context,
+              LocaleKeys.challenge_errors_acceptFailed.tr(),
+            );
+      }
+      rethrow;
     }
   }
 

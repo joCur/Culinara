@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../features/auth/presentation/controllers/auth_controller.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/register_screen.dart';
+import '../features/challenges/domain/models/challenge_attempt.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../features/auth/presentation/screens/profile_screen.dart';
 import '../features/auth/presentation/screens/change_password_screen.dart';
@@ -12,6 +13,7 @@ import '../features/auth/presentation/screens/forgot_password_screen.dart';
 import '../features/challenges/presentation/screens/generate_challenge_screen.dart';
 import '../features/challenges/presentation/screens/challenge_details_screen.dart';
 import '../features/challenges/presentation/screens/challenge_reflection_screen.dart';
+import '../features/common/presentation/screens/error_screen.dart';
 
 part 'router.g.dart';
 
@@ -106,17 +108,23 @@ GoRouter router(Ref ref) {
         name: ChallengeDetailsScreen.name,
         builder: (context, state) => ChallengeDetailsScreen(
           attemptId: state.pathParameters['id']!,
+          initialAttempt: state.extra as ChallengeAttempt?,
         ),
         routes: [
           GoRoute(
             path: 'reflection',
             name: ChallengeReflectionScreen.name,
-            builder: (context, state) => ChallengeReflectionScreen(
-              attemptId: state.pathParameters['id']!,
-            ),
+            builder: (context, state) {
+              return ChallengeReflectionScreen(
+                attemptId: state.pathParameters['id']!,
+              );
+            },
           ),
         ],
       ),
     ],
+    errorBuilder: (context, state) => ErrorScreen(
+      title: state.error?.message,
+    ),
   );
 }

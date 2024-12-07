@@ -110,7 +110,8 @@ class ChallengeRepository {
         .add(challenge.toFirestore());
   }
 
-  Future<void> saveChallengeAttempt(ChallengeAttempt attempt) async {
+  Future<DocumentReference<Map<String, dynamic>>> saveChallengeAttempt(
+      ChallengeAttempt attempt) async {
     final activeCount = await _firestore
         .collection('challengeAttempts')
         .where('userId', isEqualTo: attempt.userId)
@@ -125,7 +126,9 @@ class ChallengeRepository {
       );
     }
 
-    await _firestore.collection('challengeAttempts').add(attempt.toJson());
+    final docRef =
+        await _firestore.collection('challengeAttempts').add(attempt.toJson());
+    return docRef;
   }
 
   // Neue Methode zum Abrufen der aktiven Challenges

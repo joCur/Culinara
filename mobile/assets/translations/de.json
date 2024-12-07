@@ -135,5 +135,12 @@
   "currentChallenges": "Aktuelle Challenges",
   "noChallengesYet": "Noch keine Challenges",
   "startNewChallenge": "Starte jetzt deine erste Challenge",
-  "newChallenge": "Neue Challenge"
+  "newChallenge": "Neue Challenge",
+  "errors": {
+    "notFound": {
+      "title": "Seite nicht gefunden",
+      "message": "Die angeforderte Seite wurde nicht gefunden.",
+      "button": "Zur Startseite"
+    }
+  }
 } 

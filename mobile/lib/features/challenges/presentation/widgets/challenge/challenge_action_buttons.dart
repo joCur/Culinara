@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../common/presentation/constants/ui_constants.dart';
+import '../../../domain/models/challenge_attempt.dart';
 import '../../../domain/models/ingredient.dart';
 import '../../controllers/challenge_controller.dart';
 import '../../../../../generated/locale_keys.g.dart';
 
 class ChallengeActionButtons extends ConsumerWidget {
   final AsyncValue<List<Ingredient>?> challengeState;
+  final Function(BuildContext ctx, ChallengeAttempt attempt)
+      onChallengeAccepted;
 
   const ChallengeActionButtons({
     super.key,
     required this.challengeState,
+    required this.onChallengeAccepted,
   });
 
   @override
@@ -41,9 +44,11 @@ class ChallengeActionButtons extends ConsumerWidget {
                 ref
                     .read(challengeControllerProvider.notifier)
                     .acceptChallenge(context, ingredients)
-                    .then((_) {
-                  if (context.mounted) context.pop();
-                });
+                    .then((attempt) {
+                  if (context.mounted) {
+                    onChallengeAccepted(context, attempt);
+                  }
+                }).onError((error, stackTrace) {});
               }
             },
             icon: const Icon(Icons.check),
