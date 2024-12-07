@@ -20,14 +20,24 @@ class ChallengeActionButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = challengeState.isLoading;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         TextButton.icon(
-          onPressed: () => ref
-              .read(challengeControllerProvider.notifier)
-              .generateNewChallenge(context),
-          icon: const Icon(Icons.refresh),
+          onPressed: isLoading
+              ? null // Button deaktivieren während des Ladens
+              : () => ref
+                  .read(challengeControllerProvider.notifier)
+                  .generateNewChallenge(context),
+          icon: isLoading
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : const Icon(Icons.refresh),
           label: Text(LocaleKeys.challenge_actions_new.tr()),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(
