@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../../../../generated/locale_keys.g.dart';
 import '../../../../common/presentation/constants/ui_constants.dart';
 import '../../../domain/models/ingredient.dart';
+import 'ingredient_list_tile.dart';
 
 class ChallengeIngredientsList extends StatelessWidget {
   final List<Ingredient> ingredients;
@@ -30,19 +31,8 @@ class ChallengeIngredientsList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: ingredients.length,
             separatorBuilder: (_, __) => VGap.xs,
-            itemBuilder: (context, index) {
-              final ingredient = ingredients[index];
-              return Card(
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.restaurant),
-                  ),
-                  title: Text(ingredient.name),
-                  subtitle:
-                      ingredient.notes != null ? Text(ingredient.notes!) : null,
-                ),
-              );
-            },
+            itemBuilder: (context, index) =>
+                IngredientListTile(ingredient: ingredients[index]),
           ),
         ],
       ),

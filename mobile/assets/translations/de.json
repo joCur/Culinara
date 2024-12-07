@@ -125,6 +125,14 @@
         "choose_photo": "Aus Galerie wählen",
         "subtitle": "Teile deine Erfahrung und dokumentiere deine Kreation"
       }
+    },
+    "ingredient": {
+      "details": {
+        "availability": "Verfügbarkeit",
+        "season": "Saison",
+        "diet": "Ernährungsform",
+        "notes": "Notizen"
+      }
     }
   },
   "welcome": "Willkommen",

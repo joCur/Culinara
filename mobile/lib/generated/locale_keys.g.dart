@@ -114,6 +114,12 @@ abstract class  LocaleKeys {
   static const challenge_details_reflection_subtitle = 'challenge.details.reflection.subtitle';
   static const challenge_details_reflection = 'challenge.details.reflection';
   static const challenge_details = 'challenge.details';
+  static const challenge_ingredient_details_availability = 'challenge.ingredient.details.availability';
+  static const challenge_ingredient_details_season = 'challenge.ingredient.details.season';
+  static const challenge_ingredient_details_diet = 'challenge.ingredient.details.diet';
+  static const challenge_ingredient_details_notes = 'challenge.ingredient.details.notes';
+  static const challenge_ingredient_details = 'challenge.ingredient.details';
+  static const challenge_ingredient = 'challenge.ingredient';
   static const challenge = 'challenge';
   static const welcome = 'welcome';
   static const guest = 'guest';

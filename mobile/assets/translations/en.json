@@ -125,6 +125,14 @@
         "choose_photo": "Choose from Gallery",
         "subtitle": "Share your experience and document your creation"
       }
+    },
+    "ingredient": {
+      "details": {
+        "availability": "Availability",
+        "season": "Season",
+        "diet": "Diet",
+        "notes": "Notes"
+      }
     }
   },
   "welcome": "Welcome",
