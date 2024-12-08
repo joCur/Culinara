@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../../core/services/sentry_service.dart';
 import '../../data/repositories/auth_repository.dart';
 import 'dart:io';
 
@@ -13,7 +14,19 @@ part 'auth_controller.g.dart';
 class AuthController extends _$AuthController {
   @override
   Stream<User?> build() {
-    return ref.watch(authRepositoryProvider).authStateChanges();
+    return ref
+        .watch(authRepositoryProvider)
+        .authStateChanges()
+        .handleError((error, stackTrace) {
+      SentryService.reportError(
+        error,
+        stackTrace,
+        hint: 'Auth state change error',
+        extras: {
+          'currentUser': ref.read(authRepositoryProvider).currentUser?.uid,
+        },
+      );
+    });
   }
 
   Future<void> signIn(String email, String password) async {

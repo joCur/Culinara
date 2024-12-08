@@ -1,3 +1,5 @@
+import '../../../../core/services/sentry_service.dart';
+
 enum ChallengeErrorType {
   authentication,
   invalidArguments,
@@ -23,4 +25,17 @@ class ChallengeException implements Exception {
 
   @override
   String toString() => message;
+
+  Future<void> reportToSentry() async {
+    await SentryService.reportError(
+      this,
+      null,
+      hint: 'ChallengeException',
+      extras: {
+        'type': type.toString(),
+        'message': message,
+        'originalError': originalError?.toString(),
+      },
+    );
+  }
 }

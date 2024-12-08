@@ -1,45 +1,55 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'core/services/sentry_service.dart';
+import 'core/config/sentry_config.dart';
 import 'firebase_options.dart';
-import 'router/router.dart';
-import 'core/theme/app_theme.dart';
+import 'app.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await EasyLocalization.ensureInitialized();
 
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('de')],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
-      child: const ProviderScope(
-        child: MyApp(),
-      ),
-    ),
+  await SentryService.initialize(
+    dsn: SentryConfig.dsn,
+    environment: SentryConfig.environment,
+    release: SentryConfig.release,
   );
-}
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+  await runZonedGuarded(
+    () async {
+      FlutterError.onError = (details) {
+        FlutterError.presentError(details);
+        SentryService.reportError(
+          details.exception,
+          details.stack,
+          hint: 'FlutterError',
+        );
+      };
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
-
-    return MaterialApp.router(
-      title: 'Flutter Firebase App',
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      routerConfig: router,
-    );
-  }
+      runApp(
+        EasyLocalization(
+          supportedLocales: const [Locale('en'), Locale('de')],
+          path: 'assets/translations',
+          fallbackLocale: const Locale('en'),
+          child: const ProviderScope(
+            child: App(),
+          ),
+        ),
+      );
+    },
+    (error, stackTrace) {
+      SentryService.reportError(
+        error,
+        stackTrace,
+        hint: 'Uncaught error',
+      );
+    },
+  );
 }

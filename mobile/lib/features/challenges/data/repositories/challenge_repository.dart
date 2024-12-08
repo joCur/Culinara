@@ -3,7 +3,9 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
+import '../../../../core/services/sentry_service.dart';
 import '../../domain/constants/challenge_constants.dart';
 import '../../domain/models/ingredient.dart';
 import '../../domain/exceptions/challenge_exception.dart';
@@ -196,5 +198,34 @@ class ChallengeRepository {
         'timestamp': FieldValue.serverTimestamp(),
       },
     });
+  }
+
+  Future<List<ChallengeAttempt>> getActiveAttempts(String userId) async {
+    final transaction = Sentry.startTransaction(
+      'fetch_active_attempts',
+      'db.query',
+    );
+
+    try {
+      final attempts = await _firestore
+          .collection('challengeAttempts')
+          .where('userId', isEqualTo: userId)
+          .get();
+
+      transaction.setData('count', attempts.size);
+      await transaction.finish(status: const SpanStatus.ok());
+      return attempts.docs
+          .map((doc) => ChallengeAttempt.fromFirestore(doc, null))
+          .toList();
+    } catch (e, stackTrace) {
+      await transaction.finish(status: const SpanStatus.internalError());
+      await SentryService.reportError(
+        e,
+        stackTrace,
+        hint: 'Active Attempts Query Failed',
+        extras: {'userId': userId},
+      );
+      rethrow;
+    }
   }
 }

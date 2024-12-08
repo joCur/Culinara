@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../core/services/sentry_service.dart';
 import '../../../../../generated/locale_keys.g.dart';
 import '../../../../common/presentation/controllers/flash_controller.dart';
 import '../../../domain/models/challenge_attempt.dart';
@@ -61,7 +62,16 @@ class _ChallengeReflectionSectionState
           _selectedImages.add(File(image.path));
         });
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      await SentryService.reportError(
+        e,
+        stackTrace,
+        hint: 'Image picker error',
+        extras: {
+          'source': source.toString(),
+          'attemptId': widget.attempt.id,
+        },
+      );
       if (mounted) {
         ref.read(flashControllerProvider.notifier).showError(
               context,

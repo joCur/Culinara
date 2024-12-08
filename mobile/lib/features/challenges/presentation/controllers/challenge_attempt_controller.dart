@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../../core/services/sentry_service.dart';
 import '../../domain/models/challenge_attempt.dart';
 import '../../domain/models/challenge_reflection.dart';
 import '../../domain/exceptions/challenge_exception.dart';
@@ -39,34 +40,49 @@ class ChallengeAttemptController extends _$ChallengeAttemptController {
     required bool wouldTryAgain,
     List<File>? images,
   }) async {
-    final currentAttempt = state.value!;
-    List<String>? imageUrls;
+    try {
+      final currentAttempt = state.value!;
+      List<String>? imageUrls;
 
-    if (images?.isNotEmpty ?? false) {
-      imageUrls = await _uploadImages(context, currentAttempt.id, images!);
-      if (imageUrls == null) return; // Upload fehlgeschlagen
-    }
+      if (images?.isNotEmpty ?? false) {
+        imageUrls = await _uploadImages(context, currentAttempt.id, images!);
+        if (imageUrls == null) return; // Upload fehlgeschlagen
+      }
 
-    state = await _handleStateUpdate(
-      () => ref.read(challengeRepositoryProvider).updateChallengeReflection(
-            currentAttempt.id,
+      state = await _handleStateUpdate(
+        () => ref.read(challengeRepositoryProvider).updateChallengeReflection(
+              currentAttempt.id,
+              dishName: dishName,
+              learnings: learnings,
+              difficultyRating: difficultyRating,
+              wouldTryAgain: wouldTryAgain,
+              imageUrls: imageUrls,
+            ),
+        (attempt) => attempt.copyWith(
+          reflection: ChallengeReflection(
             dishName: dishName,
             learnings: learnings,
             difficultyRating: difficultyRating,
             wouldTryAgain: wouldTryAgain,
             imageUrls: imageUrls,
+            timestamp: DateTime.now(),
           ),
-      (attempt) => attempt.copyWith(
-        reflection: ChallengeReflection(
-          dishName: dishName,
-          learnings: learnings,
-          difficultyRating: difficultyRating,
-          wouldTryAgain: wouldTryAgain,
-          imageUrls: imageUrls,
-          timestamp: DateTime.now(),
         ),
-      ),
-    );
+      );
+    } catch (e, stackTrace) {
+      await SentryService.reportError(
+        e,
+        stackTrace,
+        hint: 'Reflection submission failed',
+        extras: {
+          'attemptId': state.value!.id,
+          'dishName': dishName,
+          'difficultyRating': difficultyRating,
+          'hasImages': images?.isNotEmpty ?? false,
+        },
+      );
+      rethrow;
+    }
   }
 
   Future<AsyncValue<ChallengeAttempt>> _handleStateUpdate(

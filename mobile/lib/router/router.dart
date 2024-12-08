@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../core/services/sentry_service.dart';
 import '../features/auth/presentation/controllers/auth_controller.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/register_screen.dart';
@@ -123,8 +124,19 @@ GoRouter router(Ref ref) {
         ],
       ),
     ],
-    errorBuilder: (context, state) => ErrorScreen(
-      title: state.error?.message,
-    ),
+    errorBuilder: (context, state) {
+      SentryService.reportError(
+        state.error,
+        null,
+        hint: 'Navigation Error',
+        extras: {
+          'uri': state.uri.toString(),
+          'name': state.name,
+          'path': state.fullPath,
+          'params': state.pathParameters,
+        },
+      );
+      return ErrorScreen(title: state.error?.message);
+    },
   );
 }

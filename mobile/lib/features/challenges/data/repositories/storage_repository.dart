@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../core/services/sentry_service.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../domain/exceptions/challenge_exception.dart';
 
@@ -40,7 +41,17 @@ class StorageRepository {
       } else {
         throw Exception('Upload failed: ${uploadTask.state}');
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      await SentryService.reportError(
+        e,
+        stackTrace,
+        hint: 'Image Upload Error',
+        extras: {
+          'challengeId': challengeId,
+          'attemptId': attemptId,
+          'fileSize': await image.length(),
+        },
+      );
       throw ChallengeException(
         message: LocaleKeys.challenge_errors_imageUploadFailed.tr(),
         type: ChallengeErrorType.imageUploadFailed,

@@ -2,6 +2,8 @@ import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../core/services/sentry_service.dart';
+
 part 'flash_controller.g.dart';
 
 @riverpod
@@ -14,7 +16,18 @@ class FlashController extends _$FlashController {
     String message, {
     Duration? duration,
     FlashAction? action,
+    bool reportToSentry = true,
   }) {
+    if (reportToSentry) {
+      SentryService.reportError(
+        message,
+        null,
+        hint: 'User-Facing Error',
+        extras: {
+          'screen': ModalRoute.of(context)?.settings.name,
+        },
+      );
+    }
     showFlash(
       context: context,
       duration: duration ?? const Duration(seconds: 4),

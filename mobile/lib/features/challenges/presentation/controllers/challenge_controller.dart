@@ -11,6 +11,7 @@ import '../../domain/models/ingredient.dart';
 import '../../domain/models/challenge_result.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../domain/exceptions/challenge_exception.dart';
+import '../../../../core/services/sentry_service.dart';
 
 part 'challenge_controller.g.dart';
 
@@ -65,7 +66,7 @@ class ChallengeController extends _$ChallengeController {
             );
       }
       rethrow;
-    } catch (e) {
+    } catch (e, stackTrace) {
       if (context.mounted) {
         loadingOverlay.hide();
         ref.read(flashControllerProvider.notifier).showError(
@@ -73,6 +74,14 @@ class ChallengeController extends _$ChallengeController {
               LocaleKeys.challenge_errors_acceptFailed.tr(),
             );
       }
+      await SentryService.reportError(
+        e,
+        stackTrace,
+        hint: 'Challenge acceptance failed',
+        extras: {
+          'ingredients': ingredients.map((i) => i.toJson()).toList(),
+        },
+      );
       rethrow;
     }
   }

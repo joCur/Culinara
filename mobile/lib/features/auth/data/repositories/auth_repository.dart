@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../core/services/sentry_service.dart';
+
 part 'auth_repository.g.dart';
 
 @riverpod
@@ -22,10 +24,20 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    return await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      return await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } catch (e, stackTrace) {
+      await SentryService.reportError(
+        e,
+        stackTrace,
+        hint: 'Authentication Error',
+        extras: {'method': 'signIn', 'email': email},
+      );
+      rethrow;
+    }
   }
 
   Future<UserCredential> createUserWithEmailAndPassword({
