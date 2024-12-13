@@ -83,6 +83,8 @@ class _ChallengeHistoryScreenState
   void _showFilters(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
       builder: (context) => const ChallengeHistoryFilters(),
     );
   }

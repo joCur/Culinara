@@ -26,57 +26,62 @@ class _ChallengeHistoryFiltersState
 
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            LocaleKeys.challenge_history_filters_title.tr(),
-            style: theme.textTheme.titleLarge,
-          ),
-          const SizedBox(height: 16),
-          _buildStatusFilter(),
-          const SizedBox(height: 16),
-          _buildDateFilter(),
-          const SizedBox(height: 16),
-          _buildDifficultyFilter(),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () {
-                    ref
-                        .read(challengeHistoryControllerProvider.notifier)
-                        .resetFilters();
-                    Navigator.pop(context);
-                  },
-                  child: Text(LocaleKeys.challenge_history_filters_reset.tr()),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              LocaleKeys.challenge_history_filters_title.tr(),
+              style: theme.textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            _buildStatusFilter(),
+            const SizedBox(height: 16),
+            _buildDateFilter(),
+            const SizedBox(height: 16),
+            _buildDifficultyFilter(),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      ref
+                          .read(challengeHistoryControllerProvider.notifier)
+                          .resetFilters();
+                      Navigator.pop(context);
+                    },
+                    child:
+                        Text(LocaleKeys.challenge_history_filters_reset.tr()),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: FilledButton(
-                  onPressed: () {
-                    ref
-                        .read(challengeHistoryControllerProvider.notifier)
-                        .updateFilters(
-                          statusFilter:
-                              _selectedStatus.isEmpty ? null : _selectedStatus,
-                          startDate: _dateRange?.start,
-                          endDate: _dateRange?.end,
-                          difficultyFilter: _selectedDifficulties.isEmpty
-                              ? null
-                              : _selectedDifficulties,
-                        );
-                    Navigator.pop(context);
-                  },
-                  child: Text(LocaleKeys.challenge_history_filters_apply.tr()),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: () {
+                      ref
+                          .read(challengeHistoryControllerProvider.notifier)
+                          .updateFilters(
+                            statusFilter: _selectedStatus.isEmpty
+                                ? null
+                                : _selectedStatus,
+                            startDate: _dateRange?.start,
+                            endDate: _dateRange?.end,
+                            difficultyFilter: _selectedDifficulties.isEmpty
+                                ? null
+                                : _selectedDifficulties,
+                          );
+                      Navigator.pop(context);
+                    },
+                    child:
+                        Text(LocaleKeys.challenge_history_filters_apply.tr()),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
