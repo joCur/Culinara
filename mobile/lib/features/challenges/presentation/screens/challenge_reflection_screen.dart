@@ -11,7 +11,7 @@ import '../widgets/reflection/challenge_reflection_section.dart';
 
 class ChallengeReflectionScreen extends ConsumerWidget {
   static const String name = 'challenge-reflection';
-  static const String path = '/challenge/:id/reflection';
+  static const String path = 'reflection';
 
   final String attemptId;
 

@@ -228,4 +228,83 @@ class ChallengeRepository {
       rethrow;
     }
   }
+
+  Future<List<ChallengeAttempt>> getChallengeAttempts({
+    required String userId,
+    String? searchQuery,
+    List<ChallengeStatus>? statusFilter,
+    DateTime? startDate,
+    DateTime? endDate,
+    List<int>? difficultyFilter,
+  }) async {
+    try {
+      var query = _firestore
+          .collection('challengeAttempts')
+          .where('userId', isEqualTo: userId);
+
+      // Status Filter
+      if (statusFilter != null && statusFilter.isNotEmpty) {
+        query = query.where('status', whereIn: statusFilter.map((s) => s.name));
+      }
+
+      // Datum Filter
+      if (startDate != null) {
+        query = query.where('startedAt', isGreaterThanOrEqualTo: startDate);
+      }
+      if (endDate != null) {
+        query = query.where('startedAt', isLessThanOrEqualTo: endDate);
+      }
+
+      final querySnapshot = await query.get();
+      final attempts = querySnapshot.docs
+          .map((doc) => ChallengeAttempt.fromFirestore(doc, null))
+          .toList();
+
+      // Client-side filtering für komplexere Filter
+      return attempts.where((attempt) {
+        // Schwierigkeitsfilter
+        if (difficultyFilter != null &&
+            difficultyFilter.isNotEmpty &&
+            attempt.reflection != null) {
+          if (!difficultyFilter
+              .contains(attempt.reflection!.difficultyRating)) {
+            return false;
+          }
+        }
+
+        // Suche
+        if (searchQuery != null && searchQuery.isNotEmpty) {
+          final searchLower = searchQuery.toLowerCase();
+          final hasMatchingDishName = attempt.reflection?.dishName
+                  .toLowerCase()
+                  .contains(searchLower) ??
+              false;
+          final hasMatchingLearnings = attempt.reflection?.learnings
+                  .toLowerCase()
+                  .contains(searchLower) ??
+              false;
+
+          if (!hasMatchingDishName && !hasMatchingLearnings) {
+            return false;
+          }
+        }
+
+        return true;
+      }).toList();
+    } catch (e, stackTrace) {
+      await SentryService.reportError(
+        e,
+        stackTrace,
+        hint: 'Failed to load challenge attempts',
+        extras: {
+          'userId': userId,
+          'hasSearchQuery': searchQuery != null,
+          'hasStatusFilter': statusFilter != null,
+          'hasDateFilter': startDate != null || endDate != null,
+          'hasDifficultyFilter': difficultyFilter != null,
+        },
+      );
+      rethrow;
+    }
+  }
 }

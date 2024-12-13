@@ -133,6 +133,29 @@
         "diet": "Ernährungsform",
         "notes": "Notizen"
       }
+    },
+    "history": {
+      "title": "Challenge Verlauf",
+      "search_hint": "Suche nach Challenges...",
+      "filters": {
+        "title": "Filter",
+        "status": "Status",
+        "date": "Datum",
+        "difficulty": "Schwierigkeit",
+        "apply": "Anwenden",
+        "reset": "Zurücksetzen",
+        "select_date": "Datumsbereich auswählen",
+        "status_started": "Gestartet",
+        "status_completed": "Abgeschlossen",
+        "status_failed": "Nicht geschafft",
+        "difficulty_1": "Sehr Einfach",
+        "difficulty_2": "Einfach",
+        "difficulty_3": "Mittel",
+        "difficulty_4": "Schwierig",
+        "difficulty_5": "Sehr Schwierig"
+      },
+      "empty": "Keine Challenges gefunden",
+      "retry_challenge": "Challenge wiederholen"
     }
   },
   "welcome": "Willkommen",
@@ -150,5 +173,8 @@
       "message": "Die angeforderte Seite wurde nicht gefunden.",
       "button": "Zur Startseite"
     }
+  },
+  "settings": {
+    "title": "Einstellungen"
   }
 } 

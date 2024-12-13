@@ -133,6 +133,29 @@
         "diet": "Diet",
         "notes": "Notes"
       }
+    },
+    "history": {
+      "title": "Challenge History",
+      "search_hint": "Search challenges...",
+      "filters": {
+        "title": "Filters",
+        "status": "Status",
+        "date": "Date",
+        "difficulty": "Difficulty",
+        "apply": "Apply",
+        "reset": "Reset",
+        "select_date": "Select date range",
+        "status_started": "Started",
+        "status_completed": "Completed",
+        "status_failed": "Failed",
+        "difficulty_1": "Very Easy",
+        "difficulty_2": "Easy",
+        "difficulty_3": "Moderate",
+        "difficulty_4": "Hard",
+        "difficulty_5": "Very Hard"
+      },
+      "empty": "No challenges found",
+      "retry_challenge": "Retry Challenge"
     }
   },
   "welcome": "Welcome",
@@ -150,5 +173,8 @@
       "message": "The page you're looking for doesn't exist or has been moved.",
       "button": "Back to Home"
     }
+  },
+  "settings": {
+    "title": "Settings"
   }
 } 

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,6 +14,8 @@ import '../features/challenges/presentation/screens/generate_challenge_screen.da
 import '../features/challenges/presentation/screens/challenge_details_screen.dart';
 import '../features/challenges/presentation/screens/challenge_reflection_screen.dart';
 import '../features/common/presentation/screens/error_screen.dart';
+import '../features/challenges/presentation/screens/challenge_history_screen.dart';
+import 'shell_router.dart';
 
 part 'router.g.dart';
 
@@ -44,37 +45,28 @@ GoRouter router(Ref ref) {
       return null;
     },
     routes: [
-      GoRoute(
-        path: HomeScreen.path,
-        name: HomeScreen.name,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const HomeScreen(),
-        ),
-      ),
-      GoRoute(
-        path: GenerateChallengeScreen.path,
-        name: GenerateChallengeScreen.name,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const GenerateChallengeScreen(),
-        ),
-      ),
-      GoRoute(
-        path: ProfileScreen.path,
-        name: ProfileScreen.name,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ProfileScreen(),
-        ),
-        routes: [
-          GoRoute(
-            path: ChangePasswordScreen.path,
-            name: ChangePasswordScreen.name,
-            pageBuilder: (context, state) => MaterialPage(
-              key: state.pageKey,
-              child: const ChangePasswordScreen(),
-            ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ShellRouter(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: HomeScreen.path,
+                name: HomeScreen.name,
+                builder: (context, state) => const HomeScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: ChallengeHistoryScreen.path,
+                name: ChallengeHistoryScreen.name,
+                builder: (context, state) => const ChallengeHistoryScreen(),
+              ),
+            ],
           ),
         ],
       ),
@@ -105,6 +97,23 @@ GoRouter router(Ref ref) {
         ),
       ),
       GoRoute(
+        path: GenerateChallengeScreen.path,
+        name: GenerateChallengeScreen.name,
+        builder: (context, state) => const GenerateChallengeScreen(),
+      ),
+      GoRoute(
+        path: ProfileScreen.path,
+        name: ProfileScreen.name,
+        builder: (context, state) => const ProfileScreen(),
+        routes: [
+          GoRoute(
+            path: ChangePasswordScreen.path,
+            name: ChangePasswordScreen.name,
+            builder: (context, state) => const ChangePasswordScreen(),
+          ),
+        ],
+      ),
+      GoRoute(
         path: ChallengeDetailsScreen.path,
         name: ChallengeDetailsScreen.name,
         builder: (context, state) => ChallengeDetailsScreen(
@@ -113,7 +122,7 @@ GoRouter router(Ref ref) {
         ),
         routes: [
           GoRoute(
-            path: 'reflection',
+            path: ChallengeReflectionScreen.path,
             name: ChallengeReflectionScreen.name,
             builder: (context, state) {
               return ChallengeReflectionScreen(
