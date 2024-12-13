@@ -2,44 +2,29 @@ import 'package:flutter/material.dart';
 
 class GradientBackground extends StatelessWidget {
   final Widget child;
-  final bool useSafeArea;
 
   const GradientBackground({
     super.key,
     required this.child,
-    this.useSafeArea = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
 
-    Widget content = Container(
+    return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            colorScheme.primaryContainer.withOpacity(0.3),
-            colorScheme.surface,
+            theme.colorScheme.primaryContainer.withOpacity(0.3),
+            theme.colorScheme.surface,
           ],
+          stops: const [0.0, 0.4],
         ),
       ),
-      child: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: child,
-          ),
-        ],
-      ),
+      child: child,
     );
-
-    if (useSafeArea) {
-      content = SafeArea(child: content);
-    }
-
-    return content;
   }
 }

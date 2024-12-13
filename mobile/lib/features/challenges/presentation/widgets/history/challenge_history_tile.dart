@@ -38,10 +38,23 @@ class ChallengeHistoryTile extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: challengeAsync.when(
-                      data: (challenge) => Text(
-                        attempt.reflection?.dishName ??
+                      data: (challenge) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
                             challenge.ingredients.map((i) => i.name).join(', '),
-                        style: theme.textTheme.titleMedium,
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          if (attempt.reflection != null) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              attempt.reflection!.dishName,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                       loading: () => const LinearProgressIndicator(),
                       error: (_, __) => Text(
@@ -60,21 +73,24 @@ class ChallengeHistoryTile extends ConsumerWidget {
                 if (attempt.reflection!.imageUrls?.isNotEmpty ?? false)
                   SizedBox(
                     height: 100,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: attempt.reflection!.imageUrls!.length,
-                      separatorBuilder: (_, __) => const SizedBox(width: 8),
-                      itemBuilder: (context, index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            attempt.reflection!.imageUrls![index],
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        for (var i = 0;
+                            i < attempt.reflection!.imageUrls!.length;
+                            i++) ...[
+                          if (i > 0) const SizedBox(width: 8),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              attempt.reflection!.imageUrls![i],
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        );
-                      },
+                        ],
+                      ],
                     ),
                   ),
                 const SizedBox(height: 8),
