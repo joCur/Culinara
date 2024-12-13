@@ -176,5 +176,9 @@
   },
   "settings": {
     "title": "Einstellungen"
+  },
+  "navigation": {
+    "home": "Start",
+    "history": "Verlauf"
   }
 } 

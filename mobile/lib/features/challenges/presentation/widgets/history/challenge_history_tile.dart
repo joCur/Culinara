@@ -146,12 +146,23 @@ class ChallengeHistoryTile extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
-        status.name.toUpperCase(),
+        _getStatusText(status).toUpperCase(),
         style: theme.textTheme.labelSmall?.copyWith(
           color: textColor,
           fontWeight: FontWeight.bold,
         ),
       ),
     );
+  }
+
+  String _getStatusText(ChallengeStatus status) {
+    switch (status) {
+      case ChallengeStatus.started:
+        return LocaleKeys.challenge_history_filters_status_started.tr();
+      case ChallengeStatus.completed:
+        return LocaleKeys.challenge_history_filters_status_completed.tr();
+      case ChallengeStatus.failed:
+        return LocaleKeys.challenge_history_filters_status_failed.tr();
+    }
   }
 }

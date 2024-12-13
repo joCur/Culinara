@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../generated/locale_keys.g.dart';
 
 final List<NavigationDestination> navigationDestinations = [
-  const NavigationDestination(
-    icon: Icon(Icons.home_outlined),
-    selectedIcon: Icon(Icons.home),
-    label: 'Home',
+  NavigationDestination(
+    icon: const Icon(Icons.home_outlined),
+    selectedIcon: const Icon(Icons.home),
+    label: LocaleKeys.navigation_home.tr(),
   ),
-  const NavigationDestination(
-    icon: Icon(Icons.history_outlined),
-    selectedIcon: Icon(Icons.history),
-    label: 'History',
+  NavigationDestination(
+    icon: const Icon(Icons.history_outlined),
+    selectedIcon: const Icon(Icons.history),
+    label: LocaleKeys.navigation_history.tr(),
   ),
 ];
 

@@ -176,5 +176,9 @@
   },
   "settings": {
     "title": "Settings"
+  },
+  "navigation": {
+    "home": "Home",
+    "history": "History"
   }
 } 

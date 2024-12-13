@@ -156,5 +156,10 @@ abstract class  LocaleKeys {
   static const errors_notFound_button = 'errors.notFound.button';
   static const errors_notFound = 'errors.notFound';
   static const errors = 'errors';
+  static const settings_title = 'settings.title';
+  static const settings = 'settings';
+  static const navigation_home = 'navigation.home';
+  static const navigation_history = 'navigation.history';
+  static const navigation = 'navigation';
 
 }
