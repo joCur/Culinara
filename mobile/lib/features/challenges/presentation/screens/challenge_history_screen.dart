@@ -9,7 +9,7 @@ import '../controllers/challenge_history_controller.dart';
 import '../widgets/history/challenge_history_filters.dart';
 import '../screens/challenge_details_screen.dart';
 import '../../../common/presentation/widgets/gradient_background.dart';
-import '../widgets/history/challenge_history_tile.dart';
+import '../widgets/history/challenge_history_list.dart';
 
 class ChallengeHistoryScreen extends ConsumerStatefulWidget {
   static const String name = 'challenge-history';
@@ -78,22 +78,13 @@ class _ChallengeHistoryScreenState
           children: [
             Expanded(
               child: historyState.when(
-                data: (attempts) => attempts.isEmpty
-                    ? Center(
-                        child: Text(LocaleKeys.challenge_history_empty.tr()),
-                      )
-                    : ListView.separated(
-                        padding: const EdgeInsets.all(16),
-                        itemCount: attempts.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 8),
-                        itemBuilder: (context, index) => ChallengeHistoryTile(
-                          attempt: attempts[index],
-                          onTap: () => context.pushNamed(
-                            ChallengeDetailsScreen.name,
-                            pathParameters: {'id': attempts[index].id},
-                          ),
-                        ),
-                      ),
+                data: (attempts) => ChallengeHistoryList(
+                  attempts: attempts,
+                  onAttemptTapped: (attempt) => context.pushNamed(
+                    ChallengeDetailsScreen.name,
+                    pathParameters: {'id': attempt.id},
+                  ),
+                ),
                 loading: () =>
                     const LoadingScreen(message: 'Loading history...'),
                 error: (error, _) => Center(

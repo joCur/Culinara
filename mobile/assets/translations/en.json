@@ -154,7 +154,8 @@
         "difficulty_4": "Hard",
         "difficulty_5": "Very Hard"
       },
-      "empty": "No challenges found"
+      "empty": "No challenges found",
+      "in_progress": "Challenge in progress"
     }
   },
   "welcome": "Welcome",

@@ -23,96 +23,113 @@ class ChallengeHistoryTile extends ConsumerWidget {
         ref.watch(challengeDetailsProvider(attempt.challengeRef));
 
     return Card(
+      elevation: 2,
+      margin: EdgeInsets.zero,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: challengeAsync.when(
-                      data: (challenge) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            challenge.ingredients.map((i) => i.name).join(', '),
-                            style: theme.textTheme.titleMedium,
-                          ),
-                          if (attempt.reflection != null) ...[
-                            const SizedBox(height: 4),
-                            Text(
-                              attempt.reflection!.dishName,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.primary,
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                      loading: () => const LinearProgressIndicator(),
-                      error: (_, __) => Text(
-                        LocaleKeys.challenge_errors_default.tr(),
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          color: theme.colorScheme.error,
-                        ),
-                      ),
-                    ),
-                  ),
-                  _buildStatusChip(context, attempt.status),
-                ],
-              ),
-              if (attempt.reflection != null) ...[
-                const SizedBox(height: 8),
-                if (attempt.reflection!.imageUrls?.isNotEmpty ?? false)
-                  SizedBox(
-                    height: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+              challengeAsync.when(
+                data: (challenge) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (var i = 0;
-                            i < attempt.reflection!.imageUrls!.length;
-                            i++) ...[
-                          if (i > 0) const SizedBox(width: 8),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              attempt.reflection!.imageUrls![i],
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                attempt.reflection?.dishName ??
+                                    challenge.ingredients
+                                        .map((i) => i.name)
+                                        .join(', '),
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                attempt.reflection?.dishName != null
+                                    ? challenge.ingredients
+                                        .map((i) => i.name)
+                                        .join(', ')
+                                    : LocaleKeys.challenge_history_in_progress
+                                        .tr(),
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
+                        const SizedBox(width: 12),
+                        _buildStatusChip(context, attempt.status),
                       ],
                     ),
-                  ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: theme.colorScheme.primary,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      attempt.reflection!.difficultyRating.toString(),
-                      style: theme.textTheme.bodySmall,
-                    ),
-                    const SizedBox(width: 16),
-                    if (attempt.reflection!.wouldTryAgain)
-                      Icon(
-                        Icons.thumb_up,
-                        size: 16,
-                        color: theme.colorScheme.primary,
+                    if (attempt.reflection != null) ...[
+                      const SizedBox(height: 16),
+                      if (attempt.reflection!.imageUrls?.isNotEmpty ?? false)
+                        SizedBox(
+                          height: 100,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              for (var i = 0;
+                                  i < attempt.reflection!.imageUrls!.length;
+                                  i++) ...[
+                                if (i > 0) const SizedBox(width: 8),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    attempt.reflection!.imageUrls![i],
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            size: 16,
+                            color: theme.colorScheme.primary,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            attempt.reflection!.difficultyRating.toString(),
+                            style: theme.textTheme.bodySmall,
+                          ),
+                          const SizedBox(width: 16),
+                          if (attempt.reflection!.wouldTryAgain)
+                            Icon(
+                              Icons.thumb_up,
+                              size: 16,
+                              color: theme.colorScheme.primary,
+                            ),
+                        ],
                       ),
+                    ],
                   ],
                 ),
-              ],
+                loading: () => const LinearProgressIndicator(),
+                error: (_, __) => Text(
+                  LocaleKeys.challenge_errors_default.tr(),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: theme.colorScheme.error,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

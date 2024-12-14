@@ -139,6 +139,7 @@ abstract class  LocaleKeys {
   static const challenge_history_filters_difficulty_5 = 'challenge.history.filters.difficulty_5';
   static const challenge_history_filters = 'challenge.history.filters';
   static const challenge_history_empty = 'challenge.history.empty';
+  static const challenge_history_in_progress = 'challenge.history.in_progress';
   static const challenge_history = 'challenge.history';
   static const challenge = 'challenge';
   static const welcome = 'welcome';

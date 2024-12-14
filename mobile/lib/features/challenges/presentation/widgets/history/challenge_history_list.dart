@@ -18,36 +18,18 @@ class ChallengeHistoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (attempts.isEmpty) {
-      return SliverFillRemaining(
-        child: Center(
-          child: Text(LocaleKeys.challenge_history_empty.tr()),
-        ),
+      return Center(
+        child: Text(LocaleKeys.challenge_history_empty.tr()),
       );
     }
 
-    return SliverPadding(
-      padding: const EdgeInsets.all(16),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            if (index * 2 >= attempts.length * 2) return null;
-            if (index * 2 + 1 == attempts.length * 2) {
-              return ChallengeHistoryTile(
-                attempt: attempts[index],
-                onTap: () => onAttemptTapped(attempts[index]),
-              );
-            }
-            return Column(
-              children: [
-                ChallengeHistoryTile(
-                  attempt: attempts[index],
-                  onTap: () => onAttemptTapped(attempts[index]),
-                ),
-                const SizedBox(height: 8),
-              ],
-            );
-          },
-        ),
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      itemCount: attempts.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      itemBuilder: (context, index) => ChallengeHistoryTile(
+        attempt: attempts[index],
+        onTap: () => onAttemptTapped(attempts[index]),
       ),
     );
   }
