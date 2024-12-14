@@ -4,19 +4,16 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../generated/locale_keys.g.dart';
 import '../../../domain/models/challenge_attempt.dart';
-import '../../../domain/models/challenge.dart';
 import '../../controllers/challenge_details_controller.dart';
 
 class ChallengeHistoryTile extends ConsumerWidget {
   final ChallengeAttempt attempt;
   final VoidCallback onTap;
-  final void Function(Challenge) onRetryPressed;
 
   const ChallengeHistoryTile({
     super.key,
     required this.attempt,
     required this.onTap,
-    required this.onRetryPressed,
   });
 
   @override
@@ -114,17 +111,6 @@ class ChallengeHistoryTile extends ConsumerWidget {
                         color: theme.colorScheme.primary,
                       ),
                   ],
-                ),
-              ],
-              if (attempt.status == ChallengeStatus.completed) ...[
-                const SizedBox(height: 8),
-                TextButton.icon(
-                  onPressed: () => challengeAsync.whenData(
-                    (challenge) => onRetryPressed(challenge),
-                  ),
-                  icon: const Icon(Icons.refresh),
-                  label:
-                      Text(LocaleKeys.challenge_history_retry_challenge.tr()),
                 ),
               ],
             ],

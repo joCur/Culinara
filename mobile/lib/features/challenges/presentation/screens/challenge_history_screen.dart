@@ -7,7 +7,6 @@ import '../../../../generated/locale_keys.g.dart';
 import '../../../common/presentation/screens/loading_screen.dart';
 import '../controllers/challenge_history_controller.dart';
 import '../widgets/history/challenge_history_filters.dart';
-import '../widgets/history/challenge_history_search.dart';
 import '../screens/challenge_details_screen.dart';
 import '../../../common/presentation/widgets/gradient_background.dart';
 import '../widgets/history/challenge_history_tile.dart';
@@ -36,11 +35,38 @@ class _ChallengeHistoryScreenState
   @override
   Widget build(BuildContext context) {
     final historyState = ref.watch(challengeHistoryControllerProvider);
+    final isSearching = ref.watch(isSearchingProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.challenge_history_title.tr()),
+        title: isSearching
+            ? TextField(
+                controller: _searchController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: LocaleKeys.challenge_history_search_hint.tr(),
+                  border: InputBorder.none,
+                  hintStyle: Theme.of(context).textTheme.titleMedium,
+                ),
+                style: Theme.of(context).textTheme.titleMedium,
+                onChanged: (value) => ref
+                    .read(challengeHistoryControllerProvider.notifier)
+                    .updateSearch(value),
+              )
+            : Text(LocaleKeys.challenge_history_title.tr()),
         actions: [
+          IconButton(
+            icon: Icon(isSearching ? Icons.close : Icons.search),
+            onPressed: () {
+              if (isSearching) {
+                _searchController.clear();
+                ref
+                    .read(challengeHistoryControllerProvider.notifier)
+                    .updateSearch('');
+              }
+              ref.read(isSearchingProvider.notifier).toggle();
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.filter_list),
             onPressed: () => _showFilters(context),
@@ -50,15 +76,6 @@ class _ChallengeHistoryScreenState
       body: GradientBackground(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: ChallengeHistorySearch(
-                controller: _searchController,
-                onChanged: (value) => ref
-                    .read(challengeHistoryControllerProvider.notifier)
-                    .updateSearch(value),
-              ),
-            ),
             Expanded(
               child: historyState.when(
                 data: (attempts) => attempts.isEmpty
@@ -75,9 +92,6 @@ class _ChallengeHistoryScreenState
                             ChallengeDetailsScreen.name,
                             pathParameters: {'id': attempts[index].id},
                           ),
-                          onRetryPressed: (challenge) {
-                            // Implementiere Logik für das Erstellen eines neuen Attempts
-                          },
                         ),
                       ),
                 loading: () =>

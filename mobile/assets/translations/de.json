@@ -154,8 +154,7 @@
         "difficulty_4": "Schwierig",
         "difficulty_5": "Sehr Schwierig"
       },
-      "empty": "Keine Challenges gefunden",
-      "retry_challenge": "Challenge wiederholen"
+      "empty": "Keine Challenges gefunden"
     }
   },
   "welcome": "Willkommen",

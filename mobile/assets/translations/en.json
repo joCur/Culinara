@@ -154,8 +154,7 @@
         "difficulty_4": "Hard",
         "difficulty_5": "Very Hard"
       },
-      "empty": "No challenges found",
-      "retry_challenge": "Retry Challenge"
+      "empty": "No challenges found"
     }
   },
   "welcome": "Welcome",
