@@ -10,6 +10,7 @@ import '../controllers/challenge_controller.dart';
 import '../../../common/presentation/widgets/loading/cooking_loading_animation.dart';
 import '../widgets/challenge/challenge_initial_view.dart';
 import '../widgets/challenge/challenge_error_view.dart';
+import '../widgets/details/challenge_ingredients_section.dart';
 import '../widgets/ingredients/challenge_ingredients_list.dart';
 import '../widgets/challenge/challenge_action_buttons.dart';
 import '../../../common/presentation/constants/ui_constants.dart';
@@ -29,7 +30,7 @@ class GenerateChallengeScreen extends ConsumerWidget {
     return LoadingOverlay(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(LocaleKeys.challenge_title.tr()),
+          title: Text(challengeState.valueOrNull?.name ?? ''),
           backgroundColor: colorScheme.primaryContainer,
         ),
         body: Container(
@@ -52,16 +53,18 @@ class GenerateChallengeScreen extends ConsumerWidget {
                 Expanded(
                   child: Center(
                     child: challengeState.when(
-                      data: (ingredients) {
-                        if (ingredients == null) {
+                      data: (challenge) {
+                        if (challenge == null) {
                           return const ChallengeInitialView();
                         }
-                        return ChallengeIngredientsList(
-                            ingredients: ingredients);
+                        return ChallengeIngredientsSection(
+                            challenge: challenge);
                       },
                       loading: () => CookingLoadingAnimation(
-                          message: ref.watch(loadingMessageNotifierProvider(
-                              LoadingContext.generateChallenge))),
+                        message: ref.watch(loadingMessageNotifierProvider(
+                          LoadingContext.generateChallenge,
+                        )),
+                      ),
                       error: (error, _) => ChallengeErrorView(
                         error: error is ChallengeException
                             ? error

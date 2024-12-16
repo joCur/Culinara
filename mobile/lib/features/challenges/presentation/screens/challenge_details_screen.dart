@@ -59,8 +59,7 @@ class ChallengeDetailsScreen extends ConsumerWidget {
                     delegate: SliverChildListDelegate([
                       ChallengeHeaderSection(attempt: attempt),
                       VGap.lg,
-                      ChallengeIngredientsSection(
-                          ingredients: challenge.ingredients),
+                      ChallengeIngredientsSection(challenge: challenge),
                       VGap.xl,
                       AnimatedSwitcher(
                         duration: const Duration(milliseconds: 300),

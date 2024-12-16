@@ -21,6 +21,7 @@ Challenge _$ChallengeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Challenge {
   String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
   @TimestampOrStringConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $ChallengeCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String name,
       List<Ingredient> ingredients,
       @TimestampOrStringConverter() DateTime createdAt,
       String creatorId});
@@ -64,6 +66,7 @@ class _$ChallengeCopyWithImpl<$Res, $Val extends Challenge>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
     Object? ingredients = null,
     Object? createdAt = null,
     Object? creatorId = null,
@@ -72,6 +75,10 @@ class _$ChallengeCopyWithImpl<$Res, $Val extends Challenge>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       ingredients: null == ingredients
           ? _value.ingredients
@@ -99,6 +106,7 @@ abstract class _$$ChallengeImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String name,
       List<Ingredient> ingredients,
       @TimestampOrStringConverter() DateTime createdAt,
       String creatorId});
@@ -118,6 +126,7 @@ class __$$ChallengeImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
     Object? ingredients = null,
     Object? createdAt = null,
     Object? creatorId = null,
@@ -126,6 +135,10 @@ class __$$ChallengeImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       ingredients: null == ingredients
           ? _value._ingredients
@@ -148,6 +161,7 @@ class __$$ChallengeImplCopyWithImpl<$Res>
 class _$ChallengeImpl extends _Challenge {
   const _$ChallengeImpl(
       {required this.id,
+      this.name = 'Challenge',
       required final List<Ingredient> ingredients,
       @TimestampOrStringConverter() required this.createdAt,
       required this.creatorId})
@@ -159,6 +173,9 @@ class _$ChallengeImpl extends _Challenge {
 
   @override
   final String id;
+  @override
+  @JsonKey()
+  final String name;
   final List<Ingredient> _ingredients;
   @override
   List<Ingredient> get ingredients {
@@ -175,7 +192,7 @@ class _$ChallengeImpl extends _Challenge {
 
   @override
   String toString() {
-    return 'Challenge(id: $id, ingredients: $ingredients, createdAt: $createdAt, creatorId: $creatorId)';
+    return 'Challenge(id: $id, name: $name, ingredients: $ingredients, createdAt: $createdAt, creatorId: $creatorId)';
   }
 
   @override
@@ -184,6 +201,7 @@ class _$ChallengeImpl extends _Challenge {
         (other.runtimeType == runtimeType &&
             other is _$ChallengeImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._ingredients, _ingredients) &&
             (identical(other.createdAt, createdAt) ||
@@ -194,7 +212,7 @@ class _$ChallengeImpl extends _Challenge {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id,
+  int get hashCode => Object.hash(runtimeType, id, name,
       const DeepCollectionEquality().hash(_ingredients), createdAt, creatorId);
 
   /// Create a copy of Challenge
@@ -216,6 +234,7 @@ class _$ChallengeImpl extends _Challenge {
 abstract class _Challenge extends Challenge {
   const factory _Challenge(
       {required final String id,
+      final String name,
       required final List<Ingredient> ingredients,
       @TimestampOrStringConverter() required final DateTime createdAt,
       required final String creatorId}) = _$ChallengeImpl;
@@ -226,6 +245,8 @@ abstract class _Challenge extends Challenge {
 
   @override
   String get id;
+  @override
+  String get name;
   @override
   List<Ingredient> get ingredients;
   @override

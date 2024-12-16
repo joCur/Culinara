@@ -7,12 +7,12 @@ part of 'challenge_controller.dart';
 // **************************************************************************
 
 String _$challengeControllerHash() =>
-    r'485e45375a8f8bf08be2434c544a6acae572ccb9';
+    r'0b35ebf7d8f8bdcacb0b8751aa070326255746c9';
 
 /// See also [ChallengeController].
 @ProviderFor(ChallengeController)
 final challengeControllerProvider = AutoDisposeNotifierProvider<
-    ChallengeController, AsyncValue<List<Ingredient>?>>.internal(
+    ChallengeController, AsyncValue<Challenge?>>.internal(
   ChallengeController.new,
   name: r'challengeControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,7 +22,6 @@ final challengeControllerProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$ChallengeController
-    = AutoDisposeNotifier<AsyncValue<List<Ingredient>?>>;
+typedef _$ChallengeController = AutoDisposeNotifier<AsyncValue<Challenge?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

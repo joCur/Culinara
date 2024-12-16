@@ -7,7 +7,6 @@ import '../../../common/presentation/widgets/loading_overlay.dart';
 import '../../data/repositories/challenge_repository.dart';
 import '../../domain/models/challenge.dart';
 import '../../domain/models/challenge_attempt.dart';
-import '../../domain/models/ingredient.dart';
 import '../../domain/models/challenge_result.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../domain/exceptions/challenge_exception.dart';
@@ -18,24 +17,18 @@ part 'challenge_controller.g.dart';
 @riverpod
 class ChallengeController extends _$ChallengeController {
   @override
-  AsyncValue<List<Ingredient>?> build() => const AsyncValue.data(null);
+  AsyncValue<Challenge?> build() => const AsyncValue.data(null);
 
   Future<ChallengeAttempt> acceptChallenge(
-      BuildContext context, List<Ingredient> ingredients) async {
+      BuildContext context, Challenge challenge) async {
     final loadingOverlay = LoadingOverlay.of(context);
     loadingOverlay.show();
 
     try {
       final repository = ref.read(challengeRepositoryProvider);
-      final challenge = Challenge(
-        id: '', // wird von Firestore gesetzt
-        ingredients: ingredients,
-        createdAt: DateTime.now(),
-        creatorId: ref.read(userProfileProvider).value!.uid,
+      final challengeRef = await repository.saveChallenge(
+        challenge: challenge,
       );
-
-      // Erst Challenge speichern
-      final challengeRef = await repository.saveChallenge(challenge);
 
       // Dann Attempt erstellen und speichern
       final attempt = ChallengeAttempt(
@@ -79,7 +72,7 @@ class ChallengeController extends _$ChallengeController {
         stackTrace,
         hint: 'Challenge acceptance failed',
         extras: {
-          'ingredients': ingredients.map((i) => i.toJson()).toList(),
+          'ingredients': challenge.ingredients.map((i) => i.toJson()).toList(),
         },
       );
       rethrow;
@@ -98,7 +91,7 @@ class ChallengeController extends _$ChallengeController {
             );
 
     state = result.when(
-      success: (ingredients) => AsyncValue.data(ingredients),
+      success: (challenge) => AsyncValue.data(challenge),
       failure: (error) => const AsyncValue.data(null),
     );
 

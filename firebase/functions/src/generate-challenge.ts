@@ -82,7 +82,6 @@ export const generateChallenge = functions.https.onCall<ChallengeData>(async (da
     }
 
     if (runStatus.status === "completed") {
-      // Get the assistant's response
       const messages = await openai.beta.threads.messages.list(thread.id);
       const lastMessage = messages.data[0];
       const textContent = lastMessage.content[0];
@@ -94,11 +93,15 @@ export const generateChallenge = functions.https.onCall<ChallengeData>(async (da
         );
       }
 
-      const { status, ingredients, message } = JSON.parse(textContent.text.value);
+      const { status, name, ingredients, message } = JSON.parse(textContent.text.value);
       if (status == "error") {
         throw new functions.https.HttpsError("internal", message);
       }
-      return ingredients;
+
+      return {
+        name,
+        ingredients,
+      };
     } else {
       throw new functions.https.HttpsError(
         "internal",

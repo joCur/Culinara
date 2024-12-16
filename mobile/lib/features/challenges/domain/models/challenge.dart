@@ -12,6 +12,7 @@ class Challenge with _$Challenge {
 
   const factory Challenge({
     required String id,
+    @Default('Challenge') String name,
     required List<Ingredient> ingredients,
     @TimestampOrStringConverter() required DateTime createdAt,
     required String creatorId,
@@ -33,6 +34,7 @@ class Challenge with _$Challenge {
 
   Map<String, dynamic> toFirestore() {
     return {
+      'name': name,
       'ingredients': ingredients.map((i) => i.toJson()).toList(),
       'createdAt': Timestamp.fromDate(createdAt),
       'creatorId': creatorId,

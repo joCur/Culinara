@@ -6,8 +6,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../../../core/services/sentry_service.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../domain/constants/challenge_constants.dart';
-import '../../domain/models/ingredient.dart';
 import '../../domain/exceptions/challenge_exception.dart';
 import '../../domain/models/challenge_result.dart';
 import '../../domain/models/challenge_attempt.dart';
@@ -21,18 +21,20 @@ ChallengeRepository challengeRepository(Ref ref) {
   final functions = FirebaseFunctions.instance;
 
   return ChallengeRepository(
+    ref.watch(userProfileProvider).value!.uid,
     functions,
     FirebaseFirestore.instance,
   );
 }
 
 class ChallengeRepository {
+  final String userId;
   final FirebaseFunctions _functions;
   final FirebaseFirestore _firestore;
 
-  ChallengeRepository(this._functions, this._firestore);
+  ChallengeRepository(this.userId, this._functions, this._firestore);
 
-  Future<ChallengeResult<List<Ingredient>>> generateChallenge({
+  Future<ChallengeResult<Challenge>> generateChallenge({
     required List<String> diet,
     required String availability,
     required List<String> season,
@@ -48,14 +50,16 @@ class ChallengeRepository {
         'numIngredients': numIngredients,
       });
 
-      final List<dynamic> data = result.data;
-      return Success(
-        data.map((e) {
-          final Map<String, dynamic> ingredientData =
-              Map<String, dynamic>.from(e as Map);
-          return Ingredient.fromJson(ingredientData);
-        }).toList(),
-      );
+      final Map<String, dynamic> data = {
+        'id': '',
+        'creatorId': userId,
+        'createdAt': Timestamp.now().toDate().toIso8601String(),
+        'name': result.data['name'],
+        'ingredients': (result.data['ingredients'] as List<dynamic>)
+            .map((item) => Map<String, dynamic>.from(item as Map))
+            .toList(),
+      };
+      return Success(Challenge.fromJson(data));
     } on FirebaseFunctionsException catch (e) {
       return Failure(
         ChallengeException(
@@ -105,8 +109,9 @@ class ChallengeRepository {
     }
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> saveChallenge(
-      Challenge challenge) async {
+  Future<DocumentReference<Map<String, dynamic>>> saveChallenge({
+    required Challenge challenge,
+  }) async {
     return await _firestore
         .collection('challenges')
         .add(challenge.toFirestore());

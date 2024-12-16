@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../common/presentation/constants/ui_constants.dart';
+import '../../../domain/models/challenge.dart';
 import '../../../domain/models/challenge_attempt.dart';
-import '../../../domain/models/ingredient.dart';
 import '../../controllers/challenge_controller.dart';
 import '../../../../../generated/locale_keys.g.dart';
 
 class ChallengeActionButtons extends ConsumerWidget {
-  final AsyncValue<List<Ingredient>?> challengeState;
+  final AsyncValue<Challenge?> challengeState;
   final Function(BuildContext ctx, ChallengeAttempt attempt)
       onChallengeAccepted;
 
@@ -49,11 +49,11 @@ class ChallengeActionButtons extends ConsumerWidget {
         if (challengeState.value != null)
           FilledButton.icon(
             onPressed: () {
-              final ingredients = challengeState.value;
-              if (ingredients != null) {
+              final response = challengeState.value;
+              if (response != null) {
                 ref
                     .read(challengeControllerProvider.notifier)
-                    .acceptChallenge(context, ingredients)
+                    .acceptChallenge(context, response)
                     .then((attempt) {
                   if (context.mounted) {
                     onChallengeAccepted(context, attempt);

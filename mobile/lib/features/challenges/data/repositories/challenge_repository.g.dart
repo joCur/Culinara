@@ -7,7 +7,7 @@ part of 'challenge_repository.dart';
 // **************************************************************************
 
 String _$challengeRepositoryHash() =>
-    r'fae555424c1677b3142ab5fb63abe2f688ab2aef';
+    r'05d28cef2fa90590ef32408d0c1aa31b702f5740';
 
 /// See also [challengeRepository].
 @ProviderFor(challengeRepository)
